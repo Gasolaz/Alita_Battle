@@ -14,8 +14,8 @@ public class HelloController {
     @GetMapping
     public String printHello(ModelMap model) {
 
-        model.addAttribute("message", "Hello Spring Tipo testinam");
-        return "hello";
+        model.addAttribute("message", "Helljskglo Spring Tipo testinam");
+        return "index";
 
     }
 }

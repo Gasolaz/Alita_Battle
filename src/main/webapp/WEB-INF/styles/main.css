@@ -1,0 +1,37 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: blanchedalmond;
+}
+
+img {
+    position: absolute;
+    right: 0;
+    width: 30vw;
+}
+
+nav, h1, .order-button {
+    text-transform: uppercase;
+}
+
+li {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
+ul {
+    float: right;
+}
+
+nav {
+    background:rgba(255,255,255,0.2);
+
+}
+
+
+
+/*container {*/
+    /*background: green;*/
+    /*background-color: green;*/
+/*}*/
