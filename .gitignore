@@ -3,3 +3,4 @@ Alita_Battle.iml
 .idea/**
 tomcat/**
 out/**
+.db
