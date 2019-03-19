@@ -6,13 +6,18 @@
 <body>
 <h2>${message}</h2>
 <form action="login" method="post">
-    <p>
-        <label for="username">Username</label>
-        <input type="text" id="username">
-        <br>
-        <input type="submit" id="submit-button">
-    </p>
+    <label class="username_label">
+        Username or email:
+        <input class="username" type="text" name="username">
+    </label>
+    <label class="password_label">
+        Password:
+        <input class="password" type="password" name="pass">
+    </label>
+    <button type="submit">LOGIN</button>
 </form>
-<a href="register">Register</a>
+
+<a href="register">Don't have an account? Register then!</a>
+
 </body>
 </html>
