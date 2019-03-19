@@ -1,4 +1,4 @@
-package com.test.pluto;
+package firstPackage;
 
 
 import org.springframework.stereotype.Controller;
@@ -42,7 +42,7 @@ public class HelloController {
             }
         }
 
-        model.addAttribute("message", "Hello Spring Tipo testinam");
+        model.addAttribute("message", "Welcome to Alita Battle!");
         return "hello";
 
     }
