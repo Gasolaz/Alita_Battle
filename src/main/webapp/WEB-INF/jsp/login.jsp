@@ -5,5 +5,6 @@
 </head>
 <body>
     <p>Logged in</p>
+    <p>${greeting}</p>
 </body>
 </html>
