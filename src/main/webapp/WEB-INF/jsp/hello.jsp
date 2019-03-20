@@ -5,14 +5,15 @@
 </head>
 <body>
 <h2>${message}</h2>
+
 <form action="login" method="post">
     <label class="username_label">
-        Username or email:
-        <input class="username" type="text" name="username">
+        Username:
+        <input type="text" name="username">
     </label>
     <label class="password_label">
         Password:
-        <input class="password" type="password" name="pass">
+        <input type="password" name="pass">
     </label>
     <button type="submit">LOGIN</button>
 </form>

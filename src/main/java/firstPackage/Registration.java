@@ -2,12 +2,15 @@ package firstPackage;
 
 import models.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static DB.DBConnection.getConnection;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -15,34 +18,37 @@ import java.sql.*;
 import java.util.Map;
 
 
-@RequestMapping("/register")
+@RequestMapping(value="/register", consumes = "application/json")
 @Controller
 public class Registration {
 
     @GetMapping
-    public String getLogin() {
+    public String getRegistration() {
         return "register";
     }
 
     @PostMapping
-    public String postLogin(Map<String, Object> model, @ModelAttribute User user) {
+    public String postRegistration(Map<String, Object> model, @ModelAttribute User user) {
         try (Connection conn = getConnection()){
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT username FROM Users WHERE username='" + user.getName() + "'");
+            ResultSet rs = statement.executeQuery("SELECT username FROM Users WHERE username='" + user.getUsername() + "'");
             if(rs.next()){
+                System.out.println("pirmas ifas");
                 model.put("error", "Username already exists");
                 return "register";
             }
             byte[] salt = getSalt();
-            String generatedPass = get_SHA_256_SecurePassword(user.getPass(), salt); //hash da password
-            statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getName()
+            String generatedPass = get_SHA_256_SecurePassword(user.getPass(), salt);
+            statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getUsername()
             + "', '" + generatedPass + "', '" + salt + "', '" + user.getEmail() + "', 0)");
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
+            System.out.println("erroras");
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";
         }
-        String greeting = "Hello " + user.getName();
+        System.out.println("prie logino");
+        String greeting = "Hello " + user.getUsername();
         model.put("greeting", greeting);
         return "login";
     }

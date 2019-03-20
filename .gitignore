@@ -1,6 +1,6 @@
 target/**
-Alita_Battle.iml
+*.iml
 .idea/**
 tomcat/**
 out/**
-.db
+*.db

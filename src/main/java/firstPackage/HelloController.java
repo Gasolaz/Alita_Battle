@@ -27,7 +27,7 @@ public class HelloController {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Users");
             while(rs.next()){
-                System.out.println(rs.getString("username"));
+//                System.out.println(rs.getString("username"));
             }
         } catch(IOException | ClassNotFoundException | SQLException e){
             e.printStackTrace();
@@ -42,8 +42,8 @@ public class HelloController {
             }
         }
 
-        model.addAttribute("message", "Welcome to Alita Battle!");
-        return "hello";
+//        model.addAttribute("message", "Welcome to Alita Battle!");
+        return "index";
 
     }
 }
