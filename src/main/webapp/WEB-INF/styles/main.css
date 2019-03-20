@@ -6,7 +6,7 @@ body {
 img {
     position: absolute;
     right: 0;
-    width: 35vw;
+    width: 30vw;
     bottom: 0;
 }
 
@@ -20,9 +20,7 @@ nav {
 }
 
 
-
-
-.btn-primary, .btn-secondary{
+.buttons .btn-primary, .btn-secondary{
 
     background: #36c1ac !important;
     border-color: #36c1ac !important;
@@ -37,7 +35,7 @@ nav {
 
 }
 
-.btn-primary span, .btn-secondary span{
+.buttons .btn-primary span, .btn-secondary span{
     -webkit-transform: skew(45deg);
     display: block;
     font-weight: 500;
@@ -48,5 +46,17 @@ nav {
 .mb-5, .my-5 {
     margin-bottom: 1rem !important;
     margin-top: 2rem !important;
+}
+
+
+.form-container {
+    margin: 0 auto;
+    max-width: 25em;
+    transition: all .5s ease-in-out;
+}
+
+.btn-block {
+    margin-left: 100px;
+    width: 50%;
 }
 

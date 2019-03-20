@@ -5,5 +5,6 @@
 </head>
 <body>
     <p>${error}</p>
+    <a href="/">Well, what did you expect? Shit happens</a>
 </body>
 </html>

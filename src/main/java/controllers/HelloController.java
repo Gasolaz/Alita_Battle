@@ -1,4 +1,4 @@
-package firstPackage;
+package controllers;
 
 
 import org.springframework.stereotype.Controller;

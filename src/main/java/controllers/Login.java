@@ -1,4 +1,4 @@
-package firstPackage;
+package controllers;
 
 import models.Session;
 import models.User;
@@ -21,7 +21,7 @@ import static DB.DBConnection.getConnection;
 public class Login {
 
     @GetMapping
-    public String getLogin() {
+    public String getLogin(Map<String, Object> model) {
         try (Connection conn = getConnection()){
             Session session = new Session("random", conn);
             if(session.isExistingSession()){
@@ -29,20 +29,27 @@ public class Login {
                 return "login";
             }
             return "redirect:/";
-        } catch (Exception e){
+        } catch (SQLException | ClassNotFoundException e){
+            model.put("error", e.getMessage());
             e.printStackTrace();
+            return "error";
         }
-        return "error";
     }
 
     @PostMapping
     public String postLogin(Map<String, Object> model, @ModelAttribute User user){
         try (Connection conn = getConnection()) {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + user.getUsername() + "' AND hashed_pass = '" + user.getPass() + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE (username='" + user.getUsername() + "' OR email='" + user.getUsername() +
+                    "') AND hashed_pass = '" + user.getPass() + "'");
             if (rs.next()) {
+                String greeting = "Hello " + rs.getString("username");
+                model.put("greeting", greeting);
                 return "login";
             } else {
+                // nu cia backe tikrina ar egzistuoja toks useris, kaip verifikacija padaryt popupe tai bbz, sugalvosim kazka
+                // random returnas vien del testo, negaliu daryt redirecto nes modelio nepaema, kasnors turi ideju kaip redirectint kartu su modeliu?
+                model.put("AccessDenied", "Error: Invalid username or password");
                 return "index";
             }
         } catch (SQLException | ClassNotFoundException e){
