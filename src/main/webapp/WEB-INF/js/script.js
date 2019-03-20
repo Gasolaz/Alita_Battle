@@ -1,7 +1,7 @@
 var $loginForm = $(".form-signin"),
     $login_text_fields = $loginForm.find("input[type='text']");
 
-$(".login-logo,.form-container").removeClass("off-canvas");
+$(".form-container").removeClass("off-canvas");
 
 $loginForm.validate({
     errorElement: "span",
