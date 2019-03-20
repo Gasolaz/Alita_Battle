@@ -21,9 +21,9 @@ public class TableCreation {
                     "'salt' TEXT NOT NULL, 'email' TEXT NOT NULL, 'character_id' INTEGER, 'isAdmin' BOOLEAN NOT NULL, PRIMARY KEY('_id'))");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Characters ('_id' INTEGER NOT NULL, 'race_id' INTEGER NOT NULL, 'sex' TEXT NOT NULL, " +
                     "'level' INTEGER NOT NULL, 'wins' INTEGER NOT NULL, 'loses' INTEGER NOT NULL, 'gold' INTEGER NOT NULL, PRIMARY KEY('_id'))");
-//            statement.executeUpdate(CREATE_TABLE_EXAMPLES);
-//            statement.executeUpdate(CREATE_TABLE_ADMINS);
-
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Sessions ('_id' INTEGER NOT NULL,'hashed_session' TEXT NOT NULL, PRIMARY KEY('_id'))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Races ('_id' INTEGER NOT NULL,'race_name' TEXT NOT NULL,'racial_perk' TEXT NOT NULL, PRIMARY KEY('_id'))");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Inventory ('_id' INTEGER NOT NULL,'item_name' TEXT NOT NULL,PRIMARY KEY('_id'))");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
