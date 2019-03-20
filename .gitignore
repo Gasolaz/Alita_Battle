@@ -4,3 +4,4 @@ Alita_Battle.iml
 tomcat/**
 out/**
 node_modules/**
+bootstrap/**

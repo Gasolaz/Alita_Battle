@@ -2,32 +2,39 @@
 <html>
 <head>
     <title>Hello World: </title>
-    <%--<link href="main.css" rel="stylesheet" type="text/css">--%>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <style><%@include file="../styles/main.css"%></style>
+<script>
+    <%@include file="../js/script.js"%>
+</script>
+
 <body>
+
 <header>
+
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-        <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
         </a>
-    <ul class="nav justify-content-end">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Alita Battle</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-        </li>
-    </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Alita Battle</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
     </nav>
-</header>
 
-<div class="container">
+    <div class="container">
 
     <div class="headline">
         <h2>You are about to enter the game</h2>
@@ -38,51 +45,52 @@
             nemo nobis obcaecati officia omnis recusandae sunt ullam ut veritatis! Fugiat fugit in quis.</p>
     </div>
 
-    <div class="buttons">
-        <div class="btn btn-primary"><span>Register</span></div>
+    <%--<div class="buttons">--%>
+        <%--&lt;%&ndash;<button type="button" data-toggle="popover" data-target="#newContact" class="btn btn-primary"><span>Register</span></button>&ndash;%&gt;--%>
+        <%----%>
+    <%--</div>--%>
 
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Registration</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="name" value="" placeholder="Name">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="surname" value="" placeholder="Second Name">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" type="phone" name="phone" value="" placeholder="Contact Number">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control" type="email" name="email" value="" placeholder="Email-address">
-                                </div>
-                            </div>
+        <div class="buttons">
+            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
+            <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#modalRegForm" ><span>Sign Up</span></a>
+        </div>
+
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Alita Battle Campus</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Username</label>
+                            <input type="email" id="defaultForm-email" class="form-control validate" placeholder="Username">
                         </div>
-                    </form>
-                    <div class="saved-message text-center">
-                        <h2>Registration form has been successfully submitted!</h2>
+
+                        <div class="md-form mb-4">
+                            <i class="fas fa-lock prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
+                            <input type="password" id="defaultForm-pass" class="form-control validate" placeholder="Password">
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass"><input type="checkbox" name="session" value="remember-me">Remember me<br></label>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button class="btn btn-default" type="submit">Sign In</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-save-contact">Continue</button>
-                </div>
             </div>
-            <!-- /.modal-content -->
         </div>
 
 
-        <div class="btn btn-secondary"><span>Log In</span></div>
-    </div>
+
+
 
 </div>
 
@@ -92,6 +100,5 @@
 
 </footer>
 
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
 </body>
 </html>
