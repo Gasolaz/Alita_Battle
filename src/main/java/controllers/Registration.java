@@ -19,7 +19,7 @@ public class Registration {
 
     @GetMapping
     public String getRegistration() {
-        return "register";
+        return "redirect:/";
     }
 
     @PostMapping
@@ -28,7 +28,6 @@ public class Registration {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT username FROM Users WHERE username='" + user.getUsername() + "'");
             if(rs.next()){
-                System.out.println("pirmas ifas");
                 model.put("error", "Username already exists");
                 return "register";
             }
@@ -37,12 +36,10 @@ public class Registration {
             statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getUsername()
             + "', '" + generatedPass + "', '" + salt + "', '" + user.getEmail() + "', 0)");
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
-            System.out.println("erroras");
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";
         }
-        System.out.println("prie logino");
         String greeting = "Hello " + user.getUsername();
         model.put("greeting", greeting);
         return "login";
