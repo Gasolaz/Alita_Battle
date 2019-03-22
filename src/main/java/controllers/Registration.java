@@ -19,7 +19,7 @@ public class Registration {
 
     @GetMapping
     public String getRegistration() {
-        return "redirect:/";
+        return "register";
     }
 
     @PostMapping
@@ -34,7 +34,7 @@ public class Registration {
             byte[] salt = getSalt();
             String generatedPass = get_SHA_256_SecurePassword(user.getPass(), salt);
             statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getUsername()
-            + "', '" + generatedPass + "', '" + salt + "', '" + user.getEmail() + "', 0)");
+            + "', '" + generatedPass + "', '" + fromByteArrayToString(salt) + "', '" + user.getEmail() + "', 0)");
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
             model.put("error", e.getMessage());
             e.printStackTrace();
@@ -52,22 +52,26 @@ public class Registration {
         return salt;
     }
 
-    public String get_SHA_256_SecurePassword(String passwordToHash, byte[] salt) {
+    public static String get_SHA_256_SecurePassword(String passwordToHash, byte[] salt) {
 
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
+            generatedPassword = fromByteArrayToString(bytes);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return generatedPassword;
+    }
+
+    static String fromByteArrayToString(byte[] bytes){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 
 }

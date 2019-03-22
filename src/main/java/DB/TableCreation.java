@@ -3,26 +3,32 @@ package DB;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import static DB.DBConnection.getConnection;
+import static resources.Cons.*;
 
 public class TableCreation {
     public static void createTables() throws IOException {
 
-        File file = new File(".." + File.separator + ".." + File.separator + ".." + File.separator + "src" + File.separator + "Database.db");
+        File file = new File(URL_DB_FILE);
         file.createNewFile();
         try (Connection conn = getConnection()) {
 
-            Statement statement = conn.createStatement();
+//            Statement statement = conn.createStatement();
+            PreparedStatement psUsers = conn.prepareStatement(CREATE_TABLE_USERS);
+            PreparedStatement psChars = conn.prepareStatement(CREATE_TABLE_CHARACTERS);
+            PreparedStatement psSess = conn.prepareStatement(CREATE_TABLE_SESSIONS);
+            PreparedStatement psRac = conn.prepareStatement(CREATE_TABLE_RACES);
+            PreparedStatement psInv = conn.prepareStatement(CREATE_TABLE_INVENTORY);
 
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Users ('_id' INTEGER NOT NULL, 'username' TEXT NOT NULL, 'hashed_pass' TEXT NOT NULL, " +
-                    "'salt' TEXT NOT NULL, 'email' TEXT NOT NULL, 'character_id' INTEGER, 'isAdmin' BOOLEAN NOT NULL, PRIMARY KEY('_id'))");
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Characters ('_id' INTEGER NOT NULL, 'race_id' INTEGER NOT NULL, 'sex' TEXT NOT NULL, " +
-                    "'level' INTEGER NOT NULL, 'wins' INTEGER NOT NULL, 'loses' INTEGER NOT NULL, 'gold' INTEGER NOT NULL, PRIMARY KEY('_id'))");
-//            statement.executeUpdate(CREATE_TABLE_EXAMPLES);
-//            statement.executeUpdate(CREATE_TABLE_ADMINS);
+            psUsers.executeUpdate();
+            psChars.executeUpdate();
+            psSess.executeUpdate();
+            psRac.executeUpdate();
+            psInv.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
