@@ -38,7 +38,7 @@
     <div class="container">
 
         <div class="headline">
-            <h2>You are about to enter the game</h2>
+            <h2>You are about to enter the game <br></h2>
         </div>
 
         <div class="text">
