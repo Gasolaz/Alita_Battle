@@ -17,7 +17,6 @@ public class TableCreation {
         file.createNewFile();
         try (Connection conn = getConnection()) {
 
-//            Statement statement = conn.createStatement();
             PreparedStatement psUsers = conn.prepareStatement(CREATE_TABLE_USERS);
             PreparedStatement psChars = conn.prepareStatement(CREATE_TABLE_CHARACTERS);
             PreparedStatement psSess = conn.prepareStatement(CREATE_TABLE_SESSIONS);

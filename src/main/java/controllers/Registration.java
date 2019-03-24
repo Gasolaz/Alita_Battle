@@ -4,37 +4,62 @@ import models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import static DB.DBConnection.getConnection;
+import static resources.Cons.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Map;
+import java.util.Random;
 
 
-@RequestMapping(value="/register", consumes = "application/json")
+@RequestMapping("/register")
 @Controller
 public class Registration {
 
     @GetMapping
     public String getRegistration() {
-        return "register";
+        return "registration";
     }
 
     @PostMapping
-    public String postRegistration(Map<String, Object> model, @ModelAttribute User user) {
+    public String postRegistration(Map<String, Object> model, @ModelAttribute User user, HttpServletResponse response) {
         try (Connection conn = getConnection()){
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT username FROM Users WHERE username='" + user.getUsername() + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE LOWER(username)='" +
+                    user.getUsername().toLowerCase() + "' OR LOWER(email)='" + user.getEmail().toLowerCase() + "'");
             if(rs.next()){
-                model.put("error", "Username already exists");
-                return "register";
+                model.put("error", "Username or email already exists");
+                return "registration";
+            } else if (user.getUsername().equals("") || user.getEmail().equals("") || user.getPass().equals("")){
+                model.put("error", "All fields must be filled");
+                return "registration";
+            } else if (!user.getPass().equals(user.getPassConfirmation())){
+                model.put("error", "Passwords must match");
+                return "registration";
             }
             byte[] salt = getSalt();
             String generatedPass = get_SHA_256_SecurePassword(user.getPass(), salt);
             statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getUsername()
-            + "', '" + generatedPass + "', '" + fromByteArrayToString(salt) + "', '" + user.getEmail() + "', 0)");
+            + "', '" + generatedPass + "', '" + fromByteArrayToString(salt) + "', '" + user.getEmail().toLowerCase() + "', 0)");
+
+            Statement searchingForUserID = conn.createStatement();
+            rs = searchingForUserID.executeQuery("SELECT " + ID + " FROM " + TABLE_USERS +
+                    " WHERE LOWER(username)='" + user.getUsername().toLowerCase() + "'");
+
+            String sessionID = new Random().nextLong() + "";
+            Statement insertIntoSessions = conn.createStatement();
+            insertIntoSessions.executeUpdate("INSERT INTO " + TABLE_SESSIONS + "(hashed_session, user_id) VALUES (" +
+                    sessionID + ", " + rs.getLong("_id")+ ")");
+
+            Cookie cookie = new Cookie("sessionID", sessionID);
+            cookie.setMaxAge(30 * 24 * 60 * 60);
+            response.addCookie(cookie);
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
             model.put("error", e.getMessage());
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package resources;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.io.File;
 
 public class Cons {
@@ -55,7 +57,7 @@ public class Cons {
             CHARACTERS_RACE_ID + "INTEGER NOT NULL, " + CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " +
             CHARACTERS_WINS + "INTEGER NOT NULL, " + CHARACTERS_LOSES + " INTEGER NOT NULL, " + CHARACTERS_GOLD + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_SESSIONS = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSIONS + " ( " + ID + " INTEGER NOT NULL, " +
-            SESSIONS_HASHED_SESSION + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
+            SESSIONS_HASHED_SESSION + " INTEGER NOT NULL, " + SESSIONS_USER_ID + " INTEGER NOT NULL, " + "PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_RACES = "CREATE TABLE IF NOT EXISTS " + TABLE_RACES + " ( " + ID + " INTEGER NOT NULL, " +
             RACES_RACE_NAME + " TEXT NOT NULL, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_INVENTORY + " ( " + ID + " INTEGER NOT NULL, " +

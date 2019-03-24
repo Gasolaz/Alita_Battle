@@ -52,10 +52,7 @@ public class Login {
                     return "login";
                 }
             }
-            // nu cia backe tikrina ar egzistuoja toks useris, kaip verifikacija padaryt popupe tai bbz, sugalvosim kazka
-            // random returnas vien del testo, negaliu daryt redirecto nes modelio nepaema, kasnors turi ideju kaip redirectint su modeliu?
-//            redirectAttributes.addAttribute("AccessDenied", "Error: Invalid credentials");
-//            return "redirect:/";
+            model.put("AccessDenied", "Error: Invalid credentials");
             return "index";
         } catch (SQLException | ClassNotFoundException e) {
             model.put("error", e.getMessage());
