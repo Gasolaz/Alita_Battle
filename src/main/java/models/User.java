@@ -4,17 +4,19 @@ public class User {
 
     private String username;
     private String pass;
+    private String passConfirmation;
     private String email;
     private Long character_id;
 
     public User() {
     }
 
-    public User(String name, String pass, String email, Long character_id) {
-        this.username = name;
-        this.pass = pass;
-        this.email = email;
-        this.character_id = character_id;
+    public String getPassConfirmation() {
+        return passConfirmation;
+    }
+
+    public void setPassConfirmation(String passConfirmation) {
+        this.passConfirmation = passConfirmation;
     }
 
     public String getUsername() {

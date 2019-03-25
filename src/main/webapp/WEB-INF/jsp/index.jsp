@@ -31,6 +31,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link">${greeting}</a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -48,7 +51,7 @@
         <p style="color: red">${AccessDenied}</p>
         <div class="buttons">
             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
-            <a href="" class="btn btn-secondary" data-toggle="modal" data-target="#modalRegForm" ><span>Sign Up</span></a>
+            <a href="register" class="btn btn-secondary" data-target="#modalRegForm" ><span>Sign Up</span></a>
         </div>
 
 
@@ -73,7 +76,7 @@
 
                                 <div class="form-group">
                                     <label for="EmailAddress"><span>*</span> Username or Email Address</label>
-                                    <input type="email" class="form-control" name="username" id="EmailAddress" aria-required="true" aria-invalid="true" required>
+                                    <input type="text" class="form-control" name="username" id="EmailAddress" aria-required="true" aria-invalid="true" required>
                                 </div>
 
                                 <div class="form-group">

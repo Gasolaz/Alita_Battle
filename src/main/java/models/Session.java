@@ -14,13 +14,15 @@ public class Session {
     public Session(String session, Connection connection) throws SQLException {
         PreparedStatement searchForSession = connection.prepareStatement("SELECT * FROM " + TABLE_SESSIONS + " WHERE " + SESSIONS_HASHED_SESSION + "=?");
         searchForSession.setString(1, session);
+        System.out.println(session);
         ResultSet rs = searchForSession.executeQuery();
         if(rs.next()){
             existingSession = true;
             userId = rs.getLong(SESSIONS_USER_ID);
+        } else {
+            this.existingSession = false;
+            this.userId = NO_ID;
         }
-        this.existingSession = false;
-        this.userId = NO_ID;
     }
 
     public boolean isExistingSession() {
