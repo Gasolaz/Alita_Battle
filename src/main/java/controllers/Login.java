@@ -2,6 +2,7 @@ package controllers;
 
 import models.Session;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,28 +10,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
-import static DB.DBConnection.getConnection;
 
 @RequestMapping("/login")
 @Controller
 public class Login {
 
+    @Autowired
+    DataSource jt;
+
     @GetMapping
     public String getLogin(Map<String, Object> model) {
-        try (Connection conn = getConnection()) {
+        try (Connection conn = jt.getConnection()) {
             Session session = new Session("random", conn);
             if (session.isExistingSession()) {
                 // implement logic
                 return "login";
             }
             return "redirect:/register";
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";
@@ -39,7 +43,7 @@ public class Login {
 
     @PostMapping
     public String postLogin(Map<String, Object> model, @ModelAttribute User user) {
-        try (Connection conn = getConnection()) {
+        try (Connection conn = jt.getConnection()) {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + user.getUsername() +
                     "' OR email='" + user.getUsername() + "'");
@@ -54,7 +58,7 @@ public class Login {
             }
             model.put("AccessDenied", "Error: Invalid credentials");
             return "index";
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";

@@ -1,13 +1,14 @@
 package controllers;
 
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
-import static DB.DBConnection.getConnection;
 import static resources.Cons.*;
 
 import java.security.MessageDigest;
@@ -22,6 +23,9 @@ import java.util.Random;
 @Controller
 public class Registration {
 
+    @Autowired
+    DataSource jt;
+
     @GetMapping
     public String getRegistration() {
         return "registration";
@@ -29,7 +33,7 @@ public class Registration {
 
     @PostMapping
     public String postRegistration(Map<String, Object> model, @ModelAttribute User user, HttpServletResponse response) {
-        try (Connection conn = getConnection()){
+        try (Connection conn = jt.getConnection()){
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE LOWER(username)='" +
                     user.getUsername().toLowerCase() + "' OR LOWER(email)='" + user.getEmail().toLowerCase() + "'");
@@ -60,7 +64,7 @@ public class Registration {
             Cookie cookie = new Cookie("sessionID", sessionID);
             cookie.setMaxAge(30 * 24 * 60 * 60);
             response.addCookie(cookie);
-        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
+        } catch (SQLException | NoSuchAlgorithmException e){
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";
