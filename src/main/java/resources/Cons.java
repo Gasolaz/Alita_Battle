@@ -1,9 +1,5 @@
 package resources;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
-import java.io.File;
-
 public class Cons {
 
     //    All Tables ID
@@ -63,9 +59,4 @@ public class Cons {
             RACES_RACE_NAME + " TEXT NOT NULL, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_INVENTORY + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             INVENTORY_ITEM_NAME + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
-
-    //      URL's
-    public static final String URL_DB = "jdbc:sqlite:.." + File.separator + ".." + File.separator + ".." + File.separator +
-                        "src" + File.separator + "Database.db";
-    public static final String URL_DB_FILE = ".." + File.separator + ".." + File.separator + ".." + File.separator + "src" + File.separator + "Database.db";
 }

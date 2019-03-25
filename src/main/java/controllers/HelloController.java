@@ -1,17 +1,12 @@
 package controllers;
 
 
-import DB.TableCreation;
+import dao.SessionsDao;
 import dao.TablesDao;
-import models.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
 
 
@@ -22,11 +17,16 @@ public class HelloController {
     @Autowired
     TablesDao tablesDao;
 
+    @Autowired
+    SessionsDao sessionsDao;
+
     @GetMapping
     public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
 
         tablesDao.createTables();
-
+        if(sessionsDao.checkExistingSession(session)){
+            return "login";
+        }
 //        System.out.println();
 //
 //

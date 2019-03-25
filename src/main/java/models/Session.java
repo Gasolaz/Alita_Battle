@@ -1,43 +1,73 @@
 package models;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import static resources.Cons.*;
-
 public class Session {
-    boolean existingSession;
-    long userId;
+    public int _id;
+    public String hashed_session;
+    public String salt;
+    public int user_id;
 
-    public Session(String session, Connection connection) throws SQLException {
-        PreparedStatement searchForSession = connection.prepareStatement("SELECT * FROM " + TABLE_SESSIONS + " WHERE " + SESSIONS_HASHED_SESSION + "=?");
-        searchForSession.setString(1, session);
-        System.out.println(session);
-        ResultSet rs = searchForSession.executeQuery();
-        if(rs.next()){
-            existingSession = true;
-            userId = rs.getLong(SESSIONS_USER_ID);
-        } else {
-            this.existingSession = false;
-            this.userId = NO_ID;
-        }
+    public Session() {}
+
+    public int get_id() {
+        return _id;
     }
 
-    public boolean isExistingSession() {
-        return existingSession;
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
-    public void setExistingSession(boolean existingSession) {
-        this.existingSession = existingSession;
+    public String getHashed_session() {
+        return hashed_session;
     }
 
-    public long getUserId() {
-        return userId;
+    public void setHashed_session(String hashed_session) {
+        this.hashed_session = hashed_session;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public String getSalt() {
+        return salt;
     }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    //    public Session(String session, Connection connection) throws SQLException {
+//        PreparedStatement searchForSession = connection.prepareStatement("SELECT * FROM " + TABLE_SESSIONS + " WHERE " + SESSIONS_HASHED_SESSION + "=?");
+//        searchForSession.setString(1, session);
+//        System.out.println(session);
+//        ResultSet rs = searchForSession.executeQuery();
+//        if(rs.next()){
+//            existingSession = true;
+//            userId = rs.getLong(SESSIONS_USER_ID);
+//        } else {
+//            this.existingSession = false;
+//            this.userId = NO_ID;
+//        }
+//    }
+//
+//    public boolean isExistingSession() {
+//        return existingSession;
+//    }
+//
+//    public void setExistingSession(boolean existingSession) {
+//        this.existingSession = existingSession;
+//    }
+//
+//    public long getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(long userId) {
+//        this.userId = userId;
+//    }
+//}
 }
