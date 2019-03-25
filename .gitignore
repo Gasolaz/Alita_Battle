@@ -4,4 +4,4 @@ target/**
 tomcat/**
 out/**
 *.db
-.xml
+*.xml
