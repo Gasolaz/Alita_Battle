@@ -27,25 +27,6 @@ public class HelloController {
         if(sessionsDao.checkExistingSession(session)){
             return "login";
         }
-//        System.out.println();
-//
-//
-//        try(Connection conn = jt.getConnection()){
-//
-//            TableCreation tc = new TableCreation();
-//            tc.createTables();
-//            Session existingSession = new Session(session, conn);
-//
-//            if(existingSession.isExistingSession()){
-//                model.put("greeting", "username reikia ieskot");
-//                return "login";
-//            }
-//
-//        } catch (SQLException e){
-//            model.put("error", e.getMessage());
-//            e.printStackTrace();
-//            return "error";
-//        }
         return "index";
     }
 }

@@ -3,6 +3,7 @@ package controllers;
 import dao.SessionsDao;
 import dao.TablesDao;
 import dao.UsersDao;
+import models.RegistrationFormTempUser;
 import models.Session;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,6 +30,9 @@ public class Login {
     @Autowired
     SessionsDao sessionsDao;
 
+    @Autowired
+    UsersDao usersDao;
+
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
         if(sessionsDao.checkExistingSession(session)){
@@ -37,15 +42,17 @@ public class Login {
     }
 
     @PostMapping
-    public String postLogin(Map<String, Object> model, @ModelAttribute("username") String username, @ModelAttribute("pass") String pass) {
+    public String postLogin(Map<String, Object> model, @ModelAttribute RegistrationFormTempUser rftu, HttpServletResponse response) {
         try (Connection conn = dataSource.getConnection()) {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + username +
-                    "' OR email='" + username + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + rftu.getUsername() +
+                    "' OR email='" + rftu.getUsername() + "'");
             if (rs.next()) {
                 byte[] salt = fromHex(rs.getString("salt"));
-                String generatedPass = UsersDao.get_SHA_256_SecurePassword(pass, salt);
+                String generatedPass = UsersDao.get_SHA_256_SecurePassword(rftu.getPass(), salt);
                 if (generatedPass.equals(rs.getString("hashed_pass"))) {
+                    User user = usersDao.getUserByUsername(rftu.getUsername());
+                    sessionsDao.save(user.get_id(), response);
                     String greeting = "Hello " + rs.getString("username");
                     model.put("greeting", greeting);
                     return "login";
