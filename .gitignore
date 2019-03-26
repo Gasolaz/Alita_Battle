@@ -4,4 +4,4 @@ target/**
 tomcat/**
 out/**
 *.db
-src/webapp/WEB-INF/Alita_Battle-servlet.xml
+src/main/webapp/WEB-INF/Alita_Battle-servlet.xml
