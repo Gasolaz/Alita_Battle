@@ -23,22 +23,24 @@
         </a>
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Alita Battle</a>
+                <a class="nav-link active" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="community">News&Community</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact">Contact</a>
             </li>
         </ul>
     </nav>
 </header>
-
     <div class="container">
 
         <div class="headline">
-            <h2>You are about to enter the game</h2>
+            <h2 style="text-align:center">You are about to enter the game</h2>
         </div>
 
         <div class="text">
@@ -46,9 +48,9 @@
                 nemo nobis obcaecati officia omnis recusandae sunt ullam ut veritatis! Fugiat fugit in quis.<br><br><br><br><br></p>
         </div>
         <p style="color: red">${AccessDenied}</p>
-        <div class="buttons">
+        <div class="buttons" style="text-align:center">
             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
-            <a href="register" class="btn btn-secondary" data-target="#modalRegForm" ><span>Sign Up</span></a>
+            <a href="register" class="btn btn-secondary" data-target="#modalRegForm"><span>Sign Up</span></a>
         </div>
 
 

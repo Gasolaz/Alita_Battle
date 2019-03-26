@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
 
-import static controllers.Login.fromHex;
 import static dao.UsersDao.*;
 
 public class SessionsDao {

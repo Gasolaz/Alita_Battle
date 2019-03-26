@@ -18,7 +18,7 @@
         </a>
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a class="nav-link active" href="/Alita_Battle_war_exploded">Alita Battle</a>
+                <a class="nav-link" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="about">About</a>
@@ -27,7 +27,7 @@
                 <a class="nav-link" href="community">News&Community</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact">Contact</a>
+                <a class="nav-link active" href="contact">Contact</a>
             </li>
         </ul>
     </nav>
