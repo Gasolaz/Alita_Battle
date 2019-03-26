@@ -17,5 +17,6 @@ public class TablesDao {
         tablesTemplate.execute(CREATE_TABLE_RACES);
         tablesTemplate.execute(CREATE_TABLE_SESSIONS);
         tablesTemplate.execute(CREATE_TABLE_USERS);
+        tablesTemplate.execute(CREATE_TABLE_ROLES);
     }
 }

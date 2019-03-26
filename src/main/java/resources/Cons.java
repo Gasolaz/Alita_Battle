@@ -1,5 +1,8 @@
 package resources;
 
+import com.mysql.cj.xdevapi.Table;
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 public class Cons {
 
     //    All Tables ID
@@ -25,6 +28,12 @@ public class Cons {
     public static final String CHARACTERS_WINS= "wins";
     public static final String CHARACTERS_LOSES = "loses";
     public static final String CHARACTERS_GOLD = "gold";
+    public static final String CHARACTERS_ROLE_ID = "role_id";
+
+    // Table: Roles
+    public static final String TABLE_ROLES = "Roles";
+    // Table Roles -> Columns
+    public static final String ROlES_ROLE = "role";
 
     // Table: Sessions
     public static final String TABLE_SESSIONS = "Sessions";
@@ -51,7 +60,7 @@ public class Cons {
             USERS_USERNAME + " TEXT NOT NULL, " + USERS_HASHED_PASS + " TEXT NOT NULL, " + USERS_SALT + " TEXT NOT NULL, " + USERS_EMAIL +
             " TEXT NOT NULL, " + USERS_CHARACTER_ID + " INTEGER, " + USERS_IS_ADMIN + " BOOLEAN NOT NULL, PRIMARY KEY (" + ID + "))";
     public static final String CREATE_TABLE_CHARACTERS = "CREATE TABLE IF NOT EXISTS " + TABLE_CHARACTERS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
-            CHARACTERS_RACE_ID + " INTEGER NOT NULL, " + CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " +
+            CHARACTERS_RACE_ID + " INTEGER NOT NULL, " + CHARACTERS_ROLE_ID + " INTEGER NOT NULL, " + CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " +
             CHARACTERS_WINS + " INTEGER NOT NULL, " + CHARACTERS_LOSES + " INTEGER NOT NULL, " + CHARACTERS_GOLD + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_SESSIONS = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSIONS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             SESSIONS_HASHED_SESSION + " TEXT NOT NULL, " + SESSIONS_SALT + " TEXT NOT NULL, " + SESSIONS_USER_ID + " INTEGER NOT NULL, " + "PRIMARY KEY(" + ID + "))";
@@ -59,4 +68,6 @@ public class Cons {
             RACES_RACE_NAME + " TEXT NOT NULL, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_INVENTORY + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             INVENTORY_ITEM_NAME + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
+    public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_RACES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROlES_ROLE + " TEXT NOT NULL, " +
+            "PRIMARY KEY(" + ID + "))";
 }
