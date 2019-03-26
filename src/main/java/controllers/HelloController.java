@@ -3,11 +3,14 @@ package controllers;
 
 import dao.SessionsDao;
 import dao.TablesDao;
+import dao.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+
+import static resources.Cons.NO_ID;
 
 
 @RequestMapping("")
@@ -20,13 +23,26 @@ public class HelloController {
     @Autowired
     SessionsDao sessionsDao;
 
+    @Autowired
+    UsersDao usersDao;
+
     @GetMapping
     public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
 
         tablesDao.createTables();
-        if(sessionsDao.checkExistingSession(session)){
-            return "login";
+//        if(sessionsDao.checkExistingSession(session)){
+//            return "login";
+//        }
+//        return "index";
+        int userId = sessionsDao.getUserIdFromSession(session);
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
+            }
+            return "redirect:/loggedIn";
         }
+
         return "index";
+
     }
 }

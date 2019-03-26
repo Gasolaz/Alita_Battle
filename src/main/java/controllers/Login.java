@@ -19,8 +19,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
+import static resources.Cons.NO_ID;
 
-@RequestMapping("/login")
+
+@RequestMapping("/loggedIn")
 @Controller
 public class Login {
 
@@ -35,10 +37,18 @@ public class Login {
 
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
-        if(sessionsDao.checkExistingSession(session)){
-            return "login";
+//        if(sessionsDao.checkExistingSession(session)){
+//            return "login";
+//        }
+//        return "index";
+        int userId = sessionsDao.getUserIdFromSession(session);
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
+            }
+            return "loggedIn";
         }
-        return "index";
+        return "redirect:/";
     }
 
     @PostMapping
@@ -53,9 +63,7 @@ public class Login {
                 if (generatedPass.equals(rs.getString("hashed_pass"))) {
                     User user = usersDao.getUserByUsername(rftu.getUsername());
                     sessionsDao.save(user.get_id(), response);
-                    String greeting = "Hello " + rs.getString("username");
-                    model.put("greeting", greeting);
-                    return "login";
+                    return "redirect:/create";
                 }
             }
             model.put("AccessDenied", "Error: Invalid credentials");

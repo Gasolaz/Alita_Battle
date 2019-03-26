@@ -29,11 +29,12 @@ public class Cons {
     public static final String CHARACTERS_LOSES = "loses";
     public static final String CHARACTERS_GOLD = "gold";
     public static final String CHARACTERS_ROLE_ID = "role_id";
+    public static final String CHARACTERS_NAME = "character_name";
 
     // Table: Roles
     public static final String TABLE_ROLES = "Roles";
     // Table Roles -> Columns
-    public static final String ROlES_ROLE = "role";
+    public static final String ROLES_ROLE = "role";
 
     // Table: Sessions
     public static final String TABLE_SESSIONS = "Sessions";
@@ -59,15 +60,36 @@ public class Cons {
     public static final String  CREATE_TABLE_USERS = "CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             USERS_USERNAME + " TEXT NOT NULL, " + USERS_HASHED_PASS + " TEXT NOT NULL, " + USERS_SALT + " TEXT NOT NULL, " + USERS_EMAIL +
             " TEXT NOT NULL, " + USERS_CHARACTER_ID + " INTEGER, " + USERS_IS_ADMIN + " BOOLEAN NOT NULL, PRIMARY KEY (" + ID + "))";
-    public static final String CREATE_TABLE_CHARACTERS = "CREATE TABLE IF NOT EXISTS " + TABLE_CHARACTERS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
-            CHARACTERS_RACE_ID + " INTEGER NOT NULL, " + CHARACTERS_ROLE_ID + " INTEGER NOT NULL, " + CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " +
-            CHARACTERS_WINS + " INTEGER NOT NULL, " + CHARACTERS_LOSES + " INTEGER NOT NULL, " + CHARACTERS_GOLD + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
+    public static final String CREATE_TABLE_CHARACTERS = "CREATE TABLE IF NOT EXISTS " + TABLE_CHARACTERS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, "
+            + CHARACTERS_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + CHARACTERS_RACE_ID + " INTEGER NOT NULL, " + CHARACTERS_ROLE_ID + " INTEGER NOT NULL, " +
+            CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " + CHARACTERS_WINS + " INTEGER NOT NULL, " + CHARACTERS_LOSES +
+            " INTEGER NOT NULL, " + CHARACTERS_GOLD + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_SESSIONS = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSIONS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             SESSIONS_HASHED_SESSION + " TEXT NOT NULL, " + SESSIONS_SALT + " TEXT NOT NULL, " + SESSIONS_USER_ID + " INTEGER NOT NULL, " + "PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_RACES = "CREATE TABLE IF NOT EXISTS " + TABLE_RACES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             RACES_RACE_NAME + " TEXT NOT NULL, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_INVENTORY + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             INVENTORY_ITEM_NAME + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
-    public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_RACES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROlES_ROLE + " TEXT NOT NULL, " +
+    public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_ROLES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROLES_ROLE + " TEXT NOT NULL, " +
             "PRIMARY KEY(" + ID + "))";
+
+    // Insertion
+    //  Race
+    public static final String INSERT_RACE_HUMAN = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
+            ") VALUES('human', 'human_perk')";
+    public static final String INSERT_RACE_ELF = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
+            ") VALUES('elf', 'elf_perk')";
+    public static final String INSERT_RACE_DWARF = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
+            ") VALUES('dwarf', 'dwarf_perk')";
+    public static final String INSERT_RACE_UNDEAD = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
+            ") VALUES('undead', 'undead_perk')";
+    public static final String INSERT_RACE_ORC = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
+            ") VALUES('orc', 'orc_perk')";
+
+    // Role
+    public static final String INSERT_ROLE_WIZARD = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('wizard')";
+    public static final String INSERT_ROLE_FIGHTER = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('fighter')";
+    public static final String INSERT_ROLE_PALADIN = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('paladin')";
+    public static final String INSERT_ROLE_ROGUE = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('rogue')";
+
 }

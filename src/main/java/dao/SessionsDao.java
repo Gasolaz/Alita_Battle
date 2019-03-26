@@ -1,6 +1,7 @@
 package dao;
 
 import models.Session;
+import org.apache.jasper.tagplugins.jstl.core.If;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,6 +17,7 @@ import java.sql.Statement;
 import java.util.Random;
 
 import static dao.UsersDao.*;
+import static resources.Cons.NO_ID;
 
 public class SessionsDao {
 
@@ -56,5 +58,19 @@ public class SessionsDao {
         }
         return false;
 
+    }
+
+    public int getUserIdFromSession(String session) {
+        String sql = "SELECT * FROM Sessions WHERE hashed_session='" + session + "'";
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()){
+                return rs.getInt("user_id");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return NO_ID;
     }
 }

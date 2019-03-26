@@ -2,19 +2,28 @@ package dao;
 
 
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import javax.sql.DataSource;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+
+import static resources.Cons.NO_ID;
 
 public class UsersDao {
     JdbcTemplate usersTemplate;
+
+    @Autowired
+    DataSource dataSource;
 
     public void setUsersTemplate(JdbcTemplate usersTemplate) {
         this.usersTemplate = usersTemplate;
@@ -25,11 +34,30 @@ public class UsersDao {
             byte[] salt = getSalt();
             String generatedPass = get_SHA_256_SecurePassword(pass, salt);
             return usersTemplate.update("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + username
-                     + "', '" + generatedPass + "', '" + fromByteArrayToString(salt) + "', '" + email.toLowerCase() + "', 0)");
-        } catch (NoSuchAlgorithmException e){
+                    + "', '" + generatedPass + "', '" + fromByteArrayToString(salt) + "', '" + email.toLowerCase() + "', 0)");
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public int updateUserWithCharacterId(int userId, int characterId){
+        String sql = "UPDATE Users SET character_id=" + characterId + " WHERE _id=" + userId;
+        return usersTemplate.update(sql);
+    }
+
+    public int getCharacterIdFromUserId(int user_id) {
+        String sql = "SELECT * FROM Users WHERE _id = '" + user_id + "'";
+        try (Connection conn = dataSource.getConnection()) {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("character_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return NO_ID;
     }
 
 //    public int update(User user) {

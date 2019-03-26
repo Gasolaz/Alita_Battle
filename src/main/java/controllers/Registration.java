@@ -28,7 +28,7 @@ public class Registration {
     @GetMapping("/register")
     public String getRegistration(@CookieValue(value= "sessionID", defaultValue = "0") String session) {
         if(sessionsDao.checkExistingSession(session)){
-            return "redirect:/login";
+            return "redirect:/";
         }
         return "registration";
     }
@@ -54,8 +54,6 @@ public class Registration {
         usersDao.save(rftu.getUsername(), rftu.getEmail(), rftu.getPass());
         User user = usersDao.getUserByUsername(rftu.getUsername());
         sessionsDao.save(user.get_id(), response);
-        String greeting = "Hello " + user.getUsername();
-        model.put("greeting", greeting);
-        return "login";
+        return "redirect:/create";
     }
 }
