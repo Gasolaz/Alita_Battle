@@ -1,7 +1,8 @@
 target/**
-Alita_Battle.iml
+*.iml
 .idea/**
 tomcat/**
 out/**
+*.db
+src/main/webapp/WEB-INF/Alita_Battle-servlet.xml
 node_modules/**
-bootstrap/**
