@@ -15,9 +15,6 @@ public class About {
 
     @GetMapping
     public String getAbout(@CookieValue(value= "sessionID", defaultValue = "0") String session){
-        if(sessionsDao.checkExistingSession(session)){
-            return "login";
-        }
         return "about";
     }
 }

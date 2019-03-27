@@ -22,7 +22,7 @@ import java.util.Map;
 import static resources.Cons.NO_ID;
 
 
-@RequestMapping("/loggedIn")
+@RequestMapping("/AlitaBattle")
 @Controller
 public class Login {
 
@@ -37,10 +37,6 @@ public class Login {
 
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
-//        if(sessionsDao.checkExistingSession(session)){
-//            return "login";
-//        }
-//        return "index";
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {

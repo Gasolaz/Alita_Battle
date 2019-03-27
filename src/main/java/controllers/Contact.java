@@ -16,9 +16,6 @@ public class Contact {
 
     @GetMapping
     public String getContact(@CookieValue(value= "sessionID", defaultValue = "0") String session){
-        if(sessionsDao.checkExistingSession(session)){
-            return "login";
-        }
         return "contact";
     }
 }
