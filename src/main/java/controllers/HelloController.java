@@ -1,18 +1,16 @@
 package controllers;
 
-import DB.TableCreation;
+
+import dao.SessionsDao;
 import dao.TablesDao;
-import models.Session;
-import models.User;
+import dao.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
+
+import static resources.Cons.NO_ID;
 
 
 @RequestMapping("")
@@ -21,50 +19,30 @@ public class HelloController {
 
     @Autowired
     TablesDao tablesDao;
+
     @Autowired
-    DataSource jt;
+    SessionsDao sessionsDao;
+
+    @Autowired
+    UsersDao usersDao;
 
     @GetMapping
-    public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session, @ModelAttribute User user) {
+    public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
 
         tablesDao.createTables();
-
-//        System.out.println();
-//
-//
-//        try(Connection conn = jt.getConnection()){
-//
-//            TableCreation tc = new TableCreation();
-//            tc.createTables();
-//            Session existingSession = new Session(session, conn);
-//
-//            if(existingSession.isExistingSession()){
-//                model.put("greeting", "username reikia ieskot");
-//                return "login";
-//            }
-//
-//        } catch (SQLException e){
-//            model.put("error", e.getMessage());
-//            e.printStackTrace();
-//            return "error";
+//        if(sessionsDao.checkExistingSession(session)){
+//            return "login";
 //        }
-
-        try (Connection conn = jt.getConnection()) {
-            Session session1 = new Session(session, conn);
-            if (session1.isExistingSession()) {
-                String greeting = "Hello " + user.getUsername();
-                model.put("greeting", greeting);
-                return "login";
+//        return "index";
+        int userId = sessionsDao.getUserIdFromSession(session);
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
             }
-            return "index";
-        } catch (SQLException e) {
-            model.put("error", e.getMessage());
-            e.printStackTrace();
-            return "error";
+            return "redirect:/loggedIn";
         }
 
-//        return "index";
+        return "index";
 
     }
-
 }
