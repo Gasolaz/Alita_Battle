@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Map;
 
+import static resources.Cons.NO_ID;
+
 @RequestMapping("/fighterselection")
 @Controller
 public class FighterSelection {
@@ -30,10 +32,16 @@ public class FighterSelection {
     @GetMapping
     public String getFighters(Map<String, Object> model, @CookieValue (value= "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
-        int characterId = usersDao.getCharacterIdFromUserId(userId);
-        List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
-        List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
-        model.put("list", customCharacters);
-        return "fight";
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
+            }
+            int characterId = usersDao.getCharacterIdFromUserId(userId);
+            List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
+            List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
+            model.put("list", customCharacters);
+            return "fight";
+        }
+        return "redirect:/";
     }
 }
