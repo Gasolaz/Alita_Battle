@@ -21,9 +21,6 @@
 <style>
     <%@include file="../styles/main.css" %>
 </style>
-<script>
-    <%@include file="../js/script.js"%>
-</script>
 
 <body>
 

@@ -41,5 +41,21 @@
         </ul>
     </nav>
 </header>
+
+<table>
+    <c:forEach items="${messages}" var="message">
+        <tr>
+            <td>${message.name}</td>
+            <td>${message.race}</td>
+            <td>${message.role}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+<form method="post" action="messages">
+    <input type="text" name="msg_text">
+    <input type="submit" value="Post">
+</form>
+
 </body>
 </html>

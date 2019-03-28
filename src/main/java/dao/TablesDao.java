@@ -19,6 +19,7 @@ public class TablesDao {
         tablesTemplate.execute(CREATE_TABLE_USERS);
         tablesTemplate.execute(CREATE_TABLE_ROLES);
         tablesTemplate.execute(CREATE_TABLE_CHALLENGES);
+        tablesTemplate.execute(CREATE_TABLE_MESSAGES);
 
         tablesTemplate.execute(INSERT_RACE_DWARF);
         tablesTemplate.execute(INSERT_RACE_ELF);

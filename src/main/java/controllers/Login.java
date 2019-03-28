@@ -1,8 +1,10 @@
 package controllers;
 
+import dao.MsgDao;
 import dao.SessionsDao;
 import dao.TablesDao;
 import dao.UsersDao;
+import models.Message;
 import models.RegistrationFormTempUser;
 import models.Session;
 import models.User;
@@ -17,6 +19,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 
 import static resources.Cons.NO_ID;
@@ -35,6 +38,9 @@ public class Login {
     @Autowired
     UsersDao usersDao;
 
+    @Autowired
+    MsgDao msgDao;
+
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
         int userId = sessionsDao.getUserIdFromSession(session);
@@ -42,6 +48,9 @@ public class Login {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "characterCreation";
             }
+            List<Message> messages = msgDao.getMessages();
+            model.put("messages", messages);
+
             return "loggedIn";
         }
         return "redirect:/";
