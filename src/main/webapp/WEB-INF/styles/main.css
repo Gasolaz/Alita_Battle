@@ -1,26 +1,44 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: blanchedalmond;
+
 }
 
-img {
+footer .image {
     position: absolute;
     right: 0;
     width: 30vw;
     bottom: 0;
+    height: 30%;
 }
 
 nav {
     text-transform: uppercase;
 }
 
+#img img {
+    height: 20rem;
+    width: 18rem;
+}
+
+.name {
+    text-align: center;
+}
+
+.dropdown {
+    display: inline-flex;
+}
+
+.create-btn {
+    float: right;
+}
 
 .navbar {
     border-radius: 0px !important;
 }
 
 
-.buttons .btn-primary, .btn-secondary{
+.buttons .btn-primary, .btn-secondary {
 
     background: #36c1ac !important;
     border-color: #36c1ac !important;
@@ -30,12 +48,12 @@ nav {
     line-height: 1.7 !important;
     text-decoration: none !important;
     transform: skew(-45deg) !important;
-    transition: background .5s,color .5s !important;
+    transition: background .5s, color .5s !important;
     -webkit-transform: skew(-45deg) !important;
 
 }
 
-.buttons .btn-primary span, .btn-secondary span{
+.buttons .btn-primary span, .btn-secondary span {
     -webkit-transform: skew(45deg);
     display: block;
     font-weight: 500;
@@ -58,5 +76,25 @@ nav {
 .btn-block {
     margin-left: 100px;
     width: 50%;
+}
+
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    vertical-align: middle;
+    border-style: none;
+
+}
+
+
+div #valRace, #valGen, #valRole {
+    text-transform: capitalize;
+}
+
+form #characterReg {
+    text-align: -webkit-center;
+
 }
 

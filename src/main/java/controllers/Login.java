@@ -75,6 +75,7 @@ public class Login {
         }
     }
 
+
     public static byte[] fromHex(String hex) {
         byte[] bytes = new byte[hex.length() / 2];
         for(int i = 0; i<bytes.length; i++) {

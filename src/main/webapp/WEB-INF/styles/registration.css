@@ -1,0 +1,105 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: blanchedalmond;
+
+}
+
+footer .image {
+    position: absolute;
+    right: 0;
+    width: 30vw;
+    bottom: 0;
+    height: 30%;
+}
+
+nav {
+    text-transform: uppercase;
+}
+
+#img img {
+    height: 20rem;
+    width: 18rem;
+}
+
+.name {
+    text-align: center;
+}
+
+.dropdown {
+    display: inline-flex;
+}
+
+.create-btn {
+    float: right;
+}
+
+.navbar {
+    border-radius: 0px !important;
+}
+
+
+.buttons .btn-primary, .btn-secondary {
+
+    background: #36c1ac !important;
+    border-color: #36c1ac !important;
+    border-style: solid !important;
+    border-width: 5px 20px !important;
+    color: #130d44 !important;
+    line-height: 1.7 !important;
+    text-decoration: none !important;
+    transform: skew(-45deg) !important;
+    transition: background .5s, color .5s !important;
+    -webkit-transform: skew(-45deg) !important;
+
+}
+
+.buttons .btn-primary span, .btn-secondary span {
+    -webkit-transform: skew(45deg);
+    display: block;
+    font-weight: 500;
+    text-transform: uppercase;
+    transform: skew(45deg);
+}
+
+.mb-5, .my-5 {
+    margin-bottom: 1rem !important;
+    margin-top: 2rem !important;
+}
+
+
+.form-container {
+    margin: 0 auto;
+    max-width: 25em;
+    transition: all .5s ease-in-out;
+}
+
+.btn-block {
+    margin-left: 100px;
+    width: 50%;
+}
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    vertical-align: middle;
+    border-style: none;
+
+}
+
+div #valRace, #valGen, #valRole {
+    text-transform: capitalize;
+}
+
+form {
+    text-align: -webkit-center;
+}
+
+body {
+    background: url("https://twistedsifter.files.wordpress.com/2013/05/animated-gifs-of-fighting-game-backgrounds-36.gif?w=640&h=480");
+    height: 100%;
+    background-position: center;
+    text-align: center;
+    background-size: cover;
+}
+
