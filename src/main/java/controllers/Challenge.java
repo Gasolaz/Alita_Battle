@@ -1,6 +1,6 @@
 package controllers;
 
-import dao.CharacterDao;
+import dao.ChallengesDao;
 import dao.SessionsDao;
 import dao.UsersDao;
 import models.Character;
@@ -16,31 +16,29 @@ import java.util.Map;
 
 import static resources.Cons.NO_ID;
 
-@RequestMapping("/fighterselection")
+@RequestMapping("/challenge")
 @Controller
-public class FighterSelection {
+public class Challenge {
 
     @Autowired
-    CharacterDao characterDao;
+    UsersDao usersDao;
 
     @Autowired
     SessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    ChallengesDao challengesDao;
 
     @GetMapping
-    public String getFighters(Map<String, Object> model, @CookieValue (value= "sessionID", defaultValue = "0") String session){
+    public String getChallenge(Map<String, Object> model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
             }
-            int characterId = usersDao.getCharacterIdFromUserId(userId);
-            List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
-            List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
-            model.put("list", customCharacters);
-            return "fight";
+            List<CustomCharacter> charactersWhoChallengeYou = challengesDao.getAllChallengesForYou(userId);
+            model.put("list", charactersWhoChallengeYou);
+            return "challenge";
         }
         return "redirect:/";
     }

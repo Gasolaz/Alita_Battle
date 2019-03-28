@@ -43,6 +43,12 @@ public class Cons {
     public static final String SESSIONS_SALT = "salt";
     public static final String SESSIONS_USER_ID = "user_id";
 
+    // Table: Challenges
+    public static final String TABLE_CHALLENGES = "Challenges";
+    // Table Challenges -> Columns
+    public static final String CHALLENGES_CHARACTER_ID = "character_id";
+    public static final String CHALLENGES_CHALLENGED_ID = "challenged_character_id";
+
     //Table: Races
     public static final String TABLE_RACES = "Races";
     //Table Races -> Columns
@@ -72,6 +78,8 @@ public class Cons {
             INVENTORY_ITEM_NAME + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_ROLES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROLES_ROLE + " VARCHAR(255) NOT NULL UNIQUE, " +
             "PRIMARY KEY(" + ID + "))";
+    public static final String CREATE_TABLE_CHALLENGES = "CREATE TABLE IF NOT EXISTS " + TABLE_CHALLENGES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + CHALLENGES_CHARACTER_ID +
+            " INTEGER NOT NULL, " + CHALLENGES_CHALLENGED_ID + " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
 
     // Insertion
     //  Race
