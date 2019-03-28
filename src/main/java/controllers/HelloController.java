@@ -30,16 +30,12 @@ public class HelloController {
     public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
 
         tablesDao.createTables();
-//        if(sessionsDao.checkExistingSession(session)){
-//            return "login";
-//        }
-//        return "index";
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "characterCreation";
             }
-            return "redirect:/loggedIn";
+            return "redirect:/AlitaBattle";
         }
 
         return "index";

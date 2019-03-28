@@ -16,9 +16,6 @@ public class Community {
 
     @GetMapping
     public String getCommunity(@CookieValue(value= "sessionID", defaultValue = "0") String session){
-        if(sessionsDao.checkExistingSession(session)){
-            return "login";
-        }
         return "community";
     }
 }
