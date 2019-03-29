@@ -41,14 +41,10 @@ public class ArenaDao {
             ResultSet rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId);
             while(rs.next()){
                 int enemyId = rs.getInt("enemy_id");
-                System.out.println(enemyId);
                 ResultSet rs2 = statement2.executeQuery("SELECT cha.character_name, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra ON " +
                         "cha.race_id=ra._id INNER JOIN Roles AS ro ON cha.role_id=ro._id WHERE cha._id=" + enemyId);
                 while(rs2.next()){
                     CustomCharacter customCharacter = new CustomCharacter();
-                    System.out.println(rs2.getString(1));
-                    System.out.println(rs2.getString(2));
-                    System.out.println(rs2.getString(3));
                     customCharacter.setName(rs2.getString(1));
                     customCharacter.setRace(rs2.getString(2));
                     customCharacter.setRole(rs2.getString(3));
