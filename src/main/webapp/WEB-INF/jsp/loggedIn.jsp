@@ -46,16 +46,18 @@
 
     <div class="chat">
         <div class="container">
-            <table>
-                <c:forEach items="${messages}" var="message">
-                    <tr>
-                        <td>${message.char_name}</td>
-                        <td>${message.msg_time}</td>
-                        <td>${message.msg_text}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-
+            <div class="table">
+                <table>
+                    <c:forEach items="${messages}" var="message">
+                        <tr>
+                            <td>${message.char_name} &emsp;</td>
+                            <td>${message.msg_time} &emsp;</td>
+                            <td>${message.msg_text} &emsp;</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <hr>
             <form method="post" action="messages">
                 <input type="text" name="msg_text">
                 <input type="submit" value="Post">

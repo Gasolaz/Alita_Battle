@@ -100,10 +100,17 @@ form #characterReg {
 
 .chat {
     position: absolute;
-    bottom: 20px;
-    margin: auto;
-    width: 50%;
-    border: 3px solid #80664a;
-    padding: 10px;
+    bottom: 30px;
+    right: 30px;
+    float: right;
+    width: 40%;
+    border: 2px solid rgba(128, 125, 125, 0.21);
+    box-shadow: inset 0px 0px 40px 40px #DBA632;
+    padding: 5px;
+}
+
+.table {
+    height: 250px;
+    overflow: scroll;
 }
 

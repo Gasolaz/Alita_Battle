@@ -28,7 +28,9 @@ public class MsgDao {
     public void save(int charID, Date msgDate, String msgText) {
 
         //java.sql.Date sqlDate = new java.sql.Date(msgDate.getTime());
-
+        if(msgText.trim().equals("")){
+            return;
+        }
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(INSERT_MSG);
             ps.setInt(1, charID);
