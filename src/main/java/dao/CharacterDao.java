@@ -17,7 +17,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static resources.Cons.NO_ID;
+import static resources.Cons.*;
 
 public class CharacterDao {
 
@@ -118,6 +118,20 @@ public class CharacterDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public String getCharacterNameById(int char_id) {
+
+        try (Connection conn = dataSource.getConnection()) {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT " + CHARACTERS_NAME + " FROM " + TABLE_CHARACTERS + " WHERE _id=" + char_id);
+            if(rs.next()){
+                return rs.getString(CHARACTERS_NAME);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

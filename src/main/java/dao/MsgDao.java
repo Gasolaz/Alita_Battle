@@ -18,6 +18,9 @@ public class MsgDao {
     @Autowired
     DataSource dataSource;
 
+    @Autowired
+    CharacterDao characterDao;
+
     JdbcTemplate msgTemplate;
 
     public void setMsgTemplate(JdbcTemplate msgTemplate) { this.msgTemplate = msgTemplate; }
@@ -44,7 +47,8 @@ public class MsgDao {
             PreparedStatement ps = conn.prepareStatement(SELECT_MESSAGES);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Message message = new Message(rs.getLong(ID), rs.getLong(MESSAGES_CHARACTER_ID), rs.getDate(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
+                String charName = characterDao.getCharacterNameById(rs.getInt("char_id"));
+                Message message = new Message(charName, rs.getLong(MESSAGES_CHARACTER_ID), rs.getTimestamp(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
                 messagesList.add(message);
             }
         } catch (SQLException e) {

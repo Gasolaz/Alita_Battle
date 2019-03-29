@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Alita Battle</title>
@@ -42,20 +44,24 @@
     </nav>
 </header>
 
-<%--<table>--%>
-<%--    <c:forEach items="${messages}" var="message">--%>
-<%--        <tr>--%>
-<%--            <td>${message.name}</td>--%>
-<%--            <td>${message.race}</td>--%>
-<%--            <td>${message.role}</td>--%>
-<%--        </tr>--%>
-<%--    </c:forEach>--%>
-<%--</table>--%>
+    <div class="chat">
+        <div class="container">
+            <table>
+                <c:forEach items="${messages}" var="message">
+                    <tr>
+                        <td>${message.char_name}</td>
+                        <td>${message.msg_time}</td>
+                        <td>${message.msg_text}</td>
+                    </tr>
+                </c:forEach>
+            </table>
 
-<form method="post" action="messages">
-    <input type="text" name="msg_text">
-    <input type="submit" value="Post">
-</form>
+            <form method="post" action="messages">
+                <input type="text" name="msg_text">
+                <input type="submit" value="Post">
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

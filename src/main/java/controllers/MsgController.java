@@ -39,7 +39,7 @@ public class MsgController {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             msgDao.save(characterId, new Date(), message.getMsg_text());
 
-            return "loggedIn";
+            return "redirect:/AlitaBattle";
         }
         return "redirect:/";
     }
