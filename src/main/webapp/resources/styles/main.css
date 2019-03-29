@@ -1,0 +1,8 @@
+body{
+    /*background-image: url("../images/test.png");*/
+    height: 100px;
+    width: 100px;
+    object-fit: fill;
+    background-size: cover;
+    /*background-color: red;*/
+}

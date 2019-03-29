@@ -2,17 +2,18 @@ package models;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Message {
 
     private long id;
     private long char_id;
-    //private long msg_time;
+    private Date msg_time;
     private String msg_text;
 
     public Message() {}
 
-    public Message(long id, long char_id, String msg_text) {
+    public Message(long id, long char_id, Date msg_time, String msg_text) {
         this.id = id;
         this.char_id = char_id;
         this.msg_text = msg_text;

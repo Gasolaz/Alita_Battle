@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import static resources.Cons.NO_ID;
 
@@ -40,7 +37,7 @@ public class MsgController {
                 return "characterCreation";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            msgDao.save(characterId, message.getMsg_text());
+            msgDao.save(characterId, new Date(), message.getMsg_text());
 
             return "loggedIn";
         }

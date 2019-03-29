@@ -17,6 +17,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static resources.Cons.NO_ID;
+
 public class CharacterDao {
 
     @Autowired
@@ -88,6 +90,20 @@ public class CharacterDao {
             e.printStackTrace();
         }
         return customCharacters;
+    }
+
+    public int getCharacterIdFromCharacterName(String name){
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT _id FROM Characters WHERE character_name='" + name + "'";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if(rs.next()){
+                return rs.getInt("_id");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return NO_ID;
     }
 
 

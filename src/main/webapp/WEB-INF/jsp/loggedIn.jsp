@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,6 +21,9 @@
                 <a class="nav-link" href="logout">Logout</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="challenge">Challenges</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="fighterselection">Fight</a>
             </li>
             <li class="nav-item">
@@ -40,15 +42,15 @@
     </nav>
 </header>
 
-<table>
-    <c:forEach items="${messages}" var="message">
-        <tr>
-            <td>${message.name}</td>
-            <td>${message.race}</td>
-            <td>${message.role}</td>
-        </tr>
-    </c:forEach>
-</table>
+<%--<table>--%>
+<%--    <c:forEach items="${messages}" var="message">--%>
+<%--        <tr>--%>
+<%--            <td>${message.name}</td>--%>
+<%--            <td>${message.race}</td>--%>
+<%--            <td>${message.role}</td>--%>
+<%--        </tr>--%>
+<%--    </c:forEach>--%>
+<%--</table>--%>
 
 <form method="post" action="messages">
     <input type="text" name="msg_text">
