@@ -1,5 +1,6 @@
 package dao;
 
+import models.BattlegroundCharacterModel;
 import models.Character;
 import models.CustomCharacter;
 import models.User;
@@ -118,6 +119,32 @@ public class CharacterDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public BattlegroundCharacterModel formBattlegroundCharacterModelFromCharacterId( int characterId){
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT cha.character_name, cha.level, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
+                    "ON ra._id=cha.race_id INNER JOIN Roles AS ro ON ro._id=cha.role_id WHERE cha._id=" + characterId);
+            if(rs.next()){
+                int level = rs.getInt(2);
+                BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
+                battlegroundCharacterModel.setName(rs.getString(1));
+                battlegroundCharacterModel.setLevel(level);
+                battlegroundCharacterModel.setRace(rs.getString(3));
+                battlegroundCharacterModel.setRole(rs.getString(4));
+                battlegroundCharacterModel.setHp(level);
+                battlegroundCharacterModel.setMana(level);
+                battlegroundCharacterModel.setArmor(0);
+                battlegroundCharacterModel.setStrength(level);
+                battlegroundCharacterModel.setAgility(level);
+                battlegroundCharacterModel.setIntelligence(level);
+                return battlegroundCharacterModel;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 import static resources.Cons.NO_ID;
 
 @RequestMapping("/messages")
@@ -35,9 +37,9 @@ public class MsgController {
                 return "characterCreation";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            msgDao.save(characterId, message.getMsg_text());
+            msgDao.save(characterId, new Date(), message.getMsg_text());
 
-            return "loggedIn";
+            return "redirect:/AlitaBattle";
         }
         return "redirect:/";
     }

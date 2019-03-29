@@ -38,9 +38,9 @@
 
 <c:forEach items="${list}" var="character">
     <form method="post" action="acceptChallenge">
-        You are challenged by: <input type="text" value="${character.name}" readonly>
-        <input type="text" value="${character.race}" readonly>
-        <input type="text" value="${character.role}" readonly>
+        You are challenged by: <input type="text" value="${character.name}" name="name" readonly>
+        <input type="text" value="${character.race}" name="race" readonly>
+        <input type="text" value="${character.role}" name="role" readonly>
         <input type="submit" value="Accept Challenge">
     </form>
 </c:forEach>

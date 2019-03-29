@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Alita Battle</title>
@@ -19,6 +21,9 @@
         <ul class="nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link" href="logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="arena">Arena</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="challenge">Challenges</a>
@@ -42,20 +47,26 @@
     </nav>
 </header>
 
-<table>
-    <c:forEach items="${messages}" var="message">
-        <tr>
-            <td>${message.name}</td>
-            <td>${message.race}</td>
-            <td>${message.role}</td>
-        </tr>
-    </c:forEach>
-</table>
-
-<form method="post" action="messages">
-    <input type="text" name="msg_text">
-    <input type="submit" value="Post">
-</form>
+    <div class="chat">
+        <div class="container">
+            <div class="table">
+                <table>
+                    <c:forEach items="${messages}" var="message">
+                        <tr>
+                            <td>${message.char_name} &emsp;</td>
+                            <td>${message.msg_time} &emsp;</td>
+                            <td>${message.msg_text} &emsp;</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <hr>
+            <form method="post" action="messages">
+                <input type="text" name="msg_text">
+                <input type="submit" value="Post">
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

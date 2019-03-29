@@ -41,4 +41,19 @@ public class HelloController {
         return "index";
 
     }
+
+    @GetMapping("/community")
+    public String getCommunity(@CookieValue(value= "sessionID", defaultValue = "0") String session){
+        return "community";
+    }
+
+    @GetMapping("/contact")
+    public String getContact(@CookieValue(value= "sessionID", defaultValue = "0") String session){
+        return "contact";
+    }
+
+    @GetMapping("/about")
+    public String getAbout(@CookieValue(value= "sessionID", defaultValue = "0") String session){
+        return "about";
+    }
 }

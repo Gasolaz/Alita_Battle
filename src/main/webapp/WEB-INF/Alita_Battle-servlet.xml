@@ -59,4 +59,8 @@
         <property name="msgTemplate" ref="jt"></property>
     </bean>
 
+    <bean id="arenaDao" class="dao.ArenaDao">
+        <property name="areneTemplate" ref="jt"></property>
+    </bean>
+
 </beans>
