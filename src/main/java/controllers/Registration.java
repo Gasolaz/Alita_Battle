@@ -1,73 +1,59 @@
 package controllers;
 
+import dao.SessionsDao;
+import dao.UsersDao;
+import models.RegistrationFormTempUser;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static DB.DBConnection.getConnection;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.sql.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
-@RequestMapping(value="/register", consumes = "application/json")
+
 @Controller
 public class Registration {
 
-    @GetMapping
-    public String getRegistration() {
-        return "redirect:/";
-    }
+    @Autowired
+    UsersDao usersDao;
 
-    @PostMapping
-    public String postRegistration(Map<String, Object> model, @ModelAttribute User user) {
-        try (Connection conn = getConnection()){
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT username FROM Users WHERE username='" + user.getUsername() + "'");
-            if(rs.next()){
-                model.put("error", "Username already exists");
-                return "register";
-            }
-            byte[] salt = getSalt();
-            String generatedPass = get_SHA_256_SecurePassword(user.getPass(), salt);
-            statement.executeUpdate("INSERT INTO Users(username, hashed_pass, salt, email, isAdmin) VALUES('" + user.getUsername()
-            + "', '" + generatedPass + "', '" + salt + "', '" + user.getEmail() + "', 0)");
-        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e){
-            model.put("error", e.getMessage());
-            e.printStackTrace();
-            return "error";
+    @Autowired
+    SessionsDao sessionsDao;
+
+    @GetMapping("/register")
+    public String getRegistration(@CookieValue(value= "sessionID", defaultValue = "0") String session) {
+        if(sessionsDao.checkExistingSession(session)){
+            return "redirect:/";
         }
-        String greeting = "Hello " + user.getUsername();
-        model.put("greeting", greeting);
-        return "login";
+        return "registration";
     }
 
-    byte[] getSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return salt;
-    }
+    @PostMapping("/register")
+    public String postRegistration(Map<String, Object> model, @ModelAttribute RegistrationFormTempUser rftu, HttpServletResponse response) {
 
-    public String get_SHA_256_SecurePassword(String passwordToHash, byte[] salt) {
-
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt);
-            byte[] bytes = md.digest(passwordToHash.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        if (rftu.getUsername().trim().equals("") || rftu.getEmail().trim().equals("") || rftu.getPass().trim().equals("")) {
+            model.put("error", "All fields must be filled");
+            return "registration";
+        } else if (!rftu.getPass().trim().equals(rftu.getPassConfirmation().trim())) {
+            model.put("error", "Passwords must match");
+            return "registration";
         }
-        return generatedPassword;
-    }
 
+        List<User> users = usersDao.getUsersByUsernameOrEmail(rftu.getUsername(), rftu.getEmail());
+
+        if (users.size() > 0) {
+            model.put("error", "Username or email already exists");
+            return "registration";
+        }
+
+        usersDao.save(rftu.getUsername(), rftu.getEmail(), rftu.getPass());
+        User user = usersDao.getUserByUsername(rftu.getUsername());
+        sessionsDao.save(user.get_id(), response);
+        return "redirect:/create";
+    }
 }

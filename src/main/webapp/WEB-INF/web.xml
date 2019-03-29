@@ -17,8 +17,8 @@
     </servlet>
 
     <servlet-mapping>
-    <servlet-name>Alita_Battle</servlet-name>
-    <url-pattern>/</url-pattern>
-</servlet-mapping>
+        <servlet-name>Alita_Battle</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
 </web-app>

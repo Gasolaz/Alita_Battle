@@ -1,61 +1,91 @@
 package controllers;
 
+import dao.MsgDao;
+import dao.SessionsDao;
+import dao.TablesDao;
+import dao.UsersDao;
+import models.Message;
+import models.RegistrationFormTempUser;
 import models.Session;
 import models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 
-import static DB.DBConnection.getConnection;
+import static resources.Cons.NO_ID;
 
-@RequestMapping("/login")
+
+@RequestMapping("/AlitaBattle")
 @Controller
 public class Login {
 
+    @Autowired
+    DataSource dataSource;
+
+    @Autowired
+    SessionsDao sessionsDao;
+
+    @Autowired
+    UsersDao usersDao;
+
+    @Autowired
+    MsgDao msgDao;
+
     @GetMapping
-    public String getLogin(Map<String, Object> model) {
-        try (Connection conn = getConnection()){
-            Session session = new Session("random", conn);
-            if(session.isExistingSession()){
-                // implement logic
-                return "login";
+    public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
+        int userId = sessionsDao.getUserIdFromSession(session);
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
             }
-            return "redirect:/";
-        } catch (SQLException | ClassNotFoundException e){
+            List<Message> messages = msgDao.getMessages();
+            model.put("messages", messages);
+
+            return "loggedIn";
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping
+    public String postLogin(Map<String, Object> model, @ModelAttribute RegistrationFormTempUser rftu, HttpServletResponse response) {
+        try (Connection conn = dataSource.getConnection()) {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + rftu.getUsername() +
+                    "' OR email='" + rftu.getUsername() + "'");
+            if (rs.next()) {
+                byte[] salt = fromHex(rs.getString("salt"));
+                String generatedPass = UsersDao.get_SHA_256_SecurePassword(rftu.getPass(), salt);
+                if (generatedPass.equals(rs.getString("hashed_pass"))) {
+                    User user = usersDao.getUserByUsername(rftu.getUsername());
+                    sessionsDao.save(user.get_id(), response);
+                    return "redirect:/create";
+                }
+            }
+            model.put("AccessDenied", "Error: Invalid credentials");
+            return "index";
+        } catch (SQLException e) {
             model.put("error", e.getMessage());
             e.printStackTrace();
             return "error";
         }
     }
 
-    @PostMapping
-    public String postLogin(Map<String, Object> model, @ModelAttribute User user){
-        try (Connection conn = getConnection()) {
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE (username='" + user.getUsername() + "' OR email='" + user.getUsername() +
-                    "') AND hashed_pass = '" + user.getPass() + "'");
-            if (rs.next()) {
-                String greeting = "Hello " + rs.getString("username");
-                model.put("greeting", greeting);
-                return "login";
-            } else {
-                // nu cia backe tikrina ar egzistuoja toks useris, kaip verifikacija padaryt popupe tai bbz, sugalvosim kazka
-                // random returnas vien del testo, negaliu daryt redirecto nes modelio nepaema, kasnors turi ideju kaip redirectint su modeliu?
-                model.put("AccessDenied", "Error: Invalid credentials");
-                return "index";
-            }
-        } catch (SQLException | ClassNotFoundException e){
-            model.put("error", e.getMessage());
-            e.printStackTrace();
-            return "error";
+    public static byte[] fromHex(String hex) {
+        byte[] bytes = new byte[hex.length() / 2];
+        for(int i = 0; i<bytes.length; i++) {
+            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
         }
+        return bytes;
     }
 }
+

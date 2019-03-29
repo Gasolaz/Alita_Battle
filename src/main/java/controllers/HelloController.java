@@ -1,48 +1,43 @@
 package controllers;
 
 
+import dao.SessionsDao;
+import dao.TablesDao;
+import dao.UsersDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-import static DB.DBConnection.getConnection;
-import static DB.TableCreation.createTables;
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
-@RequestMapping("/")
+import static resources.Cons.NO_ID;
+
+
+@RequestMapping("")
 @Controller
 public class HelloController {
 
+    @Autowired
+    TablesDao tablesDao;
+
+    @Autowired
+    SessionsDao sessionsDao;
+
+    @Autowired
+    UsersDao usersDao;
+
     @GetMapping
-    public String printHello(ModelMap model) {
-        Connection conn = null;
-        try {
-            createTables();
-            conn = getConnection();
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Users");
-            while(rs.next()){
-//                System.out.println(rs.getString("username"));
+    public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
+
+        tablesDao.createTables();
+        int userId = sessionsDao.getUserIdFromSession(session);
+        if (userId != NO_ID) {
+            if (usersDao.getCharacterIdFromUserId(userId) == 0) {
+                return "characterCreation";
             }
-        } catch(IOException | ClassNotFoundException | SQLException e){
-            e.printStackTrace();
-        }
-        finally {
-            if(conn != null){
-                try {
-                    conn.close();
-                } catch (SQLException e){
-                    System.out.println("pz");
-                }
-            }
+            return "redirect:/AlitaBattle";
         }
 
-//        model.addAttribute("message", "Welcome to Alita Battle!");
         return "index";
 
     }
