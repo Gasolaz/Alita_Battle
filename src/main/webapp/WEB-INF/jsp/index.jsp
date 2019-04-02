@@ -79,7 +79,7 @@
 
                     <div class="form-container off-canvas">
 
-                        <form role="form" action="loggedIn" method="post" class="form-signin">
+                        <form role="form" action="AlitaBattle" method="post" class="form-signin">
                             <h2>Please sign in...</h2>
 
                             <div class="form-group">

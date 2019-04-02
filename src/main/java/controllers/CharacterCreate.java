@@ -42,6 +42,6 @@ public class CharacterCreate {
         characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
         int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
         usersDao.updateUserWithCharacterId(userId, characterId);
-        return "redirect:/loggedIn";
+        return "redirect:/AlitaBattle";
     }
 }

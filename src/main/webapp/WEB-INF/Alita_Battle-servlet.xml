@@ -51,4 +51,16 @@
         <property name="characterTemplate" ref="jt"></property>
     </bean>
 
+    <bean id="challengesDao" class="dao.ChallengesDao">
+        <property name="challengeTemplate" ref="jt"></property>
+    </bean>
+
+    <bean id="msgDao" class="dao.MsgDao">
+        <property name="msgTemplate" ref="jt"></property>
+    </bean>
+
+    <bean id="arenaDao" class="dao.ArenaDao">
+        <property name="areneTemplate" ref="jt"></property>
+    </bean>
+
 </beans>

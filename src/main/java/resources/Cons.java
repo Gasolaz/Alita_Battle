@@ -43,6 +43,12 @@ public class Cons {
     public static final String SESSIONS_SALT = "salt";
     public static final String SESSIONS_USER_ID = "user_id";
 
+    // Table: Challenges
+    public static final String TABLE_CHALLENGES = "Challenges";
+    // Table Challenges -> Columns
+    public static final String CHALLENGES_CHARACTER_ID = "character_id";
+    public static final String CHALLENGES_CHALLENGED_ID = "challenged_character_id";
+
     //Table: Races
     public static final String TABLE_RACES = "Races";
     //Table Races -> Columns
@@ -53,6 +59,18 @@ public class Cons {
     public static final String TABLE_INVENTORY = "Inventory";
     //Table Inventory -> Columns
     public static final String INVENTORY_ITEM_NAME = "item_name";
+
+    //Table:Messages
+    public static final String TABLE_MESSAGES = "Messages";
+    //Table Messages -> Columns
+    public static final String MESSAGES_CHARACTER_ID = "char_id";
+    public static final String MESSAGES_TIME = "msg_time";
+    public static final String MESSAGES_TEXT = "msg_text";
+
+    //Arena
+    public static final String TABLE_ARENA = "Arena";
+    public static final String ARENA_CHARACTER_ID = "character_id";
+    public static final String ARENA_ENEMY_ID = "enemy_id";
 
     //    Database -> CRUD
 
@@ -67,11 +85,15 @@ public class Cons {
     public static final String CREATE_TABLE_SESSIONS = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSIONS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             SESSIONS_HASHED_SESSION + " TEXT NOT NULL, " + SESSIONS_SALT + " TEXT NOT NULL, " + SESSIONS_USER_ID + " INTEGER NOT NULL, " + "PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_RACES = "CREATE TABLE IF NOT EXISTS " + TABLE_RACES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
-            RACES_RACE_NAME + " TEXT NOT NULL, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
+            RACES_RACE_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + RACES_RACIAL_PERK + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_INVENTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_INVENTORY + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
             INVENTORY_ITEM_NAME + " TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
-    public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_ROLES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROLES_ROLE + " TEXT NOT NULL, " +
+    public static final String CREATE_TABLE_ROLES = "CREATE TABLE IF NOT EXISTS " + TABLE_ROLES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ROLES_ROLE + " VARCHAR(255) NOT NULL UNIQUE, " +
             "PRIMARY KEY(" + ID + "))";
+    public static final String CREATE_TABLE_CHALLENGES = "CREATE TABLE IF NOT EXISTS " + TABLE_CHALLENGES + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + CHALLENGES_CHARACTER_ID +
+            " INTEGER NOT NULL, " + CHALLENGES_CHALLENGED_ID + " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
+    public static final String CREATE_TABLE_MESSAGES  = "CREATE TABLE IF NOT EXISTS " + TABLE_MESSAGES + " (" + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
+            MESSAGES_CHARACTER_ID + " INTEGER  NOT NULL, " + MESSAGES_TIME + " DATETIME, " + MESSAGES_TEXT + " TEXT NOT NULL,  PRIMARY KEY(" + ID + "))";
 
     // Insertion
     //  Race
@@ -91,5 +113,21 @@ public class Cons {
     public static final String INSERT_ROLE_FIGHTER = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('fighter')";
     public static final String INSERT_ROLE_PALADIN = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('paladin')";
     public static final String INSERT_ROLE_ROGUE = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('rogue')";
+
+    // Messages
+    public static final String INSERT_MSG = "INSERT INTO " + TABLE_MESSAGES + "(" + MESSAGES_CHARACTER_ID + ", " + MESSAGES_TIME + ", " + MESSAGES_TEXT + ") VALUES(?,?,?)";
+
+    // Selection
+    // Messages
+    public static final String SELECT_MESSAGES = "SELECT * FROM " + TABLE_MESSAGES;
+
+    //Arena Table
+    public static final String CREATE_TABLE_BATTLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARENA + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
+            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, hp INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
+
+    // Figthing Table
+    public static final String CREATE_TABLE_FIGHT = "CREATE TABLE IF NOT EXISTS Fight (_id INTEGER NOT NULL AUTO_INCREMENT, " +
+            "char_id INTEGER NOT NULL, enemy_id INTEGER NOT NULL, attack TEXT NOT NULL, defend TEXT NOT NULL, hp_id INTEGER NOT NULL," +
+            "PRIMARY KEY (_id)) ";
 
 }
