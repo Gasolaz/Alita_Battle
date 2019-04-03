@@ -59,11 +59,14 @@ public class Arena {
             BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
+            if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
+                return "fightingPage";
+            }
             if(arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)){
                 arenaDao.resolveFight(characterId, enemyId);
                 return "fightingPage";
             }
-            return "waitingForEnemyTurn";
+            return "redirect:/waiting";
         }
         return "redirect:/";
     }

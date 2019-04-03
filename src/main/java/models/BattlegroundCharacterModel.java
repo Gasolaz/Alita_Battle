@@ -48,7 +48,7 @@ public class BattlegroundCharacterModel {
     }
 
     public int getHp() {
-        return 100 + level * 20;
+        return 20 + level * 20;
     }
 
     public void setHp(int level) {

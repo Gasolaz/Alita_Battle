@@ -32,6 +32,8 @@ public class ArenaDao {
             if(rs.next()){
                 String attacked1 = rs.getString("attack");
                 String defended1 = rs.getString("defend");
+                int newHp1 = 1;
+                int newHp2 = 1;
                 rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 if(rs.next()){
                     String attacked2 = rs.getString("attack");
@@ -39,17 +41,31 @@ public class ArenaDao {
                     if(!attacked1.equals(defended2)){
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                         if(rs.next()) {
-                            int newHp = rs.getInt("hp") - 10;
-                            st.executeUpdate("UPDATE Arena SET hp=" + newHp + " WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
+                            newHp1 = rs.getInt("hp") - 10;
+                            st.executeUpdate("UPDATE Arena SET hp=" + newHp1 + " WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                         }
                     }
                     if(!attacked2.equals(defended1)){
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                         if(rs.next()) {
-                            int newHp = rs.getInt("hp") - 10;
-                            st.executeUpdate("UPDATE Arena SET hp=" + newHp + " WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+                            newHp2 = rs.getInt("hp") - 10;
+                            st.executeUpdate("UPDATE Arena SET hp=" + newHp2 + " WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                         }
                     }
+
+                    System.out.println("Player 1:" + newHp1);
+                    System.out.println("Player 2:" + newHp2);
+                    if(newHp1 <= 0 && newHp2 <= 0){
+                        // draw logic
+
+                    } else if (newHp1 <= 0){
+                        // player2 wins
+                        System.out.println("Player 2: wins" + enemyId);
+                    } else if (newHp2 <= 0) {
+                        // player1 wins
+                        System.out.println("Player 1: wins" + characterId);
+                    }
+
                     st.executeUpdate("DELETE FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
                     st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 }
@@ -62,9 +78,9 @@ public class ArenaDao {
     public boolean checkIfBothCharactersMadeADecision(int characterId, int enemyId){
         try (Connection conn = dataSource.getConnection()){
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+            ResultSet rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
             if(rs.next()){
-                rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
+                rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 if(rs.next()){
                     return true;
                 }
@@ -73,6 +89,21 @@ public class ArenaDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean checkIfYouMadeADecision(int characterId, int enemyId){
+        try(Connection conn = dataSource.getConnection()){
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
+            rs.next();
+            if(rs.getInt(1) > 0){
+                return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
     }
 
     public void insertMatchResults(int character_id, int enemy_id, String attack, String defend) {
@@ -98,12 +129,14 @@ public class ArenaDao {
             int characterHp = 0;
             int enemyHp = 0;
             if(rs.next()){
-                battlegroundCharacterModel.setHp(rs.getInt("level"));
+                battlegroundCharacterModel.setLevel(rs.getInt("level"));
+//                battlegroundCharacterModel.setHp(rs.getInt("level"));
                 characterHp = battlegroundCharacterModel.getHp();
             }
             rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + enemyId);
             if(rs.next()){
-                battlegroundCharacterModel.setHp(rs.getInt("level"));
+                battlegroundCharacterModel.setLevel(rs.getInt("level"));
+//                battlegroundCharacterModel.setHp(rs.getInt("level"));
                 enemyHp = battlegroundCharacterModel.getHp();
             }
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + characterId + ", " + enemyId + ", " + characterHp + ")");
