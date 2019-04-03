@@ -1,5 +1,6 @@
 package dao;
 
+import models.BattlegroundCharacterModel;
 import models.Character;
 import models.CustomCharacter;
 import models.User;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static resources.Cons.*;
+import static resources.Cons.CHARACTERS_NAME;
 
 public class CharacterDao {
 
@@ -51,22 +53,53 @@ public class CharacterDao {
     }
 
     public List<Character> getAllCharactersExceptYourself(int characterId) {
-        String sql = "select * from Characters WHERE _id!=" + characterId;
-        return characterTemplate.query(sql, new RowMapper<Character>() {
-            public Character mapRow(ResultSet rs, int row) throws SQLException {
-                Character character = new Character();
-                character.set_id(rs.getInt(1));
-                character.setCharacter_name(rs.getString(2));
-                character.setRace(Integer.toString(rs.getInt(3)));
-                character.setRole(Integer.toString(rs.getInt(4)));
-                character.setSex(rs.getString(5));
-                character.setLevel(rs.getInt(6));
-                character.setWins(rs.getInt(7));
-                character.setLoses(rs.getInt(8));
-                character.setGold(rs.getInt(9));
-                return character;
+//        String sql = "select * from Characters WHERE _id!=" + characterId +
+//                " AND WHERE _id=" + characterId + " IN (select * from Challenges WHERE challenged_character_id is NULL)"; // while rs.next, st2 -> rs -> select
+//        // * is challenges kur challenged=rs.getInt(_id) AND challenger_id=userId, if(rs.next) continue; else
+//        return characterTemplate.query(sql, new RowMapper<Character>() {
+//            public Character mapRow(ResultSet rs, int row) throws SQLException {
+//                Character character = new Character();
+//                character.set_id(rs.getInt(1));
+//                character.setCharacter_name(rs.getString(2));
+//                character.setRace(Integer.toString(rs.getInt(3)));
+//                character.setRole(Integer.toString(rs.getInt(4)));
+//                character.setSex(rs.getString(5));
+//                character.setLevel(rs.getInt(6));
+//                character.setWins(rs.getInt(7));
+//                character.setLoses(rs.getInt(8));
+//                character.setGold(rs.getInt(9));
+//                return character;
+//            }
+//        });
+        List<Character> characters= new ArrayList<>();
+        try(Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            Statement statement2 = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId);
+            while(rs.next()){
+                ResultSet rs2 = statement2.executeQuery("SELECT COUNT(*) FROM Challenges WHERE character_id=" + characterId +
+                        " AND challenged_character_id=" + rs.getInt("_id"));
+                rs2.next();
+                if(rs2.getInt(1) > 0) {
+                    continue;
+                } else {
+                    Character character = new Character();
+                    character.set_id(rs.getInt(1));
+                    character.setCharacter_name(rs.getString(2));
+                    character.setRace(Integer.toString(rs.getInt(3)));
+                    character.setRole(Integer.toString(rs.getInt(4)));
+                    character.setSex(rs.getString(5));
+                    character.setLevel(rs.getInt(6));
+                    character.setWins(rs.getInt(7));
+                    character.setLoses(rs.getInt(8));
+                    character.setGold(rs.getInt(9));
+                    characters.add(character);
+                }
             }
-        });
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return characters;
     }
 
     public List<CustomCharacter> formCustomCharacterModel(List<Character> characters) {
@@ -118,6 +151,32 @@ public class CharacterDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public BattlegroundCharacterModel formBattlegroundCharacterModelFromCharacterId( int characterId){
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT cha.character_name, cha.level, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
+                    "ON ra._id=cha.race_id INNER JOIN Roles AS ro ON ro._id=cha.role_id WHERE cha._id=" + characterId);
+            if(rs.next()){
+                int level = rs.getInt(2);
+                BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
+                battlegroundCharacterModel.setName(rs.getString(1));
+                battlegroundCharacterModel.setLevel(level);
+                battlegroundCharacterModel.setRace(rs.getString(3));
+                battlegroundCharacterModel.setRole(rs.getString(4));
+                battlegroundCharacterModel.setHp(level);
+                battlegroundCharacterModel.setMana(level);
+                battlegroundCharacterModel.setArmor(0);
+                battlegroundCharacterModel.setStrength(level);
+                battlegroundCharacterModel.setAgility(level);
+                battlegroundCharacterModel.setIntelligence(level);
+                return battlegroundCharacterModel;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getCharacterNameById(int char_id) {

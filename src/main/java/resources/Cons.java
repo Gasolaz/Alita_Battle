@@ -67,6 +67,11 @@ public class Cons {
     public static final String MESSAGES_TIME = "msg_time";
     public static final String MESSAGES_TEXT = "msg_text";
 
+    //Arena
+    public static final String TABLE_ARENA = "Arena";
+    public static final String ARENA_CHARACTER_ID = "character_id";
+    public static final String ARENA_ENEMY_ID = "enemy_id";
+
     //    Database -> CRUD
 
     // Creation
@@ -115,5 +120,10 @@ public class Cons {
     // Selection
     // Messages
     public static final String SELECT_MESSAGES = "SELECT * FROM " + TABLE_MESSAGES;
+
+    //Arena Table
+    public static final String CREATE_TABLE_BATTLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARENA + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
+            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
+
 
 }
