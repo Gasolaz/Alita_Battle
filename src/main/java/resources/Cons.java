@@ -123,7 +123,11 @@ public class Cons {
 
     //Arena Table
     public static final String CREATE_TABLE_BATTLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARENA + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
-            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
+            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, hp INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
 
+    // Figthing Table
+    public static final String CREATE_TABLE_FIGHT = "CREATE TABLE IF NOT EXISTS Fight (_id INTEGER NOT NULL AUTO_INCREMENT, " +
+            "char_id INTEGER NOT NULL, enemy_id INTEGER NOT NULL, attack TEXT NOT NULL, defend TEXT NOT NULL, hp_id INTEGER NOT NULL," +
+            "PRIMARY KEY (_id)) ";
 
 }

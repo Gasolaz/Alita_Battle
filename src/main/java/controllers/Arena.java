@@ -43,7 +43,6 @@ public class Arena {
             return "arena";
         }
         return "redirect:/";
-
     }
 
     @PostMapping("/arena")
@@ -60,8 +59,14 @@ public class Arena {
             BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
-
-            return "fightingPage";
+            if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
+                return "fightingPage";
+            }
+            if(arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)){
+                arenaDao.resolveFight(characterId, enemyId);
+                return "fightingPage";
+            }
+            return "redirect:/waiting";
         }
         return "redirect:/";
     }

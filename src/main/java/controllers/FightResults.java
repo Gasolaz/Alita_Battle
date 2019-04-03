@@ -1,25 +1,25 @@
 package controllers;
 
-import dao.ChallengesDao;
+import dao.ArenaDao;
 import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.Character;
-import models.CustomCharacter;
+import models.AttackDefend;
+import models.BattlegroundCharacterModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 import static resources.Cons.NO_ID;
 
-@RequestMapping("/initiateChallenge")
+@RequestMapping("/fightResult")
 @Controller
-public class InitiateChallenge {
+public class FightResults {
 
     @Autowired
-    CharacterDao characterDao;
+    ArenaDao arenaDao;
 
     @Autowired
     SessionsDao sessionsDao;
@@ -28,24 +28,22 @@ public class InitiateChallenge {
     UsersDao usersDao;
 
     @Autowired
-    ChallengesDao challengesDao;
-
-    @GetMapping
-    public String getChallenge() {
-        return "redirect:/";
-    }
+    CharacterDao characterDao;
 
     @PostMapping
-    public String postChallenge(@ModelAttribute CustomCharacter customCharacter, @CookieValue (value="sessionID", defaultValue = "0") String session){
+    public String fightOpponent (@ModelAttribute AttackDefend attackDefend, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
+
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            int challengedCharacterId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
-            challengesDao.insertChallenge(characterId, challengedCharacterId);
+            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefend.enemyName);
+            System.out.println("enemyid " + enemyId);
+            arenaDao.insertMatchResults(characterId, enemyId, attackDefend.attack, attackDefend.defence);
         }
-        return "redirect:/fighterselection";
+        System.out.println(userId);
+        return "redirect:/";
     }
 }

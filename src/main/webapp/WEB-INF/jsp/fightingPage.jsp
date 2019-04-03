@@ -40,5 +40,28 @@
 <p>${enemyModel.armor}</p>
 <p>${enemyModel.intelligence}</p>
 
+<form action="fightResult" method="post">
+    <label for="attack">Attack</label>
+    <select name="attack" id="attack">
+        <option value="head">Head</option>
+        <option value="body">Body</option>
+        <option value="legs">Legs</option>
+        <option value="arms">Arms</option>
+    </select>
+
+    <label for="defence">Defend</label>
+    <select name="defence" id="defence">Defend
+        <option value="head">Head</option>
+        <option value="body">Body</option>
+        <option value="legs">Legs</option>
+        <option value="arms">Arms</option>
+    </select>
+    <input name="enemyName" type="hidden" value="${enemyModel.name}">
+    <div class="btn btn-primary">
+    <button type="submit">Submit</button>
+    </div>
+
+</form>
+
 </body>
 </html>
