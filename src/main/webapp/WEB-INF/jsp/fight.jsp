@@ -25,7 +25,6 @@
 <body>
 
 <header>
-
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
             <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
@@ -35,10 +34,16 @@
                 <a class="nav-link" href="logout">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="fighterselection">Fight</a>
+                <a class="nav-link" href="arena">Arena</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Alita_Battle_war_exploded">Alita Battle</a>
+                <a class="nav-link" href="challenge">Challenges</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="fighterselection">Fight</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="about">About</a>
