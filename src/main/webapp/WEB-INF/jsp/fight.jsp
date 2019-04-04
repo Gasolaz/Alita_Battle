@@ -38,6 +38,9 @@
                 <a class="nav-link active" href="fighterselection">Fight</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" href="shop">Sklep</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
             <li class="nav-item">

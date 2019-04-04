@@ -20,6 +20,9 @@
                 <a class="nav-link active" href="fighterselection">Fight</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" href="shop">Sklep</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
             <li class="nav-item">
@@ -38,9 +41,9 @@
 
 <c:forEach items="${list}" var="character">
     <form method="post" action="acceptChallenge">
-        You are challenged by: <input type="text" value="${character.name}" readonly>
-        <input type="text" value="${character.race}" readonly>
-        <input type="text" value="${character.role}" readonly>
+        You are challenged by: <input type="text" value="${character.name}" name="name" readonly>
+        <input type="text" value="${character.race}" name="race" readonly>
+        <input type="text" value="${character.role}" name="role" readonly>
         <input type="submit" value="Accept Challenge">
     </form>
 </c:forEach>

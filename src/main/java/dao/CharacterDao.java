@@ -1,5 +1,6 @@
 package dao;
 
+import models.BattlegroundCharacterModel;
 import models.Character;
 import models.CustomCharacter;
 import models.User;
@@ -17,7 +18,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static resources.Cons.NO_ID;
+import static resources.Cons.*;
+import static resources.Cons.CHARACTERS_NAME;
 
 public class CharacterDao {
 
@@ -43,8 +45,8 @@ public class CharacterDao {
             if (rs.next()) {
                 roleId = rs.getInt("_id");
             }
-            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold)" +
-                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0)");
+            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold, item_set_id)" +
+                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0, 0)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,6 +120,46 @@ public class CharacterDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public BattlegroundCharacterModel formBattlegroundCharacterModelFromCharacterId( int characterId){
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT cha.character_name, cha.level, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
+                    "ON ra._id=cha.race_id INNER JOIN Roles AS ro ON ro._id=cha.role_id WHERE cha._id=" + characterId);
+            if(rs.next()){
+                int level = rs.getInt(2);
+                BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
+                battlegroundCharacterModel.setName(rs.getString(1));
+                battlegroundCharacterModel.setLevel(level);
+                battlegroundCharacterModel.setRace(rs.getString(3));
+                battlegroundCharacterModel.setRole(rs.getString(4));
+                battlegroundCharacterModel.setHp(level);
+                battlegroundCharacterModel.setMana(level);
+                battlegroundCharacterModel.setArmor(0);
+                battlegroundCharacterModel.setStrength(level);
+                battlegroundCharacterModel.setAgility(level);
+                battlegroundCharacterModel.setIntelligence(level);
+                return battlegroundCharacterModel;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getCharacterNameById(int char_id) {
+
+        try (Connection conn = dataSource.getConnection()) {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT " + CHARACTERS_NAME + " FROM " + TABLE_CHARACTERS + " WHERE _id=" + char_id);
+            if(rs.next()){
+                return rs.getString(CHARACTERS_NAME);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
