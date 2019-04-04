@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +54,16 @@ public class ChallengesDao {
             e.printStackTrace();
         }
         return customCharacters;
+    }
+
+    public void dropChallenged(int characterId, int enemyId) {
+        try(Connection conn = dataSource.getConnection()) {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM Challenges WHERE character_id=" + enemyId +
+                    " AND challenged_character_id=" + characterId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

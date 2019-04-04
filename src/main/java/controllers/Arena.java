@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,9 @@ public class Arena {
 
     @Autowired
     ArenaDao arenaDao;
+
+    @Autowired
+    ChallengesDao challengesDao;
 
     @GetMapping("/arena")
     public String getArena(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
@@ -83,7 +87,10 @@ public class Arena {
             int enemyId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
             arenaDao.insertPlayerToArena(characterId, enemyId);
 
-            return "redirect:/arena";
+            // Drop from Challenged from Challenges
+            challengesDao.dropChallenged(characterId, enemyId);
+
+            return "redirect:/challenge"; //redirect to challenges
         }
         return "redirect:/";
     }
