@@ -86,7 +86,8 @@ public class Arena {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             int enemyId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
             arenaDao.insertPlayerToArena(characterId, enemyId);
-            // TODO drop from Challenges
+
+            // Drop from Challenged from Challenges
             challengesDao.dropChallenged(characterId, enemyId);
 
             return "redirect:/challenge"; //redirect to challenges
