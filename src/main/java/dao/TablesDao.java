@@ -32,5 +32,7 @@ public class TablesDao {
         tablesTemplate.execute(INSERT_ROLE_PALADIN);
         tablesTemplate.execute(INSERT_ROLE_ROGUE);
         tablesTemplate.execute(CREATE_TABLE_BATTLE);
+        tablesTemplate.execute(CREATE_TABLE_FIGHT);
+//        tablesTemplate.execute(CREATE_TABLE_FIGHT_HP);
     }
 }

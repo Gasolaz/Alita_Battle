@@ -101,5 +101,58 @@ body {
     background-position: center;
     text-align: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
+/* ROW STYLING justify-content: start(left to right) end (right to left), center (center), reverse (all in reverse),
+between (space between tags, aligned to left and right [text] space [text]), center (in the center),
+around (space around tags) --> all should be done in row class
+align-items: start(from top to bot), end (from bot to top), center(center), reverse (all in reverse)
+TAG STYLING SELF
+align-self-start, end, center (top align)
+ */
+
+/*
+Order of styles
+** Google Fonts**
+**Bootstrap css**
+**Custom Styles**
+
+**jquery**
+**popper**
+**bootstrap**
+</body>
+
+/*
+IMAGES RESPONSIVE
+class="img-fluid"
+ */
+
+/*
+DISPLAY:
+d-none (hide), block (display in block),
+ */
+
+/*
+@media (max-width){
+h1 {
+font-weight: 100;
+font-size: 3rem;
+}
+}
+ */
+
+/*
+JS for navbar scroll and fixed
+fixed-top
+$(function (){
+$ (document).scroll(function(){
+var $nav = $("mainNavbar");
+$nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+});
+});
+
+CSS - .navbar .scrolled{
+background: ;
+transition: background; 1s;
+ */

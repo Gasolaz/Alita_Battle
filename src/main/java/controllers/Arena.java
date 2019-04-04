@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,9 @@ public class Arena {
     @Autowired
     ArenaDao arenaDao;
 
+    @Autowired
+    ChallengesDao challengesDao;
+
     @GetMapping("/arena")
     public String getArena(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
 
@@ -43,7 +47,6 @@ public class Arena {
             return "arena";
         }
         return "redirect:/";
-
     }
 
     @PostMapping("/arena")
@@ -60,8 +63,14 @@ public class Arena {
             BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
-
-            return "fightingPage";
+            if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
+                return "fightingPage";
+            }
+            if(arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)){
+                arenaDao.resolveFight(characterId, enemyId);
+                return "fightingPage";
+            }
+            return "redirect:/waiting";
         }
         return "redirect:/";
     }
@@ -77,8 +86,10 @@ public class Arena {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             int enemyId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
             arenaDao.insertPlayerToArena(characterId, enemyId);
+            // TODO drop from Challenges
+            challengesDao.dropChallenged(characterId, enemyId);
 
-            return "redirect:/arena";
+            return "redirect:/challenge"; //redirect to challenges
         }
         return "redirect:/";
     }
