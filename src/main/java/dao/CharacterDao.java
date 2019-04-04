@@ -54,8 +54,7 @@ public class CharacterDao {
 
     public List<Character> getAllCharactersExceptYourself(int characterId) {
 //        String sql = "select * from Characters WHERE _id!=" + characterId +
-//                " AND WHERE _id=" + characterId + " IN (select * from Challenges WHERE challenged_character_id is NULL)"; // while rs.next, st2 -> rs -> select
-//        // * is challenges kur challenged=rs.getInt(_id) AND challenger_id=userId, if(rs.next) continue; else
+//                " AND WHERE _id=" + characterId + " IN (select * from Challenges WHERE challenged_character_id is NULL)";
 //        return characterTemplate.query(sql, new RowMapper<Character>() {
 //            public Character mapRow(ResultSet rs, int row) throws SQLException {
 //                Character character = new Character();
@@ -74,27 +73,20 @@ public class CharacterDao {
         List<Character> characters= new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
             Statement statement = conn.createStatement();
-            Statement statement2 = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId);
-            while(rs.next()){
-                ResultSet rs2 = statement2.executeQuery("SELECT COUNT(*) FROM Challenges WHERE character_id=" + characterId +
-                        " AND challenged_character_id=" + rs.getInt("_id"));
-                rs2.next();
-                if(rs2.getInt(1) > 0) {
-                    continue;
-                } else {
-                    Character character = new Character();
-                    character.set_id(rs.getInt(1));
-                    character.setCharacter_name(rs.getString(2));
-                    character.setRace(Integer.toString(rs.getInt(3)));
-                    character.setRole(Integer.toString(rs.getInt(4)));
-                    character.setSex(rs.getString(5));
-                    character.setLevel(rs.getInt(6));
-                    character.setWins(rs.getInt(7));
-                    character.setLoses(rs.getInt(8));
-                    character.setGold(rs.getInt(9));
-                    characters.add(character);
-                }
+            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN (SELECT challenged_character_id FROM Challenges" +
+                    " WHERE character_id=" + characterId + ")");
+            while (rs.next()){
+                Character character = new Character();
+                character.set_id(rs.getInt(1));
+                character.setCharacter_name(rs.getString(2));
+                character.setRace(Integer.toString(rs.getInt(3)));
+                character.setRole(Integer.toString(rs.getInt(4)));
+                character.setSex(rs.getString(5));
+                character.setLevel(rs.getInt(6));
+                character.setWins(rs.getInt(7));
+                character.setLoses(rs.getInt(8));
+                character.setGold(rs.getInt(9));
+                characters.add(character);
             }
         } catch (SQLException e){
             e.printStackTrace();
