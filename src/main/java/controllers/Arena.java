@@ -59,20 +59,52 @@ public class Arena {
             BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
+            if (arenaDao.checkIfResultIsEmpty(characterId, enemyId) != null) {
+                String result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
+                if (result.equals("win") || result.equals("lose") || result.equals("draw")) {
+                    characterDao.updateCharacterAccordingToResult(characterId, result);
+                    arenaDao.deleteFightAndArenaForYou(characterId, enemyId);
+                }
+                switch (result) {
+                    case "win":
+                        model.put("matchResult", yourModel.name + " have won vs. " + enemyModel.name);
+                        break;
+                    case "draw":
+                        model.put("matchResult", yourModel.name + " draw vs. " + enemyModel.name);
+                        break;
+                    case "lose":
+                        model.put("matchResult", yourModel.name + " have lost vs " + enemyModel.name);
+                        break;
+                }
+                return "fightResult";
+            }
             if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
                 return "fightingPage";
             }
-            if(arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)){
-                arenaDao.resolveFight(characterId, enemyId);
+            if (arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)) {
+                int i = arenaDao.resolveFight(characterId, enemyId);
+                if (i == 1) {
+                    model.put("matchResult", yourModel.name + " have won vs. " + enemyModel.name);
+                    return "fightResult";
+                } else if (i == 3) {
+                    model.put("matchResult", yourModel.name + " draw vs. " + enemyModel.name);
+                    return "fightResult";
+                } else if (i == 2) {
+                    model.put("matchResult", yourModel.name + " have lost vs " + enemyModel.name);
+                    return "fightResult";
+                }
+
                 return "fightingPage";
             }
-            return "redirect:/waiting";
+//            return "redirect:/waiting";
         }
         return "redirect:/";
     }
 
     @PostMapping("/acceptChallenge")
-    public String postAcceptChallenge(@ModelAttribute CustomCharacter customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
+    public String postAcceptChallenge(@ModelAttribute CustomCharacter
+                                              customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String
+                                              session) {
 
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {

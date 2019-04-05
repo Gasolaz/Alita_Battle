@@ -25,81 +25,124 @@ public class ArenaDao {
         this.areneTemplate = areneTemplate;
     }
 
-    public void resolveFight(int characterId, int enemyId){
+    public String checkIfResultIsEmpty(int characterId, int enemyId){
+        try (Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId + " AND enemy_id="
+             + enemyId);
+            if(rs.next() && rs.getString("result") != null){
+                return rs.getString("result");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean deleteFightAndArenaForYou (int characterId, int enemyId){
         try(Connection conn = dataSource.getConnection()){
             Statement st = conn.createStatement();
+            st.executeUpdate("DELETE FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+            st.executeUpdate("DELETE FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public int resolveFight(int characterId, int enemyId) {
+        int i = 0;
+        int newHp1 = 1;
+        int newHp2 = 1;
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
-            if(rs.next()){
+            if (rs.next()) {
                 String attacked1 = rs.getString("attack");
                 String defended1 = rs.getString("defend");
-                int newHp1 = 1;
-                int newHp2 = 1;
+
                 rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
-                if(rs.next()){
+                if (rs.next()) {
                     String attacked2 = rs.getString("attack");
                     String defended2 = rs.getString("defend");
-                    if(!attacked1.equals(defended2)){
+                    if (!attacked1.equals(defended2)) {
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
-                        if(rs.next()) {
-                            newHp1 = rs.getInt("hp") - 10;
+                        if (rs.next()) {
+                            newHp1 = rs.getInt("hp") - 40;
                             st.executeUpdate("UPDATE Arena SET hp=" + newHp1 + " WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                         }
                     }
-                    if(!attacked2.equals(defended1)){
+                    if (!attacked2.equals(defended1)) {
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
-                        if(rs.next()) {
-                            newHp2 = rs.getInt("hp") - 10;
+                        if (rs.next()) {
+                            newHp2 = rs.getInt("hp") - 40;
                             st.executeUpdate("UPDATE Arena SET hp=" + newHp2 + " WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                         }
                     }
 
                     System.out.println("Player 1:" + newHp1);
                     System.out.println("Player 2:" + newHp2);
-                    if(newHp1 <= 0 && newHp2 <= 0){
-                        // draw logic
 
-                    } else if (newHp1 <= 0){
-                        // player2 wins
-                        System.out.println("Player 2: wins" + enemyId);
-                    } else if (newHp2 <= 0) {
-                        // player1 wins
-                        System.out.println("Player 1: wins" + characterId);
-                    }
 
-                    st.executeUpdate("DELETE FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
-                    st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 }
             }
-        } catch(SQLException e){
+
+            st.executeQuery("SELECT hp FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+            if (newHp1 <= 0 && newHp2 <= 0) {
+                // draw logic
+                i = 3;
+                st.executeUpdate("UPDATE Arena SET result='draw' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
+                st.executeUpdate("DELETE FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+                st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
+                return i;
+            } else if (newHp1 <= 0) {
+                // player2 wins
+                i = 2;
+                st.executeUpdate("UPDATE Arena SET result='win' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
+                st.executeUpdate("DELETE FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+                st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
+                return i;
+            } else if (newHp2 <= 0) {
+                // player1 wins
+                i = 1;
+                st.executeUpdate("UPDATE Arena SET result='lose' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
+                st.executeUpdate("DELETE FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+                st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
+                return i;
+            }
+            st.executeUpdate("DELETE FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
+            st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        return i;
     }
 
-    public boolean checkIfBothCharactersMadeADecision(int characterId, int enemyId){
-        try (Connection conn = dataSource.getConnection()){
+    public boolean checkIfBothCharactersMadeADecision(int characterId, int enemyId) {
+        try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
-            if(rs.next()){
+            if (rs.next()) {
                 rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
-                if(rs.next()){
+                if (rs.next()) {
                     return true;
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean checkIfYouMadeADecision(int characterId, int enemyId){
-        try(Connection conn = dataSource.getConnection()){
+    public boolean checkIfYouMadeADecision(int characterId, int enemyId) {
+        try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
             rs.next();
-            if(rs.getInt(1) > 0){
+            if (rs.getInt(1) > 0) {
                 return true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -111,52 +154,52 @@ public class ArenaDao {
             int characterHpId = 0;
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + character_id + " AND enemy_id=" + enemy_id);
-            if(rs.next()){
+            if (rs.next()) {
                 characterHpId = rs.getInt("_id");
             }
             st.executeUpdate("INSERT INTO Fight(char_id, enemy_id, attack, defend, hp_id) VALUES(" + character_id + ", " + enemy_id +
                     ", '" + attack + "', '" + defend + "', " + characterHpId + ")");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void insertPlayerToArena (int characterId, int enemyId){
+    public void insertPlayerToArena(int characterId, int enemyId) {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
             BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
             int characterHp = 0;
             int enemyHp = 0;
-            if(rs.next()){
+            if (rs.next()) {
                 battlegroundCharacterModel.setLevel(rs.getInt("level"));
 //                battlegroundCharacterModel.setHp(rs.getInt("level"));
                 characterHp = battlegroundCharacterModel.getHp();
             }
             rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + enemyId);
-            if(rs.next()){
+            if (rs.next()) {
                 battlegroundCharacterModel.setLevel(rs.getInt("level"));
 //                battlegroundCharacterModel.setHp(rs.getInt("level"));
                 enemyHp = battlegroundCharacterModel.getHp();
             }
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + characterId + ", " + enemyId + ", " + characterHp + ")");
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + enemyId + ", " + characterId + ", " + enemyHp + ")");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<CustomCharacter> selectFightsByCharacterId(int characterId){
+    public List<CustomCharacter> selectFightsByCharacterId(int characterId) {
         List<CustomCharacter> customCharacters = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             Statement statement2 = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId);
-            while(rs.next()){
+            while (rs.next()) {
                 int enemyId = rs.getInt("enemy_id");
                 ResultSet rs2 = statement2.executeQuery("SELECT cha.character_name, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra ON " +
                         "cha.race_id=ra._id INNER JOIN Roles AS ro ON cha.role_id=ro._id WHERE cha._id=" + enemyId);
-                while(rs2.next()){
+                while (rs2.next()) {
                     CustomCharacter customCharacter = new CustomCharacter();
                     customCharacter.setName(rs2.getString(1));
                     customCharacter.setRace(rs2.getString(2));
@@ -164,7 +207,7 @@ public class ArenaDao {
                     customCharacters.add(customCharacter);
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return customCharacters;

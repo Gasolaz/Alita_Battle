@@ -52,6 +52,30 @@ public class CharacterDao {
         }
     }
 
+    public void updateCharacterAccordingToResult (int characterId, String result){
+        try (Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT wins, loses FROM Characters WHERE _id=" + characterId);
+            rs.next();
+            int wins = rs.getInt(1);
+            int loses = rs.getInt(2);
+            if(result.equals("win")){
+                wins++;
+                statement.executeUpdate("UPDATE Characters SET wins=" + wins + " WHERE _id=" + characterId);
+            } else if(result.equals("lose")){
+                loses++;
+                statement.executeUpdate("UPDATE Characters SET loses=" + loses + " WHERE _id=" + characterId);
+            } else if (result.equals("draw")){
+                // draw does nothing?
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     public List<Character> getAllCharactersExceptYourself(int characterId) {
         String sql = "select * from Characters WHERE _id!=" + characterId;
         return characterTemplate.query(sql, new RowMapper<Character>() {
