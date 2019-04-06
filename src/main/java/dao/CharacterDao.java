@@ -66,29 +66,37 @@ public class CharacterDao {
         }
     }
 
+    public void updateCharacterAccordingToResult (int characterId, String result){
+        try (Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT wins, loses FROM Characters WHERE _id=" + characterId);
+            rs.next();
+            int wins = rs.getInt(1);
+            int loses = rs.getInt(2);
+            if(result.equals("win")){
+                wins++;
+                statement.executeUpdate("UPDATE Characters SET wins=" + wins + " WHERE _id=" + characterId);
+            } else if(result.equals("lose")){
+                loses++;
+                statement.executeUpdate("UPDATE Characters SET loses=" + loses + " WHERE _id=" + characterId);
+            } else if (result.equals("draw")){
+                // draw does nothing?
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     public List<Character> getAllCharactersExceptYourself(int characterId) {
-//        String sql = "select * from Characters WHERE _id!=" + characterId +
-//                " AND WHERE _id=" + characterId + " IN (select * from Challenges WHERE challenged_character_id is NULL)";
-//        return characterTemplate.query(sql, new RowMapper<Character>() {
-//            public Character mapRow(ResultSet rs, int row) throws SQLException {
-//                Character character = new Character();
-//                character.set_id(rs.getInt(1));
-//                character.setCharacter_name(rs.getString(2));
-//                character.setRace(Integer.toString(rs.getInt(3)));
-//                character.setRole(Integer.toString(rs.getInt(4)));
-//                character.setSex(rs.getString(5));
-//                character.setLevel(rs.getInt(6));
-//                character.setWins(rs.getInt(7));
-//                character.setLoses(rs.getInt(8));
-//                character.setGold(rs.getInt(9));
-//                return character;
-//            }
-//        });
         List<Character> characters= new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN " +
-                    "(SELECT challenged_character_id FROM Challenges WHERE character_id=" + characterId + ")");
+                    "(SELECT challenged_character_id FROM Challenges WHERE character_id=" + characterId + ") AND _id NOT IN (SELECT character_id FROM Challenges WHERE " +
+                    "challenged_character_id=" + characterId + ")");
             while (rs.next()){
                 Character character = new Character();
                 character.set_id(rs.getInt(1));

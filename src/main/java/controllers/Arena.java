@@ -43,7 +43,6 @@ public class Arena {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             List<CustomCharacter> charactersWhoFightWithYou = arenaDao.selectFightsByCharacterId(characterId);
             model.put("list", charactersWhoFightWithYou);
-
             return "arena";
         }
         return "redirect:/";
@@ -63,14 +62,24 @@ public class Arena {
             BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
+            String result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
+//            System.out.println("result = " + result);
+            if (result != null) {
+                return returnFightResultPage(result, characterId, enemyId, model, yourModel, enemyModel);
+            }
+
             if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
                 return "fightingPage";
             }
-            if(arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)){
+            if (arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)) {
                 arenaDao.resolveFight(characterId, enemyId);
+                result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
+//                System.out.println("result = " + result);
+                if (result != null) {
+                    return returnFightResultPage(result, characterId, enemyId, model, yourModel, enemyModel);
+                }
                 return "fightingPage";
             }
-            return "redirect:/waiting";
         }
         return "redirect:/";
     }
@@ -93,5 +102,25 @@ public class Arena {
             return "redirect:/challenge"; //redirect to challenges
         }
         return "redirect:/";
+    }
+
+    public String returnFightResultPage(String result, int characterId, int enemyId, Map<String, Object> model,
+                                 BattlegroundCharacterModel yourModel, BattlegroundCharacterModel enemyModel) {
+        if (result.equals("win") || result.equals("lose") || result.equals("draw")) {
+            characterDao.updateCharacterAccordingToResult(characterId, result);
+            arenaDao.deleteFightAndArenaForYou(characterId, enemyId);
+        }
+        switch (result) {
+            case "win":
+                model.put("matchResult", yourModel.name + " have won vs. " + enemyModel.name);
+                break;
+            case "draw":
+                model.put("matchResult", yourModel.name + " draw vs. " + enemyModel.name);
+                break;
+            case "lose":
+                model.put("matchResult", yourModel.name + " have lost vs " + enemyModel.name);
+                break;
+        }
+        return "fightResult";
     }
 }

@@ -5,6 +5,9 @@
         </a>
         <ul class="nav justify-content-end">
             <li class="nav-item">
+                <p>${character_name}</p>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="logout">Logout</a>
             </li>
             <li class="nav-item">
