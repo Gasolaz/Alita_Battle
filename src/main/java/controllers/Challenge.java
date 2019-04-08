@@ -32,12 +32,14 @@ public class Challenge {
     @GetMapping
     public String getChallenge(Map<String, Object> model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L)
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
             }
             List<CustomCharacter> charactersWhoChallengeYou = challengesDao.getAllChallengesForYou(userId);
             model.put("list", charactersWhoChallengeYou);
+            model.put("username", userName); // (L) add to model 'userName'
             return "challenge";
         }
         return "redirect:/";

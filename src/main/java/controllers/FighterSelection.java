@@ -32,6 +32,8 @@ public class FighterSelection {
     @GetMapping
     public String getFighters(Map<String, Object> model, @CookieValue (value= "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L) get 'userName' from ID
+
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
@@ -40,6 +42,8 @@ public class FighterSelection {
             List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
             List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
             model.put("list", customCharacters);
+            model.put("username", userName); // (L) add to model 'userName'
+
             return "fight";
         }
         return "redirect:/";

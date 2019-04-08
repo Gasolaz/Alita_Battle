@@ -25,7 +25,8 @@ public class ArenaDao {
         this.areneTemplate = areneTemplate;
     }
 
-    public void resolveFight(int characterId, int enemyId){
+    public int resolveFight(int characterId, int enemyId){
+        int i = 0;
         try(Connection conn = dataSource.getConnection()){
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Fight WHERE char_id=" + characterId + " AND enemy_id=" + enemyId);
@@ -56,13 +57,13 @@ public class ArenaDao {
                     System.out.println("Player 1:" + newHp1);
                     System.out.println("Player 2:" + newHp2);
                     if(newHp1 <= 0 && newHp2 <= 0){
-                        // draw logic
+                        i = 3;
 
                     } else if (newHp1 <= 0){
-                        // player2 wins
+                        i = 1;
                         System.out.println("Player 2: wins" + enemyId);
                     } else if (newHp2 <= 0) {
-                        // player1 wins
+                        i = 2;
                         System.out.println("Player 1: wins" + characterId);
                     }
 
@@ -73,6 +74,7 @@ public class ArenaDao {
         } catch(SQLException e){
             e.printStackTrace();
         }
+        return i;
     }
 
     public boolean checkIfBothCharactersMadeADecision(int characterId, int enemyId){

@@ -32,6 +32,20 @@ public class CharacterDao {
         this.characterTemplate = characterTemplate;
     }
 
+    public boolean isUsernameAlreadyTaken(String name){
+        try (Connection conn = dataSource.getConnection()){
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM Characters WHERE character_name='" + name + "'");
+             rs.next();
+             if(rs.getInt(1) > 0){
+                 return true;
+             }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void save(String race, String role, String gender, String name) {
         try (Connection conn = dataSource.getConnection()) {
             Statement statement = conn.createStatement();
@@ -73,8 +87,8 @@ public class CharacterDao {
         List<Character> characters= new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN (SELECT challenged_character_id FROM Challenges" +
-                    " WHERE character_id=" + characterId + ")");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN " +
+                    "(SELECT challenged_character_id FROM Challenges WHERE character_id=" + characterId + ")");
             while (rs.next()){
                 Character character = new Character();
                 character.set_id(rs.getInt(1));

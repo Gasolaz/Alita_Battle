@@ -44,12 +44,16 @@ public class Login {
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L) get 'userName' from ID
+
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "characterCreation";
             }
             List<Message> messages = msgDao.getMessages();
+
             model.put("messages", messages);
+            model.put("username", userName); // (L) add to model 'userName'
 
             return "loggedIn";
         }

@@ -36,6 +36,7 @@ public class Arena {
     public String getArena(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
 
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L) get 'userName' from ID
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
@@ -43,6 +44,7 @@ public class Arena {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             List<CustomCharacter> charactersWhoFightWithYou = arenaDao.selectFightsByCharacterId(characterId);
             model.put("list", charactersWhoFightWithYou);
+            model.put("username", userName); // (L) add to model 'userName'
 
             return "arena";
         }
@@ -79,6 +81,7 @@ public class Arena {
     public String postAcceptChallenge(@ModelAttribute CustomCharacter customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
 
         int userId = sessionsDao.getUserIdFromSession(session);
+
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
