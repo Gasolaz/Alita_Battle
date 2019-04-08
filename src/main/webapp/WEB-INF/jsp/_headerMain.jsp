@@ -1,12 +1,17 @@
 <header>
+    <p style="font-size: 10px; margin: 3px 0 0 30px; padding: 0;"><%= new java.util.Date() %></p>
     <nav class="navbar navbar-dark bg-dark">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link navbar-left" href="">
+                    <p> Welcome, ${characterName}</p>
+                </a>
+            </li>
+        </ul>
         <a class="navbar-brand" href="#">
             <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
         </a>
         <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <p>${character_name}</p>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="logout">Logout</a>
             </li>

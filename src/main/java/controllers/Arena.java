@@ -41,8 +41,11 @@ public class Arena {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
+            String characterName = characterDao.getCharacterNameById(characterId);
             List<CustomCharacter> charactersWhoFightWithYou = arenaDao.selectFightsByCharacterId(characterId);
             model.put("list", charactersWhoFightWithYou);
+            model.put("characterName", characterName); // (L) add to model 'characterName'
+
             return "arena";
         }
         return "redirect:/";

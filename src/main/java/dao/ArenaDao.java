@@ -68,14 +68,14 @@ public class ArenaDao {
                     if (!attacked1.equals(defended2)) {
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                         if (rs.next()) {
-                            newHp1 = rs.getInt("hp") - 40;
+                            newHp1 = rs.getInt("hp") - 20;
                             st.executeUpdate("UPDATE Arena SET hp=" + newHp1 + " WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                         }
                     }
                     if (!attacked2.equals(defended1)) {
                         rs = st.executeQuery("SELECT * FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                         if (rs.next()) {
-                            newHp2 = rs.getInt("hp") - 40;
+                            newHp2 = rs.getInt("hp") - 20;
                             st.executeUpdate("UPDATE Arena SET hp=" + newHp2 + " WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                         }
                     }

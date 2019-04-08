@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.ChallengesDao;
+import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
 import models.Character;
@@ -29,15 +30,21 @@ public class Challenge {
     @Autowired
     ChallengesDao challengesDao;
 
+    @Autowired
+    CharacterDao characterDao;
+
     @GetMapping
     public String getChallenge(Map<String, Object> model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L)
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
             }
+            String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
             List<CustomCharacter> charactersWhoChallengeYou = challengesDao.getAllChallengesForYou(userId);
             model.put("list", charactersWhoChallengeYou);
+            model.put("characterName", characterName); // (L) add to model 'characterName'
             return "challenge";
         }
         return "redirect:/";
