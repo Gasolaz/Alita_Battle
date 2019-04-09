@@ -4,8 +4,7 @@ import dao.ArenaDao;
 import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.AttackDefend;
-import models.BattlegroundCharacterModel;
+import models.AttackDefendBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class FightResults {
     CharacterDao characterDao;
 
     @PostMapping
-    public String fightOpponent (@ModelAttribute AttackDefend attackDefend, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
+    public String fightOpponent (@ModelAttribute AttackDefendBL attackDefendBL, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
 
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
@@ -39,11 +38,9 @@ public class FightResults {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefend.enemyName);
-            System.out.println("enemyid " + enemyId);
-            arenaDao.insertMatchResults(characterId, enemyId, attackDefend.attack, attackDefend.defence);
+            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefendBL.enemyName);
+            arenaDao.insertMatchResults(characterId, enemyId, attackDefendBL.attack, attackDefendBL.defence);
         }
-        System.out.println(userId);
         return "redirect:/";
     }
 }

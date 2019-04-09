@@ -4,7 +4,7 @@
         <ul class="nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link navbar-left" href="">
-                    <p> Welcome, ${username}</p>
+                    <p> Welcome, ${characterName}</p>
                 </a>
             </li>
         </ul>

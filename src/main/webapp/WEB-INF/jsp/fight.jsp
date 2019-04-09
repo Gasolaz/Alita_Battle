@@ -1,4 +1,4 @@
-<%@ page import="models.Character" %>
+<%@ page import="models.CharacterDAL" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -27,11 +27,11 @@
 
 <p>Fighters</p>
 
-<c:forEach items="${list}" var="character">
+<c:forEach items="${list}" var="characterDAL">
     <form method="post" action="initiateChallenge">
-        <input type="text" value="${character.name}" name="name" readonly>
-        <input type="text" value="${character.race}" name="race" readonly>
-        <input type="text" value="${character.role}" name="role" readonly>
+        <input type="text" value="${characterDAL.name}" name="name" readonly>
+        <input type="text" value="${characterDAL.race}" name="race" readonly>
+        <input type="text" value="${characterDAL.role}" name="role" readonly>
         <input type="submit" value="Challenge Opponent">
     </form>
 </c:forEach>

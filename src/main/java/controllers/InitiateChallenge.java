@@ -4,13 +4,10 @@ import dao.ChallengesDao;
 import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.Character;
-import models.CustomCharacter;
+import models.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static resources.Cons.NO_ID;
 
@@ -36,7 +33,7 @@ public class InitiateChallenge {
     }
 
     @PostMapping
-    public String postChallenge(@ModelAttribute CustomCharacter customCharacter, @CookieValue (value="sessionID", defaultValue = "0") String session){
+    public String postChallenge(@ModelAttribute CustomCharacterBL customCharacter, @CookieValue (value="sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {

@@ -1,6 +1,6 @@
 package dao;
 
-import models.CustomCharacter;
+import models.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -29,8 +29,8 @@ public class ChallengesDao {
         }
     }
 
-    public List<CustomCharacter> getAllChallengesForYou(int userId) {
-        List<CustomCharacter> customCharacters = new ArrayList<>();
+    public List<CustomCharacterBL> getAllChallengesForYou(int userId) {
+        List<CustomCharacterBL> customCharacters = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             String getCharacterId = "SELECT character_id FROM Users WHERE _id=" + userId;
 //            String sql = "SELECT cha.character_name, ra.race_name, ro.role FROM Users AS u INNER JOIN Characters AS cha ON cha._id=u.character_id INNER JOIN Roles AS ro ON " +
@@ -43,7 +43,7 @@ public class ChallengesDao {
                         "ra._id=cha.race_id INNER JOIN Challenges AS chal ON chal.character_id=cha._id WHERE chal.challenged_character_id=" + id;
                 rs = statement.executeQuery(sql);
                 while (rs.next()) {
-                    CustomCharacter customCharacter = new CustomCharacter();
+                    CustomCharacterBL customCharacter = new CustomCharacterBL();
                     customCharacter.setName(rs.getString(1));
                     customCharacter.setRace(rs.getString(2));
                     customCharacter.setRole(rs.getString(3));

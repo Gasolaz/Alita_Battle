@@ -1,6 +1,6 @@
 package models;
 
-public class Character {
+public class CharacterDAL {
     public int _id;
     public String character_name;
     public String race;
@@ -11,7 +11,7 @@ public class Character {
     public int loses;
     public int gold;
 
-    public Character() {
+    public CharacterDAL() {
     }
 
     public int get_id() {

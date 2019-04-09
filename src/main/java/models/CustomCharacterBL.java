@@ -1,11 +1,11 @@
 package models;
 
-public class CustomCharacter {
+public class CustomCharacterBL {
     public String name;
     public String race;
     public String role;
 
-    public CustomCharacter() {
+    public CustomCharacterBL() {
     }
 
     public String getName() {

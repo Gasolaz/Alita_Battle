@@ -1,12 +1,12 @@
 package models;
 
-public class Session {
+public class SessionDAL {
     public int _id;
     public String hashed_session;
     public String salt;
     public int user_id;
 
-    public Session() {}
+    public SessionDAL() {}
 
     public int get_id() {
         return _id;

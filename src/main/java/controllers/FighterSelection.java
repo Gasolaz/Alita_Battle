@@ -3,8 +3,8 @@ package controllers;
 import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.Character;
-import models.CustomCharacter;
+import models.CharacterDAL;
+import models.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -39,10 +39,11 @@ public class FighterSelection {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
-            List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
+            List<CharacterDAL> characterDALS = characterDao.getAllCharactersExceptYourself(characterId);
+            List<CustomCharacterBL> customCharacters = characterDao.formCustomCharacterModel(characterDALS);
+            String characterName = characterDao.getCharacterNameById(characterId);
             model.put("list", customCharacters);
-            model.put("username", userName); // (L) add to model 'userName'
+            model.put("characterName", characterName); // (L) add to model 'characterName'
 
             return "fight";
         }

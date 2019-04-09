@@ -1,9 +1,8 @@
 package dao;
 
-import models.Message;
+import models.MessageDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -42,15 +41,15 @@ public class MsgDao {
         }
     }
 
-    public List<Message> getMessages() {
-        List<Message> messagesList = new ArrayList<>();
+    public List<MessageDAL> getMessages() {
+        List<MessageDAL> messagesList = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection()){
             PreparedStatement ps = conn.prepareStatement(SELECT_MESSAGES);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 String charName = characterDao.getCharacterNameById(rs.getInt("char_id"));
-                Message message = new Message(charName, rs.getLong(MESSAGES_CHARACTER_ID), rs.getTimestamp(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
+                MessageDAL message = new MessageDAL(charName, rs.getLong(MESSAGES_CHARACTER_ID), rs.getTimestamp(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
                 messagesList.add(message);
             }
         } catch (SQLException e) {

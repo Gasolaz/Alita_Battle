@@ -3,7 +3,7 @@ package controllers;
 import dao.CharacterDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.CharacterFormModel;
+import models.CharacterFormModelBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class CharacterCreate {
 
     @PostMapping("/create")
     public String postCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session,
-                             @ModelAttribute CharacterFormModel cfm){
+                             @ModelAttribute CharacterFormModelBL cfm){
         if(!characterDao.isUsernameAlreadyTaken(cfm.name)){
             int userId = sessionsDao.getUserIdFromSession(session);
             characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);

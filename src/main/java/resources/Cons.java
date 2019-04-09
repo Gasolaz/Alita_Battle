@@ -3,7 +3,7 @@ package resources;
 import com.mysql.cj.xdevapi.Table;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
-public class Cons {
+public final class Cons {
 
     //    All Tables ID
     public static final String ID = "_id";
@@ -123,7 +123,7 @@ public class Cons {
 
     //Arena Table
     public static final String CREATE_TABLE_BATTLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ARENA + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +
-            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, hp INTEGER NOT NULL, PRIMARY KEY(" + ID + "))";
+            ARENA_CHARACTER_ID + " INTEGER NOT NULL, " + ARENA_ENEMY_ID + " INTEGER NOT NULL, hp INTEGER NOT NULL, result TEXT, PRIMARY KEY(" + ID + "))";
 
     // Figthing Table
     public static final String CREATE_TABLE_FIGHT = "CREATE TABLE IF NOT EXISTS Fight (_id INTEGER NOT NULL AUTO_INCREMENT, " +

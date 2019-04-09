@@ -1,7 +1,7 @@
 package dao;
 
 
-import models.User;
+import models.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -60,7 +60,7 @@ public class UsersDao {
         return NO_ID;
     }
 
-//    public int update(User user) {
+//    public int update(UserDAL user) {
 //        String sql = "update Emp99 set name='" + p.getName() + "', salary=" + p.getSalary() + ",designation='" + p.getDesignation() + "' where id=" + p.getId() + "";
 //        return template.update(sql);
 //    }
@@ -70,11 +70,11 @@ public class UsersDao {
 //        return template.update(sql);
 //    }
 
-    public List<User> getUsersByUsernameOrEmail(String username, String email){
+    public List<UserDAL> getUsersByUsernameOrEmail(String username, String email){
         String sql = "select * from Users where lower(username)='" + username.toLowerCase() + "' OR lower(email)='" + email.toLowerCase() + "'";
-        return usersTemplate.query(sql, new RowMapper<User>() {
-            public User mapRow(ResultSet rs, int row) throws SQLException {
-                User user = new User();
+        return usersTemplate.query(sql, new RowMapper<UserDAL>() {
+            public UserDAL mapRow(ResultSet rs, int row) throws SQLException {
+                UserDAL user = new UserDAL();
                 user.set_id(rs.getInt(1));
                 user.setUsername(rs.getString(2));
                 user.setHashed_pass(rs.getString(3));
@@ -86,9 +86,9 @@ public class UsersDao {
         });
     }
 
-    public User getUserByUsername(String username){
+    public UserDAL getUserByUsername(String username){
         String sql = "select * from Users where username='" + username + "'";
-        return usersTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class));
+        return usersTemplate.queryForObject(sql, new BeanPropertyRowMapper<UserDAL>(UserDAL.class));
     }
 
 //    public List<Emp> getEmployees() {

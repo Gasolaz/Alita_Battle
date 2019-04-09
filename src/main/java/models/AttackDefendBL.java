@@ -1,12 +1,12 @@
 package models;
 
-public class AttackDefend {
+public class AttackDefendBL {
 
     public String attack;
     public String defence;
     public String enemyName;
 
-    public AttackDefend() {
+    public AttackDefendBL() {
     }
 
     public String getAttack() {

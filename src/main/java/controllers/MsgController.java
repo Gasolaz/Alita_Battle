@@ -4,7 +4,7 @@ import dao.CharacterDao;
 import dao.MsgDao;
 import dao.SessionsDao;
 import dao.UsersDao;
-import models.Message;
+import models.MessageDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class MsgController {
     SessionsDao sessionsDao;
 
     @PostMapping
-    public String postMsgController(@ModelAttribute Message message, @CookieValue(value = "sessionID", defaultValue = "0") String session){
+    public String postMsgController(@ModelAttribute MessageDAL message, @CookieValue(value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
