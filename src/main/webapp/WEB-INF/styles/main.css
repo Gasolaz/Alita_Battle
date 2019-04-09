@@ -1,15 +1,18 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'VT323', monospace;
     background-color: blanchedalmond;
-
 }
 
-footer .image {
+.nav-item a{
+    font-size: 22px;
+    color: white !important;
+}
+
+footer .img-fluid {
     position: absolute;
     right: 0;
-    width: 30vw;
     bottom: 0;
-    height: 30%;
+    height: 13rem;
 }
 
 nav {
@@ -43,7 +46,7 @@ nav {
     background: #36c1ac !important;
     border-color: #36c1ac !important;
     border-style: solid !important;
-    border-width: 5px 20px !important;
+    border-width: 8px 27px !important;
     color: #130d44 !important;
     line-height: 1.7 !important;
     text-decoration: none !important;
@@ -114,3 +117,34 @@ form #characterReg {
     overflow: scroll;
 }
 
+.buttons .btn-primary:after{
+
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+}
+
+.buttons .btn-primary:after{
+
+    width: 80%;
+    height: 0;
+    top: 49%;
+    left: 67%;
+    background: #fff;
+    opacity: 0;
+    -webkit-transform: translateX(-67%) translateY(-57%) rotate(90deg);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+}
+
+.buttons .btn-primary:hover:after{
+
+    height: 260%;
+    opacity: 1;
+
+}

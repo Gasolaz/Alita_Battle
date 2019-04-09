@@ -1,9 +1,6 @@
 package controllers;
 
-import dao.MsgDao;
-import dao.SessionsDao;
-import dao.TablesDao;
-import dao.UsersDao;
+import dao.*;
 import models.Message;
 import models.RegistrationFormTempUser;
 import models.Session;
@@ -41,15 +38,22 @@ public class Login {
     @Autowired
     MsgDao msgDao;
 
+    @Autowired
+    CharacterDao characterDao;
+
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L) get 'userName' from ID
+
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "characterCreation";
             }
             List<Message> messages = msgDao.getMessages();
+            String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
             model.put("messages", messages);
+            model.put("characterName", characterName); // (L) add to model 'characterName'
 
             return "loggedIn";
         }

@@ -32,6 +32,20 @@ public class CharacterDao {
         this.characterTemplate = characterTemplate;
     }
 
+    public boolean isUsernameAlreadyTaken(String name){
+        try (Connection conn = dataSource.getConnection()){
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT COUNT(*) FROM Characters WHERE character_name='" + name + "'");
+             rs.next();
+             if(rs.getInt(1) > 0){
+                 return true;
+             }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void save(String race, String role, String gender, String name) {
         try (Connection conn = dataSource.getConnection()) {
             Statement statement = conn.createStatement();
@@ -77,9 +91,13 @@ public class CharacterDao {
 
 
     public List<Character> getAllCharactersExceptYourself(int characterId) {
-        String sql = "select * from Characters WHERE _id!=" + characterId;
-        return characterTemplate.query(sql, new RowMapper<Character>() {
-            public Character mapRow(ResultSet rs, int row) throws SQLException {
+        List<Character> characters= new ArrayList<>();
+        try(Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN " +
+                    "(SELECT challenged_character_id FROM Challenges WHERE character_id=" + characterId + ") AND _id NOT IN (SELECT character_id FROM Challenges WHERE " +
+                    "challenged_character_id=" + characterId + ")");
+            while (rs.next()){
                 Character character = new Character();
                 character.set_id(rs.getInt(1));
                 character.setCharacter_name(rs.getString(2));
@@ -90,9 +108,12 @@ public class CharacterDao {
                 character.setWins(rs.getInt(7));
                 character.setLoses(rs.getInt(8));
                 character.setGold(rs.getInt(9));
-                return character;
+                characters.add(character);
             }
-        });
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return characters;
     }
 
     public List<CustomCharacter> formCustomCharacterModel(List<Character> characters) {

@@ -40,10 +40,8 @@ public class FightResults {
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefend.enemyName);
-            System.out.println("enemyid " + enemyId);
             arenaDao.insertMatchResults(characterId, enemyId, attackDefend.attack, attackDefend.defence);
         }
-        System.out.println(userId);
         return "redirect:/";
     }
 }

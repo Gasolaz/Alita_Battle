@@ -73,4 +73,21 @@ public class SessionsDao {
         }
         return NO_ID;
     }
+
+    // (L) User name from session generator
+    public String getUserNameFromSession(int userId) {
+
+        String actualUser = "SELECT username FROM Users WHERE _id=" + userId;
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(actualUser);
+            if (rs.next()){
+                return rs.getString("username");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return "Login, please!";
+    }
+
 }

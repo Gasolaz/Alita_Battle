@@ -38,10 +38,14 @@ public class CharacterCreate {
     @PostMapping("/create")
     public String postCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session,
                              @ModelAttribute CharacterFormModel cfm){
-        int userId = sessionsDao.getUserIdFromSession(session);
-        characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
-        int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
-        usersDao.updateUserWithCharacterId(userId, characterId);
-        return "redirect:/AlitaBattle";
+        if(!characterDao.isUsernameAlreadyTaken(cfm.name)){
+            int userId = sessionsDao.getUserIdFromSession(session);
+            characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
+            int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
+            usersDao.updateUserWithCharacterId(userId, characterId);
+            return "redirect:/AlitaBattle";
+        }
+        model.put("error", "Username already taken");
+        return "characterCreation";
     }
 }

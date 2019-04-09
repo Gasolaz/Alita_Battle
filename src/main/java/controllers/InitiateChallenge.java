@@ -46,6 +46,6 @@ public class InitiateChallenge {
             int challengedCharacterId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
             challengesDao.insertChallenge(characterId, challengedCharacterId);
         }
-        return "redirect:/";
+        return "redirect:/fighterselection";
     }
 }
