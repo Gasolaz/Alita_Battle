@@ -1,9 +1,10 @@
 package controllers;
 
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
-import dao.UsersDao;
-import models.RegistrationFormTempUserBL;
-import models.UserDAL;
+import models.bl.RegistrationFormTempUserBL;
+import models.dal.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,10 @@ import java.util.Map;
 public class Registration {
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @GetMapping("/register")
     public String getRegistration(@CookieValue(value= "sessionID", defaultValue = "0") String session) {

@@ -1,8 +1,9 @@
 package controllers;
 
 import dao.*;
-import models.BattlegroundCharacterModelDAL;
-import models.CustomCharacterBL;
+import interfaces.*;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +18,19 @@ import static resources.Cons.NO_ID;
 public class Arena {
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @Autowired
-    ArenaDao arenaDao;
+    IArenaDao arenaDao;
 
     @Autowired
-    ChallengesDao challengesDao;
+    IChallegesDao challengesDao;
 
     @GetMapping("/arena")
     public String getArena(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {

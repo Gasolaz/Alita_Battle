@@ -1,10 +1,11 @@
 package controllers;
 
-import dao.ArenaDao;
-import dao.CharacterDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.AttackDefendBL;
+import dao.*;
+import interfaces.IArenaDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.AttackDefendBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,16 @@ import static resources.Cons.NO_ID;
 public class FightResults {
 
     @Autowired
-    ArenaDao arenaDao;
+    IArenaDao arenaDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @PostMapping
     public String fightOpponent (@ModelAttribute AttackDefendBL attackDefendBL, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){

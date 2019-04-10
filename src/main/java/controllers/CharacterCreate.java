@@ -1,9 +1,11 @@
 package controllers;
 
 import dao.CharacterDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
-import dao.UsersDao;
-import models.CharacterFormModelBL;
+import models.bl.CharacterFormModelBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,13 @@ import static resources.Cons.NO_ID;
 public class CharacterCreate {
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @GetMapping("/create")
     public String getCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {

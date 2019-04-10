@@ -1,7 +1,8 @@
 package dao;
 
-import models.BattlegroundCharacterModelDAL;
-import models.CustomCharacterBL;
+import interfaces.IArenaDao;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -13,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArenaDao {
+public class ArenaDao implements IArenaDao {
 
     @Autowired
     DataSource dataSource;

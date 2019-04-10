@@ -1,4 +1,4 @@
-package models;
+package models.bl;
 
 public class CharacterFormModelBL {
     public String race;

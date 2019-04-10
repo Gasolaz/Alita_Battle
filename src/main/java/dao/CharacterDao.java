@@ -1,8 +1,10 @@
 package dao;
 
-import models.BattlegroundCharacterModelDAL;
-import models.CharacterDAL;
-import models.CustomCharacterBL;
+import interfaces.IChallegesDao;
+import interfaces.ICharacterDao;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.dal.CharacterDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -17,7 +19,7 @@ import java.util.List;
 import static resources.Cons.*;
 import static resources.Cons.CHARACTERS_NAME;
 
-public class CharacterDao {
+public class CharacterDao implements ICharacterDao {
 
     @Autowired
     DataSource dataSource;

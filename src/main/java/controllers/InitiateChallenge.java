@@ -1,10 +1,11 @@
 package controllers;
 
-import dao.ChallengesDao;
-import dao.CharacterDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.CustomCharacterBL;
+import dao.*;
+import interfaces.IChallegesDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +17,16 @@ import static resources.Cons.NO_ID;
 public class InitiateChallenge {
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    ChallengesDao challengesDao;
+    IChallegesDao challengesDao;
 
     @GetMapping
     public String getChallenge() {

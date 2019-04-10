@@ -1,7 +1,7 @@
 package controllers;
 
 
-import models.CustomCharacterBL;
+import models.bl.CustomCharacterBL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;

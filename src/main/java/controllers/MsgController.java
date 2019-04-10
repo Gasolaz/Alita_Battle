@@ -1,10 +1,11 @@
 package controllers;
 
-import dao.CharacterDao;
-import dao.MsgDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.MessageDAL;
+import dao.*;
+import interfaces.ICharacterDao;
+import interfaces.IMsgDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.dal.MessageDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,16 @@ import static resources.Cons.NO_ID;
 public class MsgController {
 
     @Autowired
-    MsgDao msgDao;
+    IMsgDao msgDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @PostMapping
     public String postMsgController(@ModelAttribute MessageDAL message, @CookieValue(value = "sessionID", defaultValue = "0") String session){

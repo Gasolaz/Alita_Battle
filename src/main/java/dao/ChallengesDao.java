@@ -1,6 +1,7 @@
 package dao;
 
-import models.CustomCharacterBL;
+import interfaces.IChallegesDao;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChallengesDao {
+public class ChallengesDao implements IChallegesDao {
 
     @Autowired
     DataSource dataSource;

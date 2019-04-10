@@ -1,4 +1,4 @@
-package models;
+package models.dal;
 
 public class BattlegroundCharacterModelDAL {
     public String name;

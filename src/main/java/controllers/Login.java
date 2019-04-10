@@ -1,9 +1,13 @@
 package controllers;
 
 import dao.*;
-import models.MessageDAL;
-import models.RegistrationFormTempUserBL;
-import models.UserDAL;
+import interfaces.ICharacterDao;
+import interfaces.IMsgDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.dal.MessageDAL;
+import models.bl.RegistrationFormTempUserBL;
+import models.dal.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +32,16 @@ public class Login {
     DataSource dataSource;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    MsgDao msgDao;
+    IMsgDao msgDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {

@@ -1,6 +1,7 @@
 package dao;
 
-import models.MessageDAL;
+import interfaces.IMsgDao;
+import models.dal.MessageDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static resources.Cons.*;
 
-public class MsgDao {
+public class MsgDao implements IMsgDao {
 
     @Autowired
     DataSource dataSource;

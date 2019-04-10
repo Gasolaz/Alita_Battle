@@ -1,7 +1,8 @@
 package dao;
 
 
-import models.UserDAL;
+import interfaces.IUsersDao;
+import models.dal.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static resources.Cons.NO_ID;
 
-public class UsersDao {
+public class UsersDao implements IUsersDao {
     JdbcTemplate usersTemplate;
 
     @Autowired

@@ -1,9 +1,11 @@
 package controllers;
 
 
+import interfaces.ISessionsDao;
+import interfaces.ITablesDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
 import dao.TablesDao;
-import dao.UsersDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -18,13 +20,13 @@ import static resources.Cons.NO_ID;
 public class HelloController {
 
     @Autowired
-    TablesDao tablesDao;
+    ITablesDao tablesDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @GetMapping
     public String printHello(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {

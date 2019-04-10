@@ -1,4 +1,4 @@
-package models;
+package models.dal;
 
 public class SessionDAL {
     public int _id;

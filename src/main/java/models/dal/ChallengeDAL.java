@@ -1,4 +1,4 @@
-package models;
+package models.dal;
 
 public class ChallengeDAL {
     public int id;

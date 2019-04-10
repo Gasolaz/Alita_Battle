@@ -1,10 +1,11 @@
 package dao;
 
+import interfaces.ITablesDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static resources.Cons.*;
 
-public class TablesDao {
+public class TablesDao implements ITablesDao {
     JdbcTemplate tablesTemplate;
 
     public void setTablesTemplate(JdbcTemplate tablesTemplate) {
