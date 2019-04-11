@@ -3,7 +3,7 @@ package resources;
 import com.mysql.cj.xdevapi.Table;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
-public class Cons {
+public final class Cons {
 
     //    All Tables ID
     public static final String ID = "_id";

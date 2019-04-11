@@ -1,9 +1,11 @@
 package controllers;
 
 import dao.CharacterDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
-import dao.UsersDao;
-import models.CharacterFormModel;
+import models.bl.CharacterFormModelBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,13 @@ import static resources.Cons.NO_ID;
 public class CharacterCreate {
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @GetMapping("/create")
     public String getCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
@@ -37,7 +39,7 @@ public class CharacterCreate {
 
     @PostMapping("/create")
     public String postCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session,
-                             @ModelAttribute CharacterFormModel cfm){
+                             @ModelAttribute CharacterFormModelBL cfm){
         if(!characterDao.isUsernameAlreadyTaken(cfm.name)){
             int userId = sessionsDao.getUserIdFromSession(session);
             characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);

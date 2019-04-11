@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.ChallengesDao;
-import dao.CharacterDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.Character;
-import models.CustomCharacter;
+import dao.*;
+import interfaces.IChallegesDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -22,16 +22,16 @@ import static resources.Cons.NO_ID;
 public class Challenge {
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    ChallengesDao challengesDao;
+    IChallegesDao challengesDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @GetMapping
     public String getChallenge(Map<String, Object> model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
@@ -42,7 +42,7 @@ public class Challenge {
                 return "redirect:/create";
             }
             String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
-            List<CustomCharacter> charactersWhoChallengeYou = challengesDao.getAllChallengesForYou(userId);
+            List<CustomCharacterBL> charactersWhoChallengeYou = challengesDao.getAllChallengesForYou(userId);
             model.put("list", charactersWhoChallengeYou);
             model.put("characterName", characterName); // (L) add to model 'characterName'
             return "challenge";

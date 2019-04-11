@@ -1,11 +1,11 @@
-package models;
+package models.dal;
 
-public class Challenge {
+public class ChallengeDAL {
     public int id;
     public int character_id;
     public int challenged_character_id;
 
-    public Challenge() {
+    public ChallengeDAL() {
     }
 
     public int getId() {

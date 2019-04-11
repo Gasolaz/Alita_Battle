@@ -1,7 +1,7 @@
 package controllers;
 
 
-import models.CustomCharacter;
+import models.bl.CustomCharacterBL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class Refresh {
 
     @GetMapping
-    public String postArena(@ModelAttribute CustomCharacter customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
+    public String postArena(@ModelAttribute CustomCharacterBL customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {

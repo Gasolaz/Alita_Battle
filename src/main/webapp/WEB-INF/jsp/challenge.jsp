@@ -26,11 +26,11 @@
 
 <p>Challengers</p>
 
-<c:forEach items="${list}" var="character">
+<c:forEach items="${list}" var="characterDAL">
     <form method="post" action="acceptChallenge">
-        You are challenged by: <input type="text" value="${character.name}" name="name" readonly>
-        <input type="text" value="${character.race}" name="race" readonly>
-        <input type="text" value="${character.role}" name="role" readonly>
+        You are challenged by: <input type="text" value="${characterDAL.name}" name="name" readonly>
+        <input type="text" value="${characterDAL.race}" name="race" readonly>
+        <input type="text" value="${characterDAL.role}" name="role" readonly>
         <input type="submit" value="Accept Challenge">
     </form>
 </c:forEach>

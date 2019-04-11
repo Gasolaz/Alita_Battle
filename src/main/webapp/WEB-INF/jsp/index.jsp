@@ -3,6 +3,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alita Battle! </title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -27,19 +29,19 @@
 
 <div class="container">
 
-    <div class="headline">
+    <div class="headline mt-5">
         <h2 style="text-align:center">You are about to enter the game</h2>
     </div>
 
-    <div class="text">
+    <div class="text mt-5">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad cumque, dolor eius harum illum magnam maxime
-            nemo nobis obcaecati officia omnis recusandae sunt ullam ut veritatis! Fugiat fugit in quis.<br><br><br><br><br>
+            nemo nobis obcaecati officia omnis recusandae sunt ullam ut veritatis! Fugiat fugit in quis.
         </p>
     </div>
     <p style="color: red">${AccessDenied}</p>
-    <div class="buttons" style="text-align:center">
-        <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
-        <a href="register" class="btn btn-secondary" data-target="#modalRegForm"><span>Sign Up</span></a>
+    <div class="buttons mt-5" style="text-align:center">
+        <a href="" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
+        <a href="register" class="btn btn-secondary ml-2" data-target="#modalRegForm"><span>Sign Up</span></a>
     </div>
 
 
@@ -96,7 +98,7 @@
 </div>
 
 <footer>
-    <img class="image" src="https://giffiles.alphacoders.com/203/2035.gif" alt="advgif" type="img/text">
+    <img class="img-fluid" src="https://giffiles.alphacoders.com/203/2035.gif" alt="advgif" type="img/text">
 </footer>
 
 </body>
