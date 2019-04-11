@@ -1,16 +1,14 @@
 package dao;
 
-import models.BattlegroundCharacterModel;
-import models.Character;
-import models.CustomCharacter;
-import models.User;
+import interfaces.IChallegesDao;
+import interfaces.ICharacterDao;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.dal.CharacterDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
-import javax.swing.plaf.nimbus.State;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +19,7 @@ import java.util.List;
 import static resources.Cons.*;
 import static resources.Cons.CHARACTERS_NAME;
 
-public class CharacterDao {
+public class CharacterDao implements ICharacterDao {
 
     @Autowired
     DataSource dataSource;
@@ -90,44 +88,44 @@ public class CharacterDao {
     }
 
 
-    public List<Character> getAllCharactersExceptYourself(int characterId) {
-        List<Character> characters= new ArrayList<>();
+    public List<CharacterDAL> getAllCharactersExceptYourself(int characterId) {
+        List<CharacterDAL> characterDALS = new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Characters WHERE _id!=" + characterId + " AND _id NOT IN " +
                     "(SELECT challenged_character_id FROM Challenges WHERE character_id=" + characterId + ") AND _id NOT IN (SELECT character_id FROM Challenges WHERE " +
                     "challenged_character_id=" + characterId + ")");
             while (rs.next()){
-                Character character = new Character();
-                character.set_id(rs.getInt(1));
-                character.setCharacter_name(rs.getString(2));
-                character.setRace(Integer.toString(rs.getInt(3)));
-                character.setRole(Integer.toString(rs.getInt(4)));
-                character.setSex(rs.getString(5));
-                character.setLevel(rs.getInt(6));
-                character.setWins(rs.getInt(7));
-                character.setLoses(rs.getInt(8));
-                character.setGold(rs.getInt(9));
-                characters.add(character);
+                CharacterDAL characterDAL = new CharacterDAL();
+                characterDAL.set_id(rs.getInt(1));
+                characterDAL.setCharacter_name(rs.getString(2));
+                characterDAL.setRace(Integer.toString(rs.getInt(3)));
+                characterDAL.setRole(Integer.toString(rs.getInt(4)));
+                characterDAL.setSex(rs.getString(5));
+                characterDAL.setLevel(rs.getInt(6));
+                characterDAL.setWins(rs.getInt(7));
+                characterDAL.setLoses(rs.getInt(8));
+                characterDAL.setGold(rs.getInt(9));
+                characterDALS.add(characterDAL);
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return characters;
+        return characterDALS;
     }
 
-    public List<CustomCharacter> formCustomCharacterModel(List<Character> characters) {
-        List<CustomCharacter> customCharacters = new ArrayList<>();
+    public List<CustomCharacterBL> formCustomCharacterModel(List<CharacterDAL> characterDALS) {
+        List<CustomCharacterBL> customCharacters = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
-            for (Character character : characters) {
+            for (CharacterDAL characterDAL : characterDALS) {
                 String sql = "SELECT ra.race_name, ro.role FROM Characters AS ch INNER JOIN Races AS ra ON ch.race_id=ra._id " +
-                        "INNER JOIN Roles AS ro ON ch.role_id=ro._id WHERE ch._id=" + character.get_id();
+                        "INNER JOIN Roles AS ro ON ch.role_id=ro._id WHERE ch._id=" + characterDAL.get_id();
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(sql);
 
                 while(rs.next()){
-                    CustomCharacter customCharacter = new CustomCharacter();
-                    customCharacter.setName(character.getCharacter_name());
+                    CustomCharacterBL customCharacter = new CustomCharacterBL();
+                    customCharacter.setName(characterDAL.getCharacter_name());
                     customCharacter.setRace(rs.getString(1));
                     customCharacter.setRole(rs.getString(2));
                     customCharacters.add(customCharacter);
@@ -167,25 +165,25 @@ public class CharacterDao {
         return 0;
     }
 
-    public BattlegroundCharacterModel formBattlegroundCharacterModelFromCharacterId( int characterId){
+    public BattlegroundCharacterModelDAL formBattlegroundCharacterModelFromCharacterId(int characterId){
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT cha.character_name, cha.level, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
                     "ON ra._id=cha.race_id INNER JOIN Roles AS ro ON ro._id=cha.role_id WHERE cha._id=" + characterId);
             if(rs.next()){
                 int level = rs.getInt(2);
-                BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
-                battlegroundCharacterModel.setName(rs.getString(1));
-                battlegroundCharacterModel.setLevel(level);
-                battlegroundCharacterModel.setRace(rs.getString(3));
-                battlegroundCharacterModel.setRole(rs.getString(4));
-                battlegroundCharacterModel.setHp(level);
-                battlegroundCharacterModel.setMana(level);
-                battlegroundCharacterModel.setArmor(0);
-                battlegroundCharacterModel.setStrength(level);
-                battlegroundCharacterModel.setAgility(level);
-                battlegroundCharacterModel.setIntelligence(level);
-                return battlegroundCharacterModel;
+                BattlegroundCharacterModelDAL battlegroundCharacterModelDAL = new BattlegroundCharacterModelDAL();
+                battlegroundCharacterModelDAL.setName(rs.getString(1));
+                battlegroundCharacterModelDAL.setLevel(level);
+                battlegroundCharacterModelDAL.setRace(rs.getString(3));
+                battlegroundCharacterModelDAL.setRole(rs.getString(4));
+                battlegroundCharacterModelDAL.setHp(level);
+                battlegroundCharacterModelDAL.setMana(level);
+                battlegroundCharacterModelDAL.setArmor(0);
+                battlegroundCharacterModelDAL.setStrength(level);
+                battlegroundCharacterModelDAL.setAgility(level);
+                battlegroundCharacterModelDAL.setIntelligence(level);
+                return battlegroundCharacterModelDAL;
             }
         }catch (SQLException e){
             e.printStackTrace();

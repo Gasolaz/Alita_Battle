@@ -1,29 +1,27 @@
 package controllers;
 
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
-import dao.UsersDao;
-import models.RegistrationFormTempUser;
-import models.User;
+import models.bl.RegistrationFormTempUserBL;
+import models.dal.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
 
 
 @Controller
 public class Registration {
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @GetMapping("/register")
     public String getRegistration(@CookieValue(value= "sessionID", defaultValue = "0") String session) {
@@ -34,7 +32,7 @@ public class Registration {
     }
 
     @PostMapping("/register")
-    public String postRegistration(Map<String, Object> model, @ModelAttribute RegistrationFormTempUser rftu, HttpServletResponse response) {
+    public String postRegistration(Map<String, Object> model, @ModelAttribute RegistrationFormTempUserBL rftu, HttpServletResponse response) {
 
         if (rftu.getUsername().trim().equals("") || rftu.getEmail().trim().equals("") || rftu.getPass().trim().equals("")) {
             model.put("error", "All fields must be filled");
@@ -44,7 +42,7 @@ public class Registration {
             return "registration";
         }
 
-        List<User> users = usersDao.getUsersByUsernameOrEmail(rftu.getUsername(), rftu.getEmail());
+        List<UserDAL> users = usersDao.getUsersByUsernameOrEmail(rftu.getUsername(), rftu.getEmail());
 
         if (users.size() > 0) {
             model.put("error", "Username or email already exists");
@@ -52,7 +50,7 @@ public class Registration {
         }
 
         usersDao.save(rftu.getUsername(), rftu.getEmail(), rftu.getPass());
-        User user = usersDao.getUserByUsername(rftu.getUsername());
+        UserDAL user = usersDao.getUserByUsername(rftu.getUsername());
         sessionsDao.save(user.get_id(), response);
         return "redirect:/create";
     }

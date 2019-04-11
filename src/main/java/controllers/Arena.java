@@ -1,13 +1,13 @@
 package controllers;
 
 import dao.*;
-import models.BattlegroundCharacterModel;
-import models.CustomCharacter;
+import interfaces.*;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -18,19 +18,19 @@ import static resources.Cons.NO_ID;
 public class Arena {
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @Autowired
-    ArenaDao arenaDao;
+    IArenaDao arenaDao;
 
     @Autowired
-    ChallengesDao challengesDao;
+    IChallegesDao challengesDao;
 
     @GetMapping("/arena")
     public String getArena(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
@@ -42,7 +42,7 @@ public class Arena {
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             String characterName = characterDao.getCharacterNameById(characterId);
-            List<CustomCharacter> charactersWhoFightWithYou = arenaDao.selectFightsByCharacterId(characterId);
+            List<CustomCharacterBL> charactersWhoFightWithYou = arenaDao.selectFightsByCharacterId(characterId);
             model.put("list", charactersWhoFightWithYou);
             model.put("characterName", characterName); // (L) add to model 'characterName'
 
@@ -52,7 +52,7 @@ public class Arena {
     }
 
     @PostMapping("/arena")
-    public String postArena(@ModelAttribute CustomCharacter customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
+    public String postArena(@ModelAttribute CustomCharacterBL customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
 
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
@@ -61,8 +61,8 @@ public class Arena {
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             int enemyId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
-            BattlegroundCharacterModel yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
-            BattlegroundCharacterModel enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
+            BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
+            BattlegroundCharacterModelDAL enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
             String result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
@@ -88,7 +88,7 @@ public class Arena {
     }
 
     @PostMapping("/acceptChallenge")
-    public String postAcceptChallenge(@ModelAttribute CustomCharacter customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
+    public String postAcceptChallenge(@ModelAttribute CustomCharacterBL customCharacter, Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
 
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
@@ -108,7 +108,7 @@ public class Arena {
     }
 
     public String returnFightResultPage(String result, int characterId, int enemyId, Map<String, Object> model,
-                                 BattlegroundCharacterModel yourModel, BattlegroundCharacterModel enemyModel) {
+                                        BattlegroundCharacterModelDAL yourModel, BattlegroundCharacterModelDAL enemyModel) {
         if (result.equals("win") || result.equals("lose") || result.equals("draw")) {
             characterDao.updateCharacterAccordingToResult(characterId, result);
             arenaDao.deleteFightAndArenaForYou(characterId, enemyId);

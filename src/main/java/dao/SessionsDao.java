@@ -1,10 +1,9 @@
 package dao;
 
-import models.Session;
-import org.apache.jasper.tagplugins.jstl.core.If;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +18,7 @@ import java.util.Random;
 import static dao.UsersDao.*;
 import static resources.Cons.NO_ID;
 
-public class SessionsDao {
+public class SessionsDao implements ISessionsDao {
 
     @Autowired
     DataSource dataSource;
@@ -74,7 +73,7 @@ public class SessionsDao {
         return NO_ID;
     }
 
-    // (L) User name from session generator
+    // (L) UserDAL name from session generator
     public String getUserNameFromSession(int userId) {
 
         String actualUser = "SELECT username FROM Users WHERE _id=" + userId;

@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.ArenaDao;
-import dao.CharacterDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.AttackDefend;
-import models.BattlegroundCharacterModel;
+import dao.*;
+import interfaces.IArenaDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.AttackDefendBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +19,19 @@ import static resources.Cons.NO_ID;
 public class FightResults {
 
     @Autowired
-    ArenaDao arenaDao;
+    IArenaDao arenaDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @PostMapping
-    public String fightOpponent (@ModelAttribute AttackDefend attackDefend, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
+    public String fightOpponent (@ModelAttribute AttackDefendBL attackDefendBL, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
 
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
@@ -39,8 +39,8 @@ public class FightResults {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefend.enemyName);
-            arenaDao.insertMatchResults(characterId, enemyId, attackDefend.attack, attackDefend.defence);
+            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefendBL.enemyName);
+            arenaDao.insertMatchResults(characterId, enemyId, attackDefendBL.attack, attackDefendBL.defence);
         }
         return "redirect:/";
     }

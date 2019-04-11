@@ -1,6 +1,6 @@
-package models;
+package models.dal;
 
-public class User {
+public class UserDAL {
 
     private int _id;
     private String username;
@@ -10,7 +10,7 @@ public class User {
     private Long character_id;
     private int isAdmin;
 
-    public User() {
+    public UserDAL() {
     }
 
     public int get_id() {

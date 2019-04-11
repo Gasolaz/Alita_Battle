@@ -1,6 +1,6 @@
-package models;
+package models.dal;
 
-public class BattlegroundCharacterModel {
+public class BattlegroundCharacterModelDAL {
     public String name;
     public String race;
     public String role;
@@ -12,7 +12,7 @@ public class BattlegroundCharacterModel {
     public int intelligence;
     public int armor;
 
-    public BattlegroundCharacterModel() {
+    public BattlegroundCharacterModelDAL() {
     }
 
     public int getLevel() {

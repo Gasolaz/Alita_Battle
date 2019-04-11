@@ -1,12 +1,12 @@
 package dao;
 
-import models.BattlegroundCharacterModel;
-import models.CustomCharacter;
+import interfaces.IArenaDao;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArenaDao {
+public class ArenaDao implements IArenaDao {
 
     @Autowired
     DataSource dataSource;
@@ -84,18 +84,21 @@ public class ArenaDao {
 
             if (newHp1 <= 0 && newHp2 <= 0) {
                 // draw logic
+                i = 3;
                 st.executeUpdate("UPDATE Arena SET result='draw' WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                 st.executeUpdate("UPDATE Arena SET result='draw' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                 st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 return;
             } else if (newHp1 <= 0) {
                 // player2 wins
+                i = 2;
                 st.executeUpdate("UPDATE Arena SET result='win' WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                 st.executeUpdate("UPDATE Arena SET result='lose' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                 st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
                 return;
             } else if (newHp2 <= 0) {
                 // player1 wins
+                i = 1;
                 st.executeUpdate("UPDATE Arena SET result='lose' WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
                 st.executeUpdate("UPDATE Arena SET result='win' WHERE character_id=" + enemyId + " AND enemy_id=" + characterId);
                 st.executeUpdate("DELETE FROM Fight WHERE char_id=" + enemyId + " AND enemy_id=" + characterId);
@@ -158,19 +161,19 @@ public class ArenaDao {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
-            BattlegroundCharacterModel battlegroundCharacterModel = new BattlegroundCharacterModel();
+            BattlegroundCharacterModelDAL battlegroundCharacterModelDAL = new BattlegroundCharacterModelDAL();
             int characterHp = 0;
             int enemyHp = 0;
             if (rs.next()) {
-                battlegroundCharacterModel.setLevel(rs.getInt("level"));
-//                battlegroundCharacterModel.setHp(rs.getInt("level"));
-                characterHp = battlegroundCharacterModel.getHp();
+                battlegroundCharacterModelDAL.setLevel(rs.getInt("level"));
+//                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
+                characterHp = battlegroundCharacterModelDAL.getHp();
             }
             rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + enemyId);
             if (rs.next()) {
-                battlegroundCharacterModel.setLevel(rs.getInt("level"));
-//                battlegroundCharacterModel.setHp(rs.getInt("level"));
-                enemyHp = battlegroundCharacterModel.getHp();
+                battlegroundCharacterModelDAL.setLevel(rs.getInt("level"));
+//                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
+                enemyHp = battlegroundCharacterModelDAL.getHp();
             }
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + characterId + ", " + enemyId + ", " + characterHp + ")");
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + enemyId + ", " + characterId + ", " + enemyHp + ")");
@@ -179,8 +182,8 @@ public class ArenaDao {
         }
     }
 
-    public List<CustomCharacter> selectFightsByCharacterId(int characterId) {
-        List<CustomCharacter> customCharacters = new ArrayList<>();
+    public List<CustomCharacterBL> selectFightsByCharacterId(int characterId) {
+        List<CustomCharacterBL> customCharacters = new ArrayList<>();
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             Statement statement2 = conn.createStatement();
@@ -190,7 +193,7 @@ public class ArenaDao {
                 ResultSet rs2 = statement2.executeQuery("SELECT cha.character_name, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra ON " +
                         "cha.race_id=ra._id INNER JOIN Roles AS ro ON cha.role_id=ro._id WHERE cha._id=" + enemyId);
                 while (rs2.next()) {
-                    CustomCharacter customCharacter = new CustomCharacter();
+                    CustomCharacterBL customCharacter = new CustomCharacterBL();
                     customCharacter.setName(rs2.getString(1));
                     customCharacter.setRace(rs2.getString(2));
                     customCharacter.setRole(rs2.getString(3));

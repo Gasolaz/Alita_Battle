@@ -1,10 +1,12 @@
 package controllers;
 
 import dao.CharacterDao;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
 import dao.SessionsDao;
-import dao.UsersDao;
-import models.Character;
-import models.CustomCharacter;
+import models.dal.CharacterDAL;
+import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -21,13 +23,13 @@ import static resources.Cons.NO_ID;
 public class FighterSelection {
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @GetMapping
     public String getFighters(Map<String, Object> model, @CookieValue (value= "sessionID", defaultValue = "0") String session){
@@ -39,8 +41,8 @@ public class FighterSelection {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            List<Character> characters = characterDao.getAllCharactersExceptYourself(characterId);
-            List<CustomCharacter> customCharacters = characterDao.formCustomCharacterModel(characters);
+            List<CharacterDAL> characterDALS = characterDao.getAllCharactersExceptYourself(characterId);
+            List<CustomCharacterBL> customCharacters = characterDao.formCustomCharacterModel(characterDALS);
             String characterName = characterDao.getCharacterNameById(characterId);
             model.put("list", customCharacters);
             model.put("characterName", characterName); // (L) add to model 'characterName'
