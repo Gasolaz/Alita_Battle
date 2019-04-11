@@ -16,6 +16,54 @@
 <body>
 <%@include file="_headerMain.jsp" %>
 
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="collapse navbar-collapse" id="navbarNav2">
+        <ul class="navbar-nav d-flex">
+            <li class="nav-item mr-auto p-2">
+                <a class="nav-link" href="">Gold</a>
+            </li>
+            <li class="nav-item p-2">
+                <a class="nav-link" href="">XP</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">LVL</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Activity</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Heroes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="shop">Shop</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarNav">
+        <ul class="navbar-nav">
+        <li class="nav-item mr-5">
+            <a class="nav-link" href="arena">Arena</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="challenge">Challenges</a>
+        </li>
+        <li class="nav-item ml-5">
+            <a class="nav-link" href="fighterselection">Fight</a>
+        </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+    <div>
+        <img src="${image}">
+    </div>
+
     <div class="chat">
         <div class="container">
             <div class="table">

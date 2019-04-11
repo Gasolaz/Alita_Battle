@@ -63,4 +63,8 @@
         <property name="areneTemplate" ref="jt"></property>
     </bean>
 
+    <bean id="itemDao" class="dao.ItemDao">
+        <property name="itemTemplate" ref="jt"></property>
+    </bean>
+
 </beans>
