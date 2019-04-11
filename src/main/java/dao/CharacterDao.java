@@ -57,8 +57,8 @@ public class CharacterDao implements ICharacterDao {
             if (rs.next()) {
                 roleId = rs.getInt("_id");
             }
-            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold)" +
-                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0)");
+            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold, item_set_id)" +
+                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0, 0)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -203,6 +203,30 @@ public class CharacterDao implements ICharacterDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int getCharacterGold(int char_id){
+        try(Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT " + CHARACTERS_GOLD + " FROM " + TABLE_CHARACTERS + " WHERE _id=" + char_id);
+            if(rs.next()){
+                return rs.getInt(CHARACTERS_GOLD);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void reduceCharacterGold(int char_id, int item_price, int char_gold){
+        int remaining_gold = char_gold - item_price;
+        try(Connection conn = dataSource.getConnection()){
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("UPDATE " + TABLE_CHARACTERS + " SET " + CHARACTERS_GOLD +
+                    "=" + remaining_gold + " WHERE _id=" + char_id);
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
 }
