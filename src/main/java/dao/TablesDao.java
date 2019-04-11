@@ -176,6 +176,20 @@ public class TablesDao {
         insertAttribute(28, 0, 0, 0, 0, 0, INSERT_ATTRIBUTES); //future item
         insertAttribute(29, 0, 0, 0, 0, 0, INSERT_ATTRIBUTES); //future item
 
+        //Torso attributes
+        insertAttribute(30, 0, 1, 5, 1, 0, INSERT_ATTRIBUTES); //lab coat
+        insertAttribute(31, 0, 1, 0, 3, 0, INSERT_ATTRIBUTES); //spiked shirt
+        insertAttribute(32, 0, -2, 0, 6, 0, INSERT_ATTRIBUTES); //medium plate
+        insertAttribute(33, 0, -4, 0, 10, 0, INSERT_ATTRIBUTES); //heavy plate
+        insertAttribute(34, 0, 5, 0, 7, 0, INSERT_ATTRIBUTES); //dragonhide armor
+        insertAttribute(35, 0, 5, 0, 5, 0, INSERT_ATTRIBUTES); //slough of anaconda
+        insertAttribute(36, 0, 0, 7, 1, 0, INSERT_ATTRIBUTES); //wizard top robes
+        insertAttribute(37, 0, 0, 0, 0, 0, INSERT_ATTRIBUTES); //future item
+        insertAttribute(38, 0, 0, 0, 0, 0, INSERT_ATTRIBUTES); //future item
+        insertAttribute(39, 0, 0, 0, 0, 0, INSERT_ATTRIBUTES); //future item
+
+
+
     }
 
 }

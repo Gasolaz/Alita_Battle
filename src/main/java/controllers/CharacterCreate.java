@@ -1,6 +1,7 @@
 package controllers;
 
 import dao.CharacterDao;
+import dao.ItemDao;
 import dao.SessionsDao;
 import dao.UsersDao;
 import models.CharacterFormModel;
@@ -24,6 +25,9 @@ public class CharacterCreate {
     @Autowired
     CharacterDao characterDao;
 
+    @Autowired
+    ItemDao itemDao;
+
     @GetMapping("/create")
     public String getCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
         int userId = sessionsDao.getUserIdFromSession(session);
@@ -42,6 +46,7 @@ public class CharacterCreate {
         characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
         int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
         usersDao.updateUserWithCharacterId(userId, characterId);
+        itemDao.insertUserAndCharToInventory(userId, characterId);
         return "redirect:/AlitaBattle";
     }
 }
