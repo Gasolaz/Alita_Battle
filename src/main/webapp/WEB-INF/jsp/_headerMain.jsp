@@ -7,14 +7,16 @@
         </a>
 
 
-
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <a class="nav-link" href="">
-                     Welcome ${characterName}
+                    Welcome ${characterName}
                 </a>
-            </li>
-        </ul>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="nav-link" href="logout">Logout</a>
+            </div>
+        </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,9 +24,6 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link" href="logout">Logout</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="arena">Arena</a>
             </li>

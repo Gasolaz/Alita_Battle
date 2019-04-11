@@ -74,6 +74,12 @@
             <option value="undead">Undead</option>
         </select>
 
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/572806-simple.jpg"> &lt;%&ndash; dwarf &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/562425-hunter-human-male.jpg"> &lt;%&ndash; human &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/511437-sellsword.jpg"> &lt;%&ndash; orc &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/759517-blood-elf-ranger.jpg"> &lt;%&ndash; elf &ndash;%&gt;--%>
+<!--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/566501-%D1%81%D0%B5%D1%82-1.jpg"> --><%-- undead --%>
+
 
         <%--<div class="name">--%>
         <%--<input type="text" placeholder="CharacterDAL Name" required name="name">--%>

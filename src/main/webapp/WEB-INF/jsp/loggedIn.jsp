@@ -16,6 +16,10 @@
 <body>
 <%@include file="_headerMain.jsp" %>
 
+    <div>
+        <img src="${image}">
+    </div>
+
     <div class="chat">
         <div class="container">
             <div class="table">

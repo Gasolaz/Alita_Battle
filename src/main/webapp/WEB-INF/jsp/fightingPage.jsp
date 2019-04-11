@@ -26,6 +26,9 @@
 
 <div class="container">
 <h2>Your panel</h2>
+    <div>
+        <img src="${yourImage}">
+    </div>
 <div class="player1">
     <p>${yourModel.level}</p>
 
@@ -43,7 +46,9 @@
 </div>
 
 <h2>Enemy panel</h2>
-
+    <div>
+        <img src="${enemyImage}">
+    </div>
 <p>${enemyModel.level}</p>
 
 <p>${enemyModel.hp}</p>
