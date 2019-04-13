@@ -204,4 +204,8 @@ form #characterReg {
     height: 40px;
 }
 
+#yourHero, #enemyHero {
+    height: 30rem !important;
+    width: 20rem !important;
+}
 

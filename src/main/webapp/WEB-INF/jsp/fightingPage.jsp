@@ -19,72 +19,107 @@
 </head>
 <body>
 
+<style>
+    <%@include file="../styles/main.css" %>
+</style>
 
 <div class="row justify-content-center">
-<p>Welcome to Arena</p>
+    <p>Welcome to Arena</p>
 </div>
 
 <div class="container">
-<h2>Your panel</h2>
-    <div>
-        <img src="${yourImage}">
+    <div class="row d-flex justify-content-end">
+        <div class="col-lg5">
+            <h2>Your panel</h2>
+            <div>
+                <img class="" id="yourHero" src="${yourImage}">
+            </div>
+            <div class="player1">
+                <p>${yourModel.level}</p>
+
+                <p>${yourModel.hp}</p>
+                <p>${yourModel.mana}</p>
+
+                <p>${yourModel.name}</p>
+                <p>${yourModel.role}</p>
+                <p>${yourModel.race}</p>
+
+                <p>${yourModel.strength}</p>
+                <p>${yourModel.agility}</p>
+                <p>${yourModel.armor}</p>
+                <p>${yourModel.intelligence}</p>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <form class="d-flex align-items-center flex-column" action="fightResult" method="post">
+                <label for="attack">Attack</label>
+                <select name="attack" id="attack">
+                    <option value="head">Head</option>
+                    <option value="body">Body</option>
+                    <option value="legs">Legs</option>
+                    <option value="arms">Arms</option>
+                </select>
+
+                <label for="defence">Defend</label>
+                <select name="defence" id="defence">Defend
+                    <option value="head">Head</option>
+                    <option value="body">Body</option>
+                    <option value="legs">Legs</option>
+                    <option value="arms">Arms</option>
+                </select>
+                <input name="enemyName" type="hidden" value="${enemyModel.name}">
+                <div class="btn btn-primary">
+                    <button type="submit">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+    <div class="col-lg-5">
+        <h2>Enemy panel</h2>
+        <div>
+            <img class="" id="enemyHero" src="${enemyImage}">
+        </div>
+        <p>${enemyModel.level}</p>
+
+        <p>${enemyModel.hp}</p>
+        <p>${enemyModel.mana}</p>
+
+        <p>${enemyModel.name}</p>
+        <p>${enemyModel.role}</p>
+        <p>${enemyModel.race}</p>
+
+        <p>${enemyModel.strength}</p>
+        <p>${enemyModel.agility}</p>
+        <p>${enemyModel.armor}</p>
+        <p>${enemyModel.intelligence}</p>
     </div>
-<div class="player1">
-    <p>${yourModel.level}</p>
-
-    <p>${yourModel.hp}</p>
-    <p>${yourModel.mana}</p>
-
-    <p>${yourModel.name}</p>
-    <p>${yourModel.role}</p>
-    <p>${yourModel.race}</p>
-
-    <p>${yourModel.strength}</p>
-    <p>${yourModel.agility}</p>
-    <p>${yourModel.armor}</p>
-    <p>${yourModel.intelligence}</p>
+    </div>
 </div>
 
-<h2>Enemy panel</h2>
-    <div>
-        <img src="${enemyImage}">
-    </div>
-<p>${enemyModel.level}</p>
+<%--<form class="d-flex align-items-center flex-column" action="fightResult" method="post">--%>
+<%--    <label for="attack">Attack</label>--%>
+<%--    <select name="attack" id="attack">--%>
+<%--        <option value="head">Head</option>--%>
+<%--        <option value="body">Body</option>--%>
+<%--        <option value="legs">Legs</option>--%>
+<%--        <option value="arms">Arms</option>--%>
+<%--    </select>--%>
 
-<p>${enemyModel.hp}</p>
-<p>${enemyModel.mana}</p>
+<%--    <label for="defence">Defend</label>--%>
+<%--    <select name="defence" id="defence">Defend--%>
+<%--        <option value="head">Head</option>--%>
+<%--        <option value="body">Body</option>--%>
+<%--        <option value="legs">Legs</option>--%>
+<%--        <option value="arms">Arms</option>--%>
+<%--    </select>--%>
+<%--    <input name="enemyName" type="hidden" value="${enemyModel.name}">--%>
+<%--    <div class="btn btn-primary">--%>
+<%--        <button type="submit">Submit</button>--%>
+<%--    </div>--%>
 
-<p>${enemyModel.name}</p>
-<p>${enemyModel.role}</p>
-<p>${enemyModel.race}</p>
-
-<p>${enemyModel.strength}</p>
-<p>${enemyModel.agility}</p>
-<p>${enemyModel.armor}</p>
-<p>${enemyModel.intelligence}</p>
-</div>
-<form action="fightResult" method="post">
-    <label for="attack">Attack</label>
-    <select name="attack" id="attack">
-        <option value="head">Head</option>
-        <option value="body">Body</option>
-        <option value="legs">Legs</option>
-        <option value="arms">Arms</option>
-    </select>
-
-    <label for="defence">Defend</label>
-    <select name="defence" id="defence">Defend
-        <option value="head">Head</option>
-        <option value="body">Body</option>
-        <option value="legs">Legs</option>
-        <option value="arms">Arms</option>
-    </select>
-    <input name="enemyName" type="hidden" value="${enemyModel.name}">
-    <div class="btn btn-primary">
-    <button type="submit">Submit</button>
-    </div>
-
-</form>
+<%--</form>--%>
 
 </body>
 </html>

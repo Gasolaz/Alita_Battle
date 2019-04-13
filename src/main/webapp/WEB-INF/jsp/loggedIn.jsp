@@ -103,10 +103,10 @@
         <div class="card-img-top" id="img"  alt="Card image cap"><img src="${image}"></div>
         <div class="card-body">
             <h5 class="card-title">
-                <div id="charName">${characterName}</div>
-                <div id="valRace">  </div>
-                <div id="valRole">  </div>
-                <div id="valGen">  </div>
+                <div id="charName">${yourModel.level}</div>
+                <div id="valRace">${yourModel.race}</div>
+                <div id="valRole">${yourModel.role}</div>
+<%--                <div id="valGen">${yourModel.}</div>--%>
             </h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                 card's
