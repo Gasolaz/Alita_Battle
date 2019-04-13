@@ -29,24 +29,24 @@
 
 <div class="container">
 
-    <nav class="navbar navbar-dark bg-dark ">
+    <nav class="d-flex justify-content-sm-between navbar navbar-dark bg-dark ">
 
                 <ul class="navbar-nav">
 
                     <li class="nav-item d-flex">
-                        <i class="nav-link fas fa-coins">GOLD</i>
+                        <i class="nav-link fas fa-coins"><%--${yourModel.gold}--%>COINS</i>
                         <p class="ml-5 mt-1" id="coins">LOADING</p>
                     </li>
 
                     <li class="nav-item d-flex">
                         <i class="nav-link fas fa-spinner">EXP</i>
-                        <p class="ml-auto mt-1" id="experience">LOADING</p>
+                        <p class="ml-auto mt-1" id="experience"><%--${yourModel.exp}--%>LOADING</p>
                     </li>
 
 
                     <li class="nav-item d-flex">
                         <a class="nav-link" id="level" href=""><p class="text-center">LVL</p></a>
-                        <p class="ml-auto mt-1" id="level1">LOADING</p>
+                        <p class="text-center ml-auto mt-1" id="level1">${yourModel.level}</p>
                     </li>
 
                 </ul>
@@ -103,7 +103,6 @@
         <div class="card-img-top" id="img"  alt="Card image cap"><img src="${image}"></div>
         <div class="card-body">
             <h5 class="card-title">
-                <div id="charName">${yourModel.level}</div>
                 <div id="valRace">${yourModel.race}</div>
                 <div id="valRole">${yourModel.role}</div>
 <%--                <div id="valGen">${yourModel.}</div>--%>
@@ -129,6 +128,13 @@
             <h2>Stats</h2>
             <span class="border border-success">
 
+                <p>Health - ${yourModel.hp}</p>
+                <p>Mana - ${yourModel.mana}</p>
+
+                <p>Strength - ${yourModel.strength}</p>
+                <p>Agility - ${yourModel.agility}</p>
+                <p>Armor - ${yourModel.armor}</p>
+                <p>Intelligence - ${yourModel.intelligence}</p>
             </span>
         </div>
         <div class="col-lg-6">
