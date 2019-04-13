@@ -81,14 +81,14 @@ form #characterReg {
 }
 
 .chat {
-    position: absolute;
+    /*position: absolute;*/
     bottom: 30px;
     right: 30px;
-    float: right;
-    width: 40%;
+    /*float: right;*/
+    /*width: 40%;*/
     border: 2px solid rgba(128, 125, 125, 0.21);
     box-shadow: inset 0px 0px 40px 40px #DBA632;
-    padding: 5px;
+    /*padding: 5px;*/
 }
 
 .table {
@@ -190,8 +190,9 @@ form #characterReg {
 /*    stroke-dasharray: 760;*/
 /*}*/
 
-p{
-
+#coins, #experience, #level1 {
+    border: 2px solid springgreen;
+    width: 120px;
 }
 
 #level{

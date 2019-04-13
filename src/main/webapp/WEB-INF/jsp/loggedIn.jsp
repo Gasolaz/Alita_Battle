@@ -3,6 +3,7 @@
 
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alita Battle</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -32,18 +33,20 @@
 
                 <ul class="navbar-nav">
 
-                    <li class="nav-item">
+                    <li class="nav-item d-flex">
                         <i class="nav-link fas fa-coins">GOLD</i>
-                        <span>LOADING</span>
+                        <p class="ml-5 mt-1" id="coins">LOADING</p>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item d-flex">
                         <i class="nav-link fas fa-spinner">EXP</i>
+                        <p class="ml-auto mt-1" id="experience">LOADING</p>
                     </li>
 
 
-                    <li class="nav-item">
+                    <li class="nav-item d-flex">
                         <a class="nav-link" id="level" href=""><p class="text-center">LVL</p></a>
+                        <p class="ml-auto mt-1" id="level1">LOADING</p>
                     </li>
 
                 </ul>
@@ -51,15 +54,18 @@
 
 
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item mr-auto d-flex">
+                        <i class="nav-link fas fa-gem d-flex align-items-center"></i>
                         <a class="nav-link" href="shop">Shop</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item pt-auto d-flex">
+                        <i class=" nav-link fab fa-galactic-senate d-flex align-items-center"></i>
                         <a class="nav-link" href="">Activity</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item pt-auto d-flex">
+                        <i class="nav-link fas fa-dragon d-flex align-items-center"></i>
                         <a class="nav-link" href="">Heroes</a>
                     </li>
                 </ul>
@@ -69,7 +75,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav d-flex flex-row">
                 <li class="nav-item mr-5">
                     <a class="nav-link" href="arena">Arena</a>
                 </li>
@@ -83,13 +89,60 @@
         </div>
     </nav>
 
+<%--    <div class="row">--%>
+<%--        <div class="col-12">--%>
+<%--            <h2>${message.char_name}</h2>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
-    <div>
-        <img src="${image}">
+    <%-- ******************HERO CARD IMAGE********************** --%>
+
+<div class="row pt-5">
+    <div class="col-lg-6 d-flex justify-content-around">
+    <div class="card" style="width: 18rem;">
+        <div class="card-img-top" id="img"  alt="Card image cap"><img src="${image}"></div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <div id="charName">${characterName}</div>
+                <div id="valRace">  </div>
+                <div id="valRole">  </div>
+                <div id="valGen">  </div>
+            </h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                card's
+                content.</p>
+            <%--<a href="#" class="btn btn-primary">Go somewhere</a>--%>
+<%--            <button class="btn btn-success" type="submit">Create Character</button>--%>
+        </div>
+    </div>
+    </div>
+    <div class="col-lg-6 text-center mt-sm-5">
+        <h2>W</h2>
+        <h2>S</h2>
+    </div>
+</div>
+
+    <%-- ******************HERO STATS********************** --%>
+
+    <div class="row pt-5">
+        <div class="col-lg-6">
+            <h2>Stats</h2>
+            <span class="border border-success">
+
+            </span>
+        </div>
+        <div class="col-lg-6">
+            <h2>Illustrational stats</h2>
+            <span class="border border-danger" ></span>
+        </div>
     </div>
 
+
+    <%-- ******************CHAT ROOM********************** --%>
+
+<div class="row pt-5">
+    <div class="col-lg-12">
     <div class="chat">
-        <div class="container">
             <div class="table">
                 <table>
                     <c:forEach items="${messages}" var="message">
@@ -101,13 +154,15 @@
                     </c:forEach>
                 </table>
             </div>
+        <form method="post" action="messages">
+            <input type="text" name="msg_text">
+            <input type="submit" value="Post">
+        </form>
             <hr>
-            <form method="post" action="messages">
-                <input type="text" name="msg_text">
-                <input type="submit" value="Post">
-            </form>
-        </div>
+
     </div>
+    </div>
+</div>
 </div>
 </body>
 </html>
