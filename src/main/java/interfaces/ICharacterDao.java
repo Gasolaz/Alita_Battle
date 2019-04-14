@@ -19,4 +19,7 @@ public interface ICharacterDao {
     int selectCharacterIdByCharacterName(String name);
     BattlegroundCharacterModelDAL formBattlegroundCharacterModelFromCharacterId(int characterId);
     String getCharacterNameById(int char_id);
+    String getImageLink(int characterId);
+    public int getCharacterGold(int char_id);
+    public void reduceCharacterGold(int char_id, int item_price, int char_gold);
 }

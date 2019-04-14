@@ -1,21 +1,32 @@
 <header>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-            <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
+            <i class="fab fa-accusoft"></i>
         </a>
-        <ul class="nav justify-content-end">
+
+        <ul class="nav justify-content-start">
             <li class="nav-item">
                 <a class="nav-link" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
+        </ul>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link" href="about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="community">News&Community</a>
+                <a class="nav-link" href="community">News&Community</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="contact">Contact</a>
             </li>
+
         </ul>
+        </div>
     </nav>
 </header>

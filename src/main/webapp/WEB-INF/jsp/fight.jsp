@@ -27,11 +27,11 @@
 
 <p>Fighters</p>
 
-<c:forEach items="${list}" var="characterDAL">
+<c:forEach items="${list}" var="character">
     <form method="post" action="initiateChallenge">
-        <input type="text" value="${characterDAL.name}" name="name" readonly>
-        <input type="text" value="${characterDAL.race}" name="race" readonly>
-        <input type="text" value="${characterDAL.role}" name="role" readonly>
+        <input type="text" value="${character.name}" name="name" readonly>
+        <input type="text" value="${character.race}" name="race" readonly>
+        <input type="text" value="${character.role}" name="role" readonly>
         <input type="submit" value="Challenge Opponent">
     </form>
 </c:forEach>

@@ -65,6 +65,8 @@ public class Arena {
             BattlegroundCharacterModelDAL enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
             model.put("yourModel", yourModel);
             model.put("enemyModel", enemyModel);
+            model.put("yourImage", characterDao.getImageLink(characterId));
+            model.put("enemyImage", characterDao.getImageLink(enemyId));
             String result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
 //            System.out.println("result = " + result);
             if (result != null) {

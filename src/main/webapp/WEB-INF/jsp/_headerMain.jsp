@@ -1,20 +1,29 @@
 <header>
     <p style="font-size: 10px; margin: 3px 0 0 30px; padding: 0;"><%= new java.util.Date() %></p>
-    <nav class="navbar navbar-dark bg-dark">
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link navbar-left" href="">
-                    <p> Welcome, ${characterName}</p>
-                </a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
         <a class="navbar-brand" href="#">
-            <span class="glyphicon glyphicon-qrcode" width="30" height="30" aria-hidden="true"></span>
+            <i class="fab fa-accusoft"></i>
         </a>
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
+
+
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="">
+                    Welcome ${characterName}
+                </a>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="nav-link" href="logout">Logout</a>
-            </li>
+            </div>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link" href="arena">Arena</a>
             </li>
@@ -23,6 +32,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="fighterselection">Fight</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="shop">Shop</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="/Alita_Battle_war_exploded">Alita Battle</a>
@@ -37,5 +49,6 @@
                 <a class="nav-link" href="contact">Contact</a>
             </li>
         </ul>
+        </div>
     </nav>
 </header>

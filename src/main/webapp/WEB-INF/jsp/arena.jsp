@@ -17,7 +17,7 @@
 
 <c:forEach items="${list}" var="characterDAL">
     <form method="post" action="arena">
-        You are challenged by: <input type="text" value="${characterDAL.name}" name="name" readonly>
+        You are fighting with: <input type="text" value="${characterDAL.name}" name="name" readonly>
         <input type="text" value="${characterDAL.race}" name="race" readonly>
         <input type="text" value="${characterDAL.role}" name="role" readonly>
         <input type="submit" value="Fight!">
