@@ -1,6 +1,5 @@
 package dao;
 
-import interfaces.IChallegesDao;
 import interfaces.ICharacterDao;
 import models.dal.BattlegroundCharacterModelDAL;
 import models.dal.CharacterDAL;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +15,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static resources.Cons.*;
-import static resources.Cons.CHARACTERS_NAME;
+import static resources.ConsTables.*;
+import static resources.ConsTables.CHARACTERS_NAME;
 
 public class CharacterDao implements ICharacterDao {
 

@@ -1,10 +1,8 @@
 package controllers;
 
-import dao.CharacterDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
-import dao.SessionsDao;
 import models.dal.CharacterDAL;
 import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @RequestMapping("/fighterselection")
 @Controller

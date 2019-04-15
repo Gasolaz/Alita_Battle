@@ -5,13 +5,15 @@ import interfaces.IUsersDao;
 import models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import resources.Cons;
+import resources.ConsTables;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import static resources.Cons.*;
+
+import static resources.ConsItems.*;
+import static resources.ConsTables.*;
 
 public class ItemDao implements IItemDao {
 
@@ -82,7 +84,7 @@ public class ItemDao implements IItemDao {
     public List<Item> getItems(String tablename){
         List<Item> items = new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
-            String sql = build_sql_statement(tablename, ID, ITEM_NAME, PRICE, TABLE_ATTRIBUTES, Cons.ATTRIBUTE_ID, ATTRIBUTE_ID);
+            String sql = build_sql_statement(tablename, ID, ITEM_NAME, PRICE, TABLE_ATTRIBUTES, ATTRIBUTE_ID, ID);
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 //            ResultSetMetaData rsmd = rs.getMetaData();
@@ -101,7 +103,7 @@ public class ItemDao implements IItemDao {
         return items;
     }
 
-    private String build_sql_statement(String item_table, String item_id, String item_name, String price, String attribute_table, String id_of_attribute, String attribute_id){
+    private String build_sql_statement(String item_table, String item_id, String item_name, String price, String attribute_table, String attribute_id, String _id){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
         sb.append(item_table);
@@ -124,11 +126,11 @@ public class ItemDao implements IItemDao {
         sb.append(" ON ");
         sb.append(item_table);
         sb.append(".");
-        sb.append(id_of_attribute);
+        sb.append(attribute_id);
         sb.append(" = ");
         sb.append(attribute_table);
         sb.append(".");
-        sb.append(attribute_id);
+        sb.append(_id);
 
         return sb.toString();
     }

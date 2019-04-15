@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import static resources.Cons.*;
+import static resources.ConsTables.*;
 
 @RequestMapping("/shop")
 @Controller
@@ -30,8 +30,8 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
-        modelMap.put("first_hand_items", itemDao.getItems(TABLE_LEFTHAND));
-        modelMap.put("second_hand_items", itemDao.getItems(TABLE_RIGHTHAND));
+        modelMap.put("left_hand_items", itemDao.getItems(TABLE_LEFTHAND));
+        modelMap.put("right_hand_items", itemDao.getItems(TABLE_RIGHTHAND));
         modelMap.put("torso_items", itemDao.getItems(TABLE_TORSO));
         modelMap.put("leg_items", itemDao.getItems(TABLE_LEGS));
         return "shop";

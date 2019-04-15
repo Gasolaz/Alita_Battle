@@ -1,6 +1,5 @@
 package controllers;
 
-import dao.*;
 import interfaces.IArenaDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @RequestMapping("/fightResult")
 @Controller

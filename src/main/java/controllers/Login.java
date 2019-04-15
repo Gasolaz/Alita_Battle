@@ -21,7 +21,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 
 @RequestMapping("/AlitaBattle")

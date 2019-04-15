@@ -2,7 +2,7 @@ package resources;
 
 import java.util.HashMap;
 
-public final class Cons {
+public final class ConsTables {
 
     //    All Tables ID
     public static final String ID = "_id";
@@ -42,7 +42,7 @@ public final class Cons {
 
     // Global in tables: TORSO, LEGS, LEFT_HAND and RIGHT_HAND
     public static final String ITEM_NAME = "item_name";
-    // public static final String ID = "item_id"; // (L) --- Nereikia
+    // public static final String ID = "id"; // (L) --- Nereikia
 
     // Table: Torso
     public static final String TABLE_TORSO = "Set_torso"; // (L) Item_torso --> Set_torso
@@ -64,7 +64,7 @@ public final class Cons {
     // Table: Attributes
     public static final String TABLE_ATTRIBUTES = "Item_attributes";
     // Table Attributes -> Columns
-    // public static final String ATTRIBUTE_ID = "attribute_id"; // (L) --- Nereikia
+    // public static final String ATTRIBUTE_ID = "attr_id"; // (L) --- Nereikia
     public static final String STRENGTH = "strength";
     public static final String AGILITY = "agility";
     public static final String INTELLIGENCE = "intelligence";
@@ -143,13 +143,13 @@ public final class Cons {
             MESSAGES_CHARACTER_ID + " INTEGER  NOT NULL, " + MESSAGES_TIME + " DATETIME, " + MESSAGES_TEXT + " TEXT NOT NULL,  PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_ITEMSET = "CREATE TABLE IF NOT EXISTS " + TABLE_ITEMSET + " (" + ID + " INTEGER NOT NULL, " + TORSO_ID + " INTEGER NOT NULL, " + LEGS_ID +
             " INTEGER NOT NULL, " + LEFT_HAND_ID + " INTEGER NOT NULL, " + RIGHT_HAND_ID + " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
-    public static final String CREATE_TABLE_TORSO = "CREATE TABLE IF NOT EXISTS " + TABLE_TORSO + " (" + ID + " INTEGER NOT NULL, " + ITEM_NAME + " VARCHAR(255) NOT NULL, " + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
+    public static final String CREATE_TABLE_TORSO = "CREATE TABLE IF NOT EXISTS " + TABLE_TORSO + " (" + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ITEM_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
             " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
-    public static final String CREATE_TABLE_LEGS = "CREATE TABLE IF NOT EXISTS " + TABLE_LEGS + " (" + ID + " INTEGER NOT NULL, " + ITEM_NAME + " VARCHAR(255) NOT NULL, " + PRICE + " INTEGER NOT NULL, "  + ATTRIBUTE_ID +
+    public static final String CREATE_TABLE_LEGS = "CREATE TABLE IF NOT EXISTS " + TABLE_LEGS + " (" + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ITEM_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + PRICE + " INTEGER NOT NULL, "  + ATTRIBUTE_ID +
             " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
-    public static final String CREATE_TABLE_LEFT_HAND = "CREATE TABLE IF NOT EXISTS " + TABLE_LEFTHAND + " (" + ID + " INTEGER NOT NULL, " + ITEM_NAME + " VARCHAR(255) NOT NULL, " + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
+    public static final String CREATE_TABLE_LEFT_HAND = "CREATE TABLE IF NOT EXISTS " + TABLE_LEFTHAND + " (" + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ITEM_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
             " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
-    public static final String CREATE_TABLE_RIGHT_HAND = "CREATE TABLE IF NOT EXISTS " + TABLE_RIGHTHAND + " (" + ID + " INTEGER NOT NULL, " + ITEM_NAME + " VARCHAR(255) NOT NULL, "  + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
+    public static final String CREATE_TABLE_RIGHT_HAND = "CREATE TABLE IF NOT EXISTS " + TABLE_RIGHTHAND + " (" + ID + " INTEGER NOT NULL AUTO_INCREMENT, " + ITEM_NAME + " VARCHAR(255) NOT NULL UNIQUE, "  + PRICE + " INTEGER NOT NULL, " + ATTRIBUTE_ID +
             " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
     public static final String CREATE_TABLE_ATTRIBUTES = "CREATE TABLE IF NOT EXISTS " + TABLE_ATTRIBUTES + " (" + ID + " INTEGER NOT NULL, " + STRENGTH + " INTEGER NOT NULL, " + AGILITY +
             " INTEGER NOT NULL, " + INTELLIGENCE + " INTEGER NOT NULL, " + DEFENSE + " INTEGER NOT NULL, " + HITPOINTS + " INTEGER NOT NULL, PRIMARY KEY (" + ID + "))";
@@ -181,50 +181,4 @@ public final class Cons {
             put("arenaTable", CREATE_TABLE_ARENA);
         }
     };
-
-
-    // --- Insertion ---
-
-    //  Race
-    public static final String INSERT_RACE_HUMAN = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
-            ") VALUES('human', 'human_perk')";
-    public static final String INSERT_RACE_ELF = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
-            ") VALUES('elf', 'elf_perk')";
-    public static final String INSERT_RACE_DWARF = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
-            ") VALUES('dwarf', 'dwarf_perk')";
-    public static final String INSERT_RACE_UNDEAD = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
-            ") VALUES('undead', 'undead_perk')";
-    public static final String INSERT_RACE_ORC = "INSERT IGNORE INTO " + TABLE_RACES + "(" + RACES_RACE_NAME + ", " + RACES_RACIAL_PERK +
-            ") VALUES('orc', 'orc_perk')";
-
-    // Role
-    public static final String INSERT_ROLE_WIZARD = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('wizard')";
-    public static final String INSERT_ROLE_FIGHTER = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('fighter')";
-    public static final String INSERT_ROLE_PALADIN = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('paladin')";
-    public static final String INSERT_ROLE_ROGUE = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('rogue')";
-
-
-    // Attributes
-    public static final String INSERT_ATTRIBUTES = "INSERT IGNORE INTO " + TABLE_ATTRIBUTES + "(" + ID + ", " + STRENGTH + ", " + AGILITY + ", " + INTELLIGENCE + ", " +
-            DEFENSE + ", " + HITPOINTS + ") VALUES(?,?,?,?,?,?)";
-
-    // Messages
-    public static final String INSERT_MSG = "INSERT INTO " + TABLE_MESSAGES + "(" + MESSAGES_CHARACTER_ID + ", " + MESSAGES_TIME + ", " + MESSAGES_TEXT + ") VALUES(?,?,?)";
-
-    // User_id and character_id to inventory table
-    public static final String INSERT_TO_INVENTORY = "INSERT INTO " + TABLE_INVENTORY + "(" + SESSIONS_USER_ID + ", " + USERS_CHARACTER_ID +
-            ") VALUES (?,?)";
-
-    // Insert Item to Inventory table
-    public static final String INSERT_ITEM_TO_INVENTORY = "UPDATE " + TABLE_INVENTORY + " SET item_name" + "?" + " = ? WHERE user_id = ? AND character_id = ?";
-
-
-    // --- Selection ---
-
-    // Messages
-    public static final String SELECT_MESSAGES = "SELECT * FROM " + TABLE_MESSAGES;
-
-
-
-
 }

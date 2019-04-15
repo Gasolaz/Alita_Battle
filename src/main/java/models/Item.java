@@ -2,10 +2,10 @@ package models;
 
 public class Item {
 
-    public int item_id;
+    public int id;
     public String name;
     public int price;
-    public int attribute_id;
+    public int attr_id;
     public String attribute_name;
     public int attribute_modifier;
     public int str;
@@ -18,10 +18,10 @@ public class Item {
     }
 
     public Item(int item_id, String name, int price, int attribute_id){
-        this.item_id = item_id;
+        this.id = item_id;
         this.name = name;
         this.price = price;
-        this.attribute_id = attribute_id;
+        this.attr_id = attribute_id;
     }
 
     public Item(String name, int price, String attribute_name, int attribute_modifier){
@@ -32,7 +32,7 @@ public class Item {
     }
 
     public Item(int item_id, String name, int price, int str, int agi, int intel, int def, int hp){
-        this.item_id = item_id;
+        this.id = item_id;
         this.name = name;
         this.price = price;
         this.str = str;
@@ -43,7 +43,7 @@ public class Item {
     }
 
     public int getId(){
-        return item_id;
+        return id;
     }
 
     public String getName(){
@@ -64,12 +64,12 @@ public class Item {
 
     public int getHp() { return hp; }
 
-    public int getAttribute_id(){
-        return attribute_id;
+    public int getAttr_id(){
+        return attr_id;
     }
 
-    public void setItem_id(int item_id) {
-        this.item_id = item_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -80,8 +80,8 @@ public class Item {
         this.price = price;
     }
 
-    public void setAttribute_id(int attribute_id) {
-        this.attribute_id = attribute_id;
+    public void setAttr_id(int attr_id) {
+        this.attr_id = attr_id;
     }
 
     public void setAttribute_name(String attribute_name) {
