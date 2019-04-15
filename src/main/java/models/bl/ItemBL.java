@@ -1,6 +1,6 @@
-package models;
+package models.bl;
 
-public class Item {
+public class ItemBL {
 
     public int id;
     public String name;
@@ -14,24 +14,24 @@ public class Item {
     public int def;
     public int hp;
 
-    public Item(){
+    public ItemBL(){
     }
 
-    public Item(int item_id, String name, int price, int attribute_id){
+    public ItemBL(int item_id, String name, int price, int attribute_id){
         this.id = item_id;
         this.name = name;
         this.price = price;
         this.attr_id = attribute_id;
     }
 
-    public Item(String name, int price, String attribute_name, int attribute_modifier){
+    public ItemBL(String name, int price, String attribute_name, int attribute_modifier){
         this.name = name;
         this.price = price;
         this.attribute_name = attribute_name;
         this.attribute_modifier = attribute_modifier;
     }
 
-    public Item(int item_id, String name, int price, int str, int agi, int intel, int def, int hp){
+    public ItemBL(int item_id, String name, int price, int str, int agi, int intel, int def, int hp){
         this.id = item_id;
         this.name = name;
         this.price = price;

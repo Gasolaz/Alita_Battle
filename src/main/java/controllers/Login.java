@@ -5,6 +5,7 @@ import interfaces.ICharacterDao;
 import interfaces.IMsgDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
+import models.dal.BattlegroundCharacterModelDAL;
 import models.dal.MessageDAL;
 import models.bl.RegistrationFormTempUserBL;
 import models.dal.UserDAL;
@@ -55,6 +56,10 @@ public class Login {
             int characterId = usersDao.getCharacterIdFromUserId(userId);
             List<MessageDAL> messages = msgDao.getMessages();
             String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
+            //my try to Mi
+            BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
+            model.put("yourModel", yourModel);
+            // try
             model.put("messages", messages);
             model.put("characterName", characterName); // (L) add to model 'characterName'
             model.put("image", characterDao.getImageLink(characterId));

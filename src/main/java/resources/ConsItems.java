@@ -29,20 +29,20 @@ public class ConsItems {
             put("humanRace", INSERT_RACE_HUMAN);
             put("elfRace", INSERT_RACE_ELF);
             put("dwarfRace", INSERT_RACE_DWARF);
-            put("unleadRace", INSERT_RACE_UNDEAD);
+            put("undeadRace", INSERT_RACE_UNDEAD);
             put("orcRace", INSERT_RACE_ORC);
         }
     };
 
     // Roles
-    public static final String INSERT_ROLE_WIZZARD = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('wizzard')";
+    public static final String INSERT_ROLE_WIZARD = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('wizard')";
     public static final String INSERT_ROLE_FIGHTER = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('fighter')";
     public static final String INSERT_ROLE_PALADIN = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('paladin')";
     public static final String INSERT_ROLE_ROGUE = "INSERT IGNORE INTO " + TABLE_ROLES + "(" + ROLES_ROLE + ") VALUES('rogue')";
 
     public static final HashMap<String, String> rolesInsertion = new HashMap<String, String>(){
         {
-            put("wizzardRole", INSERT_ROLE_WIZZARD);
+            put("wizardRole", INSERT_ROLE_WIZARD);
             put("fighterRole", INSERT_ROLE_FIGHTER);
             put("paladinRole", INSERT_ROLE_PALADIN);
             put("rogueRole", INSERT_ROLE_ROGUE);
@@ -99,15 +99,15 @@ public class ConsItems {
             PRICE + ", " + ATTRIBUTE_ID + ") VALUES" +
             // (item anme, price, attr_id)
             "('peasant shirt', 0, 1)," +
-            "('lab coat', 10, 30)," +
-            "('spiked shirt', 5, 31)," +
+            "('lab coat', 10, 21)," +
+            "('spiked shirt', 5, 20)," +
             "('medium plate', 20, 22)," +
-            "('heavy plate', 40, 33)," +
-            "('dragonhide armor', 60, 34)," +
-            "('slough of anaconda', 35, 35)," +
-            "('wizzard top robes', 25, 36)," +
-            "('future item', 0, 28)," +
-            "('future item', 0, 29)";
+            "('heavy plate', 40, 19)," +
+            "('dragonhide armor', 60, 18)," +
+            "('slough of anaconda', 35, 17)," +
+            "('wizzard top robes', 25, 12)," +
+            "('future item', 0, 12)," +
+            "('future item', 0, 2)";
 
     // Attributes
     public static final String INSERT_ATTRIBUTES = "INSERT IGNORE INTO " + TABLE_ATTRIBUTES + "(" + ID + ", " + STRENGTH +
@@ -150,7 +150,7 @@ public class ConsItems {
     public static final String INSERT_TO_INVENTORY = "INSERT INTO " + TABLE_INVENTORY + "(" + SESSIONS_USER_ID + ", " + USERS_CHARACTER_ID +
             ") VALUES (?,?)";
 
-    // Insert Item to Inventory table
+    // Insert ItemBL to Inventory table
     public static final String INSERT_ITEM_TO_INVENTORY = "UPDATE " + TABLE_INVENTORY + " SET item_name" + "?" + " = ? WHERE user_id = ? AND character_id = ?";
 
 

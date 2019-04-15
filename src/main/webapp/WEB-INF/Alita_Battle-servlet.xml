@@ -24,8 +24,9 @@
     <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <!--Here "Alita_battle" is database (schema in mysql workbench) name, change as appropriate-->
-        <property name="url" value="jdbc:mysql://localhost:3306/Alita_battle?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"></property>        <property name="username" value="root"></property>
-        <property name="password" value=""></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/Alita_battle?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="12364563"></property>
     </bean>
 
 

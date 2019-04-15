@@ -2,10 +2,9 @@ package dao;
 
 import interfaces.IItemDao;
 import interfaces.IUsersDao;
-import models.Item;
+import models.bl.ItemBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import resources.ConsTables;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -81,8 +80,8 @@ public class ItemDao implements IItemDao {
         }
     }
 
-    public List<Item> getItems(String tablename){
-        List<Item> items = new ArrayList<>();
+    public List<ItemBL> getItems(String tablename){
+        List<ItemBL> items = new ArrayList<>();
         try(Connection conn = dataSource.getConnection()){
             String sql = build_sql_statement(tablename, ID, ITEM_NAME, PRICE, TABLE_ATTRIBUTES, ATTRIBUTE_ID, ID);
             Statement statement = conn.createStatement();
@@ -90,7 +89,7 @@ public class ItemDao implements IItemDao {
 //            ResultSetMetaData rsmd = rs.getMetaData();
             while(rs.next()){
                 if(isViableItem(rs.getString(ITEM_NAME))){
-                    items.add(new Item(rs.getInt(ID), rs.getString(ITEM_NAME), rs.getInt(PRICE),
+                    items.add(new ItemBL(rs.getInt(ID), rs.getString(ITEM_NAME), rs.getInt(PRICE),
                             rs.getInt(STRENGTH), rs.getInt(AGILITY), rs.getInt(INTELLIGENCE),
                             rs.getInt(DEFENSE), rs.getInt(HITPOINTS)));
                 }

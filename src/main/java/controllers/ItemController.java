@@ -4,7 +4,7 @@ import dao.ItemDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
-import models.Item;
+import models.bl.ItemBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,7 +38,7 @@ public class ItemController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String postCreate(ModelMap modelMap, @ModelAttribute("item") Item item, @CookieValue(value = "sessionID", defaultValue = "0") String session){
+    public String postCreate(ModelMap modelMap, @ModelAttribute("item") ItemBL item, @CookieValue(value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
         int charId = usersDao.getCharacterIdFromUserId(userId);
         int item_price = item.getPrice();

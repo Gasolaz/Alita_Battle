@@ -1,5 +1,6 @@
 package dao;
 
+import interfaces.IChallegesDao;
 import interfaces.ICharacterDao;
 import models.dal.BattlegroundCharacterModelDAL;
 import models.dal.CharacterDAL;
@@ -85,12 +86,13 @@ public class CharacterDao implements ICharacterDao {
         try (Connection conn = dataSource.getConnection()){
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
-            rs.next();
-            return rs.getString("image_link");
+            if(rs.next()){
+                return rs.getString("image_link");
+            }
         } catch (SQLException e){
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     public void updateCharacterAccordingToResult(int characterId, String result) {
