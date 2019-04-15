@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,8 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static resources.Cons.*;
-import static resources.Cons.CHARACTERS_NAME;
+import static resources.ConsTables.*;
+import static resources.ConsTables.CHARACTERS_NAME;
 
 public class CharacterDao implements ICharacterDao {
 
@@ -87,12 +86,13 @@ public class CharacterDao implements ICharacterDao {
         try (Connection conn = dataSource.getConnection()){
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
-            rs.next();
-            return rs.getString("image_link");
+            if(rs.next()){
+                return rs.getString("image_link");
+            }
         } catch (SQLException e){
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     public void updateCharacterAccordingToResult(int characterId, String result) {

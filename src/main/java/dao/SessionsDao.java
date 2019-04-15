@@ -1,6 +1,5 @@
 package dao;
 
-import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,7 +15,7 @@ import java.sql.Statement;
 import java.util.Random;
 
 import static dao.UsersDao.*;
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 public class SessionsDao implements ISessionsDao {
 

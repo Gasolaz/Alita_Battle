@@ -1,17 +1,16 @@
 package controllers;
 
-import dao.CharacterDao;
 import dao.ItemDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.bl.CharacterFormModelBL;
-import models.Item;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.ItemBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import static resources.Cons.*;
+import static resources.ConsTables.*;
 
 @RequestMapping("/shop")
 @Controller
@@ -21,25 +20,25 @@ public class ItemController {
     ItemDao itemDao;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
+    ICharacterDao characterDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
-        modelMap.put("first_hand_items", itemDao.getItems(TABLE_FIRST_HAND));
-        modelMap.put("second_hand_items", itemDao.getItems(TABLE_SECOND_HAND));
+        modelMap.put("left_hand_items", itemDao.getItems(TABLE_LEFTHAND));
+        modelMap.put("right_hand_items", itemDao.getItems(TABLE_RIGHTHAND));
         modelMap.put("torso_items", itemDao.getItems(TABLE_TORSO));
         modelMap.put("leg_items", itemDao.getItems(TABLE_LEGS));
         return "shop";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String postCreate(ModelMap modelMap, @ModelAttribute("item") Item item, @CookieValue(value = "sessionID", defaultValue = "0") String session){
+    public String postCreate(ModelMap modelMap, @ModelAttribute("item") ItemBL item, @CookieValue(value = "sessionID", defaultValue = "0") String session){
         int userId = sessionsDao.getUserIdFromSession(session);
         int charId = usersDao.getCharacterIdFromUserId(userId);
         int item_price = item.getPrice();
