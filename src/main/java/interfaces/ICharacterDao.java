@@ -22,4 +22,6 @@ public interface ICharacterDao {
     String getImageLink(int characterId);
     public int getCharacterGold(int char_id);
     public void reduceCharacterGold(int char_id, int item_price, int char_gold);
+    int getTempHpForBattlegroundCharacterModel(int characterId, int enemyId);
+    public int[] displayResultInLoggedIn (int character_id);
 }

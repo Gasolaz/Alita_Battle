@@ -116,8 +116,8 @@
     </div>
     </div>
     <div class="col-lg-6 text-center mt-sm-5">
-        <h2>W</h2>
-        <h2>S</h2>
+        <h2>W:${results[0]}</h2>
+        <h2>L:${results[1]}</h2>
     </div>
 </div>
 

@@ -44,6 +44,20 @@ public class CharacterDao implements ICharacterDao {
         return false;
     }
 
+    public int[] displayResultInLoggedIn (int character_id){
+        try(Connection conn = dataSource.getConnection()){
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + character_id);
+            if (rs.next()){
+                int[] array = {rs.getInt("wins"), rs.getInt("loses")};
+                return array;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void save(String race, String role, String gender, String name) {
         try (Connection conn = dataSource.getConnection()) {
             Statement statement = conn.createStatement();
@@ -75,8 +89,8 @@ public class CharacterDao implements ICharacterDao {
             if (rs.next()) {
                 roleId = rs.getInt("_id");
             }
-            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold, item_set_id, image_link)" +
-                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0, 0, '" + image_link + "')");
+            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold, right_h_id, left_h_id, torso_id, legs_id, image_link)" +
+                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 20, 0, 0, 0, 0,'" + image_link + "')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -220,6 +234,19 @@ public class CharacterDao implements ICharacterDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int getTempHpForBattlegroundCharacterModel(int characterId, int enemyId){
+        try (Connection conn = dataSource.getConnection()){
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT hp FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public String getCharacterNameById(int char_id) {

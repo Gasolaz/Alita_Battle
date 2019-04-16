@@ -73,9 +73,11 @@
         </tr>
         <c:forEach var="item" items="${left_hand_items}">
         <form action="shop" method="post">
-            <input type="hidden" value="left_hand_items" name="left_hand_items">
+            <input type="hidden" value="left_hand_items" name="tablename">
+            <input type="hidden" value="${item.id}" name="id">
             <input type="text" name="name" value="${item.name}" readonly>
             <input type="text" name="price" value="${item.price}" readonly>
+            <input type="text" name="price" value="${item.str}"readonly>
             <%--<td>${item.str }</td>--%>
             <%--<td>${item.agi }</td>--%>
             <%--<td>${item.intel }</td>--%>
@@ -105,7 +107,8 @@
         </tr>
         <c:forEach var="item" items="${right_hand_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="right_hand_items" name="right_hand_items">
+                <input type="hidden" value="right_hand_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
                 <input type="text" name="name" value="${item.name}" readonly>
                 <input type="text" name="price" value="${item.price}" readonly>
                     <%--<td>${item.str }</td>--%>
@@ -137,7 +140,8 @@
         </tr>
         <c:forEach var="item" items="${torso_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="torso_items" name="torso_items">
+                <input type="hidden" value="torso_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
                 <input type="text" name="name" value="${item.name}" readonly>
                 <input type="text" name="price" value="${item.price}" readonly>
                     <%--<td>${item.str }</td>--%>
@@ -169,7 +173,8 @@
         </tr>
         <c:forEach var="item" items="${leg_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="leg_items" name="leg_items">
+                <input type="hidden" value="leg_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
                 <input type="text" name="name" value="${item.name}" readonly>
                 <input type="text" name="price" value="${item.price}" readonly>
                     <%--<td>${item.str }</td>--%>

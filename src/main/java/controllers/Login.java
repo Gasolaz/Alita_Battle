@@ -60,6 +60,8 @@ public class Login {
             BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
             model.put("yourModel", yourModel);
             // try
+
+            model.put("results", characterDao.displayResultInLoggedIn(characterId));
             model.put("messages", messages);
             model.put("characterName", characterName); // (L) add to model 'characterName'
             model.put("image", characterDao.getImageLink(characterId));
