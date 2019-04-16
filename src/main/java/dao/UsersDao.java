@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 public class UsersDao implements IUsersDao {
     JdbcTemplate usersTemplate;

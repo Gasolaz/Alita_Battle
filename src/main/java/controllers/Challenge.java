@@ -1,6 +1,5 @@
 package controllers;
 
-import dao.*;
 import interfaces.IChallegesDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @RequestMapping("/challenge")
 @Controller

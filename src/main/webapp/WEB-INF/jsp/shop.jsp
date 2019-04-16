@@ -71,9 +71,9 @@
             <%--<th>Defense</th>--%>
             <%--<th>Hp</th>--%>
         </tr>
-        <c:forEach var="item" items="${first_hand_items}">
+        <c:forEach var="item" items="${left_hand_items}">
         <form action="shop" method="post">
-            <input type="hidden" value="first_hand_items" name="first_hand_items">
+            <input type="hidden" value="left_hand_items" name="left_hand_items">
             <input type="text" name="name" value="${item.name}" readonly>
             <input type="text" name="price" value="${item.price}" readonly>
             <%--<td>${item.str }</td>--%>
@@ -103,9 +103,9 @@
             <%--<th>Defense</th>--%>
             <%--<th>Hp</th>--%>
         </tr>
-        <c:forEach var="item" items="${second_hand_items}">
+        <c:forEach var="item" items="${right_hand_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="second_hand_items" name="second_hand_items">
+                <input type="hidden" value="right_hand_items" name="right_hand_items">
                 <input type="text" name="name" value="${item.name}" readonly>
                 <input type="text" name="price" value="${item.price}" readonly>
                     <%--<td>${item.str }</td>--%>

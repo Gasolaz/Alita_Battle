@@ -1,10 +1,8 @@
 package controllers;
 
-import dao.CharacterDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
-import dao.SessionsDao;
 import models.bl.CharacterFormModelBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @Controller
 public class CharacterCreate {

@@ -1,6 +1,5 @@
 package controllers;
 
-import dao.*;
 import interfaces.*;
 import models.dal.BattlegroundCharacterModelDAL;
 import models.bl.CustomCharacterBL;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @RequestMapping("")
 @Controller

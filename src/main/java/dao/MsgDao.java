@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static resources.Cons.*;
+import static resources.ConsItems.*;
+import static resources.ConsTables.*;
 
 public class MsgDao implements IMsgDao {
 

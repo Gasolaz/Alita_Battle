@@ -1,6 +1,5 @@
 package controllers;
 
-import dao.*;
 import interfaces.IChallegesDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @RequestMapping("/initiateChallenge")
 @Controller

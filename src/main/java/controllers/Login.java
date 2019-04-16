@@ -5,7 +5,6 @@ import interfaces.ICharacterDao;
 import interfaces.IMsgDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
-import models.bl.CustomCharacterBL;
 import models.dal.BattlegroundCharacterModelDAL;
 import models.dal.MessageDAL;
 import models.bl.RegistrationFormTempUserBL;
@@ -23,7 +22,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 
 @RequestMapping("/AlitaBattle")
@@ -61,6 +60,8 @@ public class Login {
             BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
             model.put("yourModel", yourModel);
             // try
+
+            model.put("results", characterDao.displayResultInLoggedIn(characterId));
             model.put("messages", messages);
             model.put("characterName", characterName); // (L) add to model 'characterName'
             model.put("image", characterDao.getImageLink(characterId));
