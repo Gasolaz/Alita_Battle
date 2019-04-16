@@ -35,19 +35,19 @@
                 <img class="" id="yourHero" src="${yourImage}">
             </div>
             <div class="player1">
-                <p>${yourModel.level}</p>
+                <p>Level=${yourModel.level}</p>
 
-                <p>${yourModel.hp}</p>
-                <p>${yourModel.mana}</p>
+                <p>Hp=${yourModel.tempHp}/${yourModel.hp}</p>
+                <p>Mana=${yourModel.mana}</p>
 
-                <p>${yourModel.name}</p>
-                <p>${yourModel.role}</p>
-                <p>${yourModel.race}</p>
+                <p>Name=${yourModel.name}</p>
+                <p>Role=${yourModel.role}</p>
+                <p>Race=${yourModel.race}</p>
 
-                <p>${yourModel.strength}</p>
-                <p>${yourModel.agility}</p>
-                <p>${yourModel.armor}</p>
-                <p>${yourModel.intelligence}</p>
+                <p>Strength=${yourModel.strength}</p>
+                <p>Agility=${yourModel.agility}</p>
+                <p>Armor=${yourModel.armor}</p>
+                <p>Intelligence=${yourModel.intelligence}</p>
             </div>
         </div>
 
@@ -81,19 +81,19 @@
         <div>
             <img class="" id="enemyHero" src="${enemyImage}">
         </div>
-        <p>${enemyModel.level}</p>
+        <p>Level=${enemyModel.level}</p>
 
-        <p>${enemyModel.hp}</p>
-        <p>${enemyModel.mana}</p>
+        <p>Hp=${enemyModel.tempHp}/${enemyModel.hp}</p>
+        <p>Mana=${enemyModel.mana}</p>
 
-        <p>${enemyModel.name}</p>
-        <p>${enemyModel.role}</p>
-        <p>${enemyModel.race}</p>
+        <p>Name=${enemyModel.name}</p>
+        <p>Role=${enemyModel.role}</p>
+        <p>Race=${enemyModel.race}</p>
 
-        <p>${enemyModel.strength}</p>
-        <p>${enemyModel.agility}</p>
-        <p>${enemyModel.armor}</p>
-        <p>${enemyModel.intelligence}</p>
+        <p>Strength=${enemyModel.strength}</p>
+        <p>Agility=${enemyModel.agility}</p>
+        <p>Armor=${enemyModel.armor}</p>
+        <p>Intelligence=${enemyModel.intelligence}</p>
     </div>
     </div>
 </div>

@@ -32,52 +32,43 @@ public class ItemDao implements IItemDao {
     public ItemDao(){
     }
 
-    public void insertToInventory(int user_id, int char_id, String item_name){
+//    public void insertToInventory(int user_id, int char_id, String item_name){
+//        try(Connection conn = dataSource.getConnection()){
+//            int column_index = selectEmptyFieldIndex(ITEM_NAME, user_id, char_id, conn);
+//            //String sql = "UPDATE " + TABLE_INVENTORY + " SET item_name" + "?" + " = ? WHERE user_id = ? AND character_id = ?";
+//            PreparedStatement ps = conn.prepareStatement(INSERT_ITEM_TO_INVENTORY);
+//            ps.setInt(1, column_index);
+//            ps.setString(2, item_name);
+//            ps.setInt(3, user_id);
+//            ps.setInt(4, char_id);
+//            ps.executeUpdate();
+//        } catch(SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public void insertItemToInventory(String item_type, int char_id, int item_id){
         try(Connection conn = dataSource.getConnection()){
-            int column_index = selectEmptyFieldIndex(ITEM_NAME, user_id, char_id, conn);
-            //String sql = "UPDATE " + TABLE_INVENTORY + " SET item_name" + "?" + " = ? WHERE user_id = ? AND character_id = ?";
-            PreparedStatement ps = conn.prepareStatement(INSERT_ITEM_TO_INVENTORY);
-            ps.setInt(1, column_index);
-            ps.setString(2, item_name);
-            ps.setInt(3, user_id);
-            ps.setInt(4, char_id);
-            ps.executeUpdate();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int selectEmptyFieldIndex(String columnname, int user_id, int char_id, Connection conn) throws SQLException {
-        int column_index = 1;
-        while(column_index <= MAX_INVENTORY_SPACE){
-            if(isEmptyField(columnname, column_index, user_id, char_id, conn)){
-                return column_index;
-            }
-            column_index++;
-        }
-        return -1;
-    }
-
-    public boolean isEmptyField(String columnname, int index, int user_id, int char_id, Connection conn) throws SQLException {
-        String sql = "SELECT " + columnname + index + " FROM " + TABLE_INVENTORY + " WHERE user_id=" + user_id + " AND character_id=" + char_id;
-        Statement statement = conn.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        rs.next();
-        if(rs.getString(columnname+index)!=null){
-            return false;
-        }
-        return true;
-    }
-
-    public void insertUserAndCharToInventory(int user_id, int char_id){
-        try(Connection conn = dataSource.getConnection()){
-            PreparedStatement ps = conn.prepareStatement(INSERT_TO_INVENTORY);
-            ps.setInt(1, user_id);
-            ps.setInt(2, char_id);
-            ps.executeUpdate();
+            String columname = getColumnName(item_type);
+            String sql = "UPDATE " + TABLE_CHARACTERS + " SET " + columname + "=" + item_id + " WHERE _id=" + char_id;
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
         } catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public String getColumnName(String item_type){
+        if(item_type.equals("left_hand_items")){
+            return LEFT_HAND_ID;
+        }
+        else if(item_type.equals("right_hand_items")){
+            return RIGHT_HAND_ID;
+        }
+        else if(item_type.equals("torso_items")){
+            return TORSO_ID;
+        }
+        else return LEGS_ID;
     }
 
     public List<ItemBL> getItems(String tablename){

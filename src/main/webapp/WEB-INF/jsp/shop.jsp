@@ -59,68 +59,61 @@
 </header>
 
 
-
-    <h3>Weapons main hand</h3>
+    <h3>Weapons left hand</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <%--<th>Strength</th>--%>
-            <%--<th>Agility</th>--%>
-            <%--<th>Intelligence</th>--%>
-            <%--<th>Defense</th>--%>
-            <%--<th>Hp</th>--%>
+            <th>Strength</th>
+            <th>Agility</th>
+            <th>Intelligence</th>
+            <th>Defense</th>
+            <th>Hp</th>
         </tr>
-        <c:forEach var="item" items="${left_hand_items}">
-        <form action="shop" method="post">
-            <input type="hidden" value="left_hand_items" name="left_hand_items">
-            <input type="text" name="name" value="${item.name}" readonly>
-            <input type="text" name="price" value="${item.price}" readonly>
-            <%--<td>${item.str }</td>--%>
-            <%--<td>${item.agi }</td>--%>
-            <%--<td>${item.intel }</td>--%>
-            <%--<td>${item.def }</td>--%>
-            <%--<td>${item.hp }</td>--%>
-                <%--<input>${item.price }--%>
-                <%--<input>${item.str }--%>
-                <%--<input>${item.agi }--%>
-                <%--<input>${item.intel }--%>
-                <%--<input>${item.def }--%>
-                <%--<input>${item.hp }--%>
-                    <button class="btn btn-success" type="submit">Buy</button>
-            <br>
-        </form>
-        </c:forEach>
+         <c:forEach var="item" items="${left_hand_items}">
+                <form action="shop" method="post">
+                    <input type="hidden" value="right_hand_items" name="tablename">
+                    <input type="hidden" value="${item.id}" name="id">
+                    <tr>
+                        <td> <input type="text" name="name" value="${item.name}" readonly> </td>
+                        <td> <input type="text" name="price" value="${item.price}" readonly> </td>
+                        <td> <input type="text" name="price" value="${item.str}"readonly> </td>
+                        <td> <input type="text" name="price" value="${item.agi}"readonly> </td>
+                        <td> <input type="text" name="price" value="${item.intel}"readonly> </td>
+                        <td> <input type="text" name="price" value="${item.def}"readonly> </td>
+                        <td> <input type="text" name="price" value="${item.hp}"readonly> </td>
+                        <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                    </tr>
+                        <%--                <br>--%>
+                </form>
+         </c:forEach>
     </table>
-    <h3>Weapons second hand</h3>
+    <h3>Weapons right hand</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <%--<th>Strength</th>--%>
-            <%--<th>Agility</th>--%>
-            <%--<th>Intelligence</th>--%>
-            <%--<th>Defense</th>--%>
-            <%--<th>Hp</th>--%>
+            <th>Strength</th>
+            <th>Agility</th>
+            <th>Intelligence</th>
+            <th>Defense</th>
+            <th>Hp</th>
         </tr>
         <c:forEach var="item" items="${right_hand_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="right_hand_items" name="right_hand_items">
-                <input type="text" name="name" value="${item.name}" readonly>
-                <input type="text" name="price" value="${item.price}" readonly>
-                    <%--<td>${item.str }</td>--%>
-                    <%--<td>${item.agi }</td>--%>
-                    <%--<td>${item.intel }</td>--%>
-                    <%--<td>${item.def }</td>--%>
-                    <%--<td>${item.hp }</td>--%>
-                    <%--<input>${item.price }--%>
-                    <%--<input>${item.str }--%>
-                    <%--<input>${item.agi }--%>
-                    <%--<input>${item.intel }--%>
-                    <%--<input>${item.def }--%>
-                    <%--<input>${item.hp }--%>
-                <button class="btn btn-success" type="submit">Buy</button>
-                <br>
+                <input type="hidden" value="right_hand_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
+                <tr>
+                    <td> <input type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.price}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.str}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.agi}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.intel}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.def}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.hp}"readonly> </td>
+                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                </tr>
+<%--                <br>--%>
             </form>
         </c:forEach>
     </table>
@@ -129,30 +122,27 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <%--<th>Strength</th>--%>
-            <%--<th>Agility</th>--%>
-            <%--<th>Intelligence</th>--%>
-            <%--<th>Defense</th>--%>
-            <%--<th>Hp</th>--%>
+            <th>Strength</th>
+            <th>Agility</th>
+            <th>Intelligence</th>
+            <th>Defense</th>
+            <th>Hp</th>
         </tr>
         <c:forEach var="item" items="${torso_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="torso_items" name="torso_items">
-                <input type="text" name="name" value="${item.name}" readonly>
-                <input type="text" name="price" value="${item.price}" readonly>
-                    <%--<td>${item.str }</td>--%>
-                    <%--<td>${item.agi }</td>--%>
-                    <%--<td>${item.intel }</td>--%>
-                    <%--<td>${item.def }</td>--%>
-                    <%--<td>${item.hp }</td>--%>
-                    <%--<input>${item.price }--%>
-                    <%--<input>${item.str }--%>
-                    <%--<input>${item.agi }--%>
-                    <%--<input>${item.intel }--%>
-                    <%--<input>${item.def }--%>
-                    <%--<input>${item.hp }--%>
-                <button class="btn btn-success" type="submit">Buy</button>
-                <br>
+                <input type="hidden" value="torso_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
+                <tr>
+                    <td> <input type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.price}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.str}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.agi}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.intel}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.def}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.hp}"readonly> </td>
+                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                </tr>
+<%--                <br>--%>
             </form>
         </c:forEach>
     </table>
@@ -161,30 +151,27 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            <%--<th>Strength</th>--%>
-            <%--<th>Agility</th>--%>
-            <%--<th>Intelligence</th>--%>
-            <%--<th>Defense</th>--%>
-            <%--<th>Hp</th>--%>
+            <th>Strength</th>
+            <th>Agility</th>
+            <th>Intelligence</th>
+            <th>Defense</th>
+            <th>Hp</th>
         </tr>
         <c:forEach var="item" items="${leg_items}">
             <form action="shop" method="post">
-                <input type="hidden" value="leg_items" name="leg_items">
-                <input type="text" name="name" value="${item.name}" readonly>
-                <input type="text" name="price" value="${item.price}" readonly>
-                    <%--<td>${item.str }</td>--%>
-                    <%--<td>${item.agi }</td>--%>
-                    <%--<td>${item.intel }</td>--%>
-                    <%--<td>${item.def }</td>--%>
-                    <%--<td>${item.hp }</td>--%>
-                    <%--<input>${item.price }--%>
-                    <%--<input>${item.str }--%>
-                    <%--<input>${item.agi }--%>
-                    <%--<input>${item.intel }--%>
-                    <%--<input>${item.def }--%>
-                    <%--<input>${item.hp }--%>
-                <button class="btn btn-success" type="submit">Buy</button>
-                <br>
+                <input type="hidden" value="leg_items" name="tablename">
+                <input type="hidden" value="${item.id}" name="id">
+                <tr>
+                    <td> <input type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.price}" readonly> </td>
+                    <td> <input type="text" name="price" value="${item.str}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.agi}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.intel}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.def}"readonly> </td>
+                    <td> <input type="text" name="price" value="${item.hp}"readonly> </td>
+                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                </tr>
+<%--                <br>--%>
             </form>
         </c:forEach>
     </table>

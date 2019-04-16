@@ -4,6 +4,7 @@ public class ItemBL {
 
     public int id;
     public String name;
+    public String tablename;
     public int price;
     public int attr_id;
     public String attribute_name;
@@ -17,18 +18,8 @@ public class ItemBL {
     public ItemBL(){
     }
 
-    public ItemBL(int item_id, String name, int price, int attribute_id){
-        this.id = item_id;
-        this.name = name;
-        this.price = price;
-        this.attr_id = attribute_id;
-    }
-
-    public ItemBL(String name, int price, String attribute_name, int attribute_modifier){
-        this.name = name;
-        this.price = price;
-        this.attribute_name = attribute_name;
-        this.attribute_modifier = attribute_modifier;
+    public void setTablename(String tablename) {
+        this.tablename = tablename;
     }
 
     public ItemBL(int item_id, String name, int price, int str, int agi, int intel, int def, int hp){

@@ -211,5 +211,13 @@ form #characterReg {
     width: 20rem !important;
 }
 
+th {
+    text-align: center;
+}
+
+td {
+    width: 50px !important;
+}
+
 
 
