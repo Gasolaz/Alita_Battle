@@ -44,15 +44,15 @@ public class CharacterDao implements ICharacterDao {
         return false;
     }
 
-    public int[] displayResultInLoggedIn (int character_id){
-        try(Connection conn = dataSource.getConnection()){
+    public int[] displayResultInLoggedIn(int character_id) {
+        try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + character_id);
-            if (rs.next()){
+            if (rs.next()) {
                 int[] array = {rs.getInt("wins"), rs.getInt("loses")};
                 return array;
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -89,21 +89,21 @@ public class CharacterDao implements ICharacterDao {
             if (rs.next()) {
                 roleId = rs.getInt("_id");
             }
-            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, level, wins, loses, gold, item_set_id, image_link)" +
-                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 1, 0, 0, 0, 0, '" + image_link + "')");
+            statement.executeUpdate("INSERT INTO Characters(character_name, race_id, role_id, sex, exp, wins, loses, gold, right_h_id, left_h_id, torso_id, legs_id, image_link)" +
+                    " VALUES('" + name + "', " + raceId + ", " + roleId + ", '" + gender + "', 0, 0, 0, 20, 0, 0, 0, 0,'" + image_link + "')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public String getImageLink(int characterId){
-        try (Connection conn = dataSource.getConnection()){
+    public String getImageLink(int characterId) {
+        try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getString("image_link");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -213,15 +213,15 @@ public class CharacterDao implements ICharacterDao {
     public BattlegroundCharacterModelDAL formBattlegroundCharacterModelFromCharacterId(int characterId) {
         try (Connection conn = dataSource.getConnection()) {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT cha.character_name, cha.level, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
+            ResultSet rs = st.executeQuery("SELECT cha.character_name, ra.race_name, ro.role FROM Characters AS cha INNER JOIN Races AS ra " +
                     "ON ra._id=cha.race_id INNER JOIN Roles AS ro ON ro._id=cha.role_id WHERE cha._id=" + characterId);
             if (rs.next()) {
-                int level = rs.getInt(2);
+                int level = countLevelByExp(characterId)[0];
                 BattlegroundCharacterModelDAL battlegroundCharacterModelDAL = new BattlegroundCharacterModelDAL();
                 battlegroundCharacterModelDAL.setName(rs.getString(1));
                 battlegroundCharacterModelDAL.setLevel(level);
-                battlegroundCharacterModelDAL.setRace(rs.getString(3));
-                battlegroundCharacterModelDAL.setRole(rs.getString(4));
+                battlegroundCharacterModelDAL.setRace(rs.getString(2));
+                battlegroundCharacterModelDAL.setRole(rs.getString(3));
                 battlegroundCharacterModelDAL.setHp(level);
                 battlegroundCharacterModelDAL.setMana(level);
                 battlegroundCharacterModelDAL.setArmor(0);
@@ -234,6 +234,60 @@ public class CharacterDao implements ICharacterDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int[] countLevelByExp(int characterId) {
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
+            if (rs.next()){
+                int[] array = new int[3];
+                int exp = rs.getInt("exp");
+                array[1] = exp; // current xp
+                int level = 0;
+                while(exp >= 0){
+                    level++;
+                    exp = exp - 50*level;
+                }
+
+                array[0] = level; // current level
+                int expToLevelUp = 0;
+                for (int i = 0; i < level + 1; i++) {
+                    expToLevelUp += 50 * i;
+                }
+                array[2] = expToLevelUp; // exp to level up
+                return array;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getGold (int characterId) {
+        try(Connection conn = dataSource.getConnection()){
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + characterId);
+            if (rs.next()){
+                int gold = rs.getInt("gold");
+                return gold;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public int getTempHpForBattlegroundCharacterModel(int characterId, int enemyId) {
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT hp FROM Arena WHERE character_id=" + characterId + " AND enemy_id=" + enemyId);
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public String getCharacterNameById(int char_id) {

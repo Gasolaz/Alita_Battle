@@ -34,19 +34,19 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-item d-flex">
-                        <i class="nav-link fas fa-coins"><%--${yourModel.gold}--%>COINS</i>
-                        <p class="ml-5 mt-1" id="coins">LOADING</p>
+                        <i class="nav-link fas fa-coins"><%--${yourModel.gold}--%>GOLD</i>
+                        <p class="ml-5 mt-1" id="coins">${gold}</p>
                     </li>
 
                     <li class="nav-item d-flex">
                         <i class="nav-link fas fa-spinner">EXP</i>
-                        <p class="ml-auto mt-1" id="experience"><%--${yourModel.exp}--%>LOADING</p>
+                        <p class="ml-auto mt-1" id="experience">${experience[1]}/${experience[2]}</p>
                     </li>
 
 
                     <li class="nav-item d-flex">
                         <a class="nav-link" id="level" href=""><p class="text-center">LVL</p></a>
-                        <p class="text-center ml-auto mt-1" id="level1">${yourModel.level}</p>
+                        <p class="text-center ml-auto mt-1" id="level1">${experience[0]}</p>
                     </li>
 
                 </ul>

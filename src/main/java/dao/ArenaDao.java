@@ -142,9 +142,7 @@ public class ArenaDao implements IArenaDao {
 
     }
 
-    public int updateExp (){
 
-    }
 
     public void insertMatchResults(int character_id, int enemy_id, String attack, String defend) {
         try (Connection conn = dataSource.getConnection()) {
