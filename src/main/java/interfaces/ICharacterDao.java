@@ -20,8 +20,10 @@ public interface ICharacterDao {
     BattlegroundCharacterModelDAL formBattlegroundCharacterModelFromCharacterId(int characterId);
     String getCharacterNameById(int char_id);
     String getImageLink(int characterId);
-    public int getCharacterGold(int char_id);
-    public void reduceCharacterGold(int char_id, int item_price, int char_gold);
+    int getCharacterGold(int char_id);
+    void reduceCharacterGold(int char_id, int item_price, int char_gold);
     int getTempHpForBattlegroundCharacterModel(int characterId, int enemyId);
-    public int[] displayResultInLoggedIn (int character_id);
+    int[] displayResultInLoggedIn (int character_id);
+    int[] countLevelByExp(int character_id);
+    int getGold (int characterId);
 }

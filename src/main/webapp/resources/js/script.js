@@ -48,3 +48,8 @@ function my() {
         src4.appendChild(img4);
     }
 }
+
+function shop() {
+
+
+}

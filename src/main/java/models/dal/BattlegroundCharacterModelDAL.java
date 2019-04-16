@@ -12,8 +12,17 @@ public class BattlegroundCharacterModelDAL {
     public int agility;
     public int intelligence;
     public int armor;
+    public int experience;
 
     public BattlegroundCharacterModelDAL() {
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
     public int getTempHp() {

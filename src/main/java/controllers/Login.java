@@ -1,10 +1,7 @@
 package controllers;
 
 import dao.*;
-import interfaces.ICharacterDao;
-import interfaces.IMsgDao;
-import interfaces.ISessionsDao;
-import interfaces.IUsersDao;
+import interfaces.*;
 import models.dal.BattlegroundCharacterModelDAL;
 import models.dal.MessageDAL;
 import models.bl.RegistrationFormTempUserBL;
@@ -60,8 +57,9 @@ public class Login {
             BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
             model.put("yourModel", yourModel);
             // try
-
+            model.put("gold", characterDao.getGold(characterId));
             model.put("results", characterDao.displayResultInLoggedIn(characterId));
+            model.put("experience", characterDao.countLevelByExp(characterId));
             model.put("messages", messages);
             model.put("characterName", characterName); // (L) add to model 'characterName'
             model.put("image", characterDao.getImageLink(characterId));
