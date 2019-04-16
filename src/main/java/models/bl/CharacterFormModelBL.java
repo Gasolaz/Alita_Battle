@@ -1,12 +1,12 @@
-package models;
+package models.bl;
 
-public class CharacterFormModel {
+public class CharacterFormModelBL {
     public String race;
     public String role;
     public String name;
     public String gender;
 
-    public CharacterFormModel() {
+    public CharacterFormModelBL() {
     }
 
     public void setGender(String gender) {

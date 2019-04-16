@@ -1,10 +1,8 @@
 package dao;
 
-import models.Session;
-import org.apache.jasper.tagplugins.jstl.core.If;
+import interfaces.ISessionsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +15,9 @@ import java.sql.Statement;
 import java.util.Random;
 
 import static dao.UsersDao.*;
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
-public class SessionsDao {
+public class SessionsDao implements ISessionsDao {
 
     @Autowired
     DataSource dataSource;
@@ -73,4 +71,21 @@ public class SessionsDao {
         }
         return NO_ID;
     }
+
+    // (L) UserDAL name from session generator
+    public String getUserNameFromSession(int userId) {
+
+        String actualUser = "SELECT username FROM Users WHERE _id=" + userId;
+        try (Connection conn = dataSource.getConnection()) {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(actualUser);
+            if (rs.next()){
+                return rs.getString("username");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return "Login, please!";
+    }
+
 }

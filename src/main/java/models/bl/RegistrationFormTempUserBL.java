@@ -1,12 +1,12 @@
-package models;
+package models.bl;
 
-public class RegistrationFormTempUser {
+public class RegistrationFormTempUserBL {
     public String username;
     public String email;
     public String pass;
     public String passConfirmation;
 
-    public RegistrationFormTempUser() {}
+    public RegistrationFormTempUserBL() {}
 
     public String getUsername() {
         return username;

@@ -48,7 +48,7 @@
     <%--<div id="valRole"></div>--%>
 
 
-    <%--<div id="img">Selected Character</div>--%>
+    <%--<div id="img">Selected CharacterDAL</div>--%>
 
 
     <form action="create" method="post" id="characterReg">
@@ -74,12 +74,18 @@
             <option value="undead">Undead</option>
         </select>
 
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/572806-simple.jpg"> &lt;%&ndash; dwarf &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/562425-hunter-human-male.jpg"> &lt;%&ndash; human &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/511437-sellsword.jpg"> &lt;%&ndash; orc &ndash;%&gt;--%>
+<%--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/759517-blood-elf-ranger.jpg"> &lt;%&ndash; elf &ndash;%&gt;--%>
+<!--        <input type="hidden" value="https://wow.zamimg.com/uploads/screenshots/normal/566501-%D1%81%D0%B5%D1%82-1.jpg"> --><%-- undead --%>
+
 
         <%--<div class="name">--%>
-        <%--<input type="text" placeholder="Character Name" required name="name">--%>
+        <%--<input type="text" placeholder="CharacterDAL Name" required name="name">--%>
         <%--</div>--%>
 
-        <%--<button class="btn btn-success" type="submit">Create Character</button>--%>
+        <%--<button class="btn btn-success" type="submit">Create CharacterDAL</button>--%>
 
 
         <div class="name">

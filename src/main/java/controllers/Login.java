@@ -1,17 +1,17 @@
 package controllers;
 
-import dao.MsgDao;
-import dao.SessionsDao;
-import dao.TablesDao;
-import dao.UsersDao;
-import models.Message;
-import models.RegistrationFormTempUser;
-import models.Session;
-import models.User;
+import dao.*;
+import interfaces.ICharacterDao;
+import interfaces.IMsgDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.dal.BattlegroundCharacterModelDAL;
+import models.dal.MessageDAL;
+import models.bl.RegistrationFormTempUserBL;
+import models.dal.UserDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
@@ -22,7 +22,7 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 
 @RequestMapping("/AlitaBattle")
@@ -33,23 +33,40 @@ public class Login {
     DataSource dataSource;
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    MsgDao msgDao;
+    IMsgDao msgDao;
+
+    @Autowired
+    ICharacterDao characterDao;
 
     @GetMapping
     public String getLogin(Map<String, Object> model, @CookieValue(value= "sessionID", defaultValue = "0") String session) {
         int userId = sessionsDao.getUserIdFromSession(session);
+        String userName = sessionsDao.getUserNameFromSession(userId); // (L) get 'userName' from ID
+
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "characterCreation";
             }
-            List<Message> messages = msgDao.getMessages();
+            int characterId = usersDao.getCharacterIdFromUserId(userId);
+            List<MessageDAL> messages = msgDao.getMessages();
+            String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
+            //my try to Mi
+            BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
+            model.put("yourModel", yourModel);
+            // try
             model.put("messages", messages);
+            model.put("characterName", characterName); // (L) add to model 'characterName'
+            model.put("image", characterDao.getImageLink(characterId));
+            if(characterDao.getImageLink(characterId) == null){
+                model.put("error", "dafuq hacker");
+                return "error";
+            }
 
             return "loggedIn";
         }
@@ -57,7 +74,7 @@ public class Login {
     }
 
     @PostMapping
-    public String postLogin(Map<String, Object> model, @ModelAttribute RegistrationFormTempUser rftu, HttpServletResponse response) {
+    public String postLogin(Map<String, Object> model, @ModelAttribute RegistrationFormTempUserBL rftu, HttpServletResponse response) {
         try (Connection conn = dataSource.getConnection()) {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE username='" + rftu.getUsername() +
@@ -66,7 +83,7 @@ public class Login {
                 byte[] salt = fromHex(rs.getString("salt"));
                 String generatedPass = UsersDao.get_SHA_256_SecurePassword(rftu.getPass(), salt);
                 if (generatedPass.equals(rs.getString("hashed_pass"))) {
-                    User user = usersDao.getUserByUsername(rftu.getUsername());
+                    UserDAL user = usersDao.getUserByUsername(rftu.getUsername());
                     sessionsDao.save(user.get_id(), response);
                     return "redirect:/create";
                 }

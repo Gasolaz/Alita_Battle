@@ -1,32 +1,28 @@
 package controllers;
 
-import dao.CharacterDao;
-import dao.ItemDao;
-import dao.SessionsDao;
-import dao.UsersDao;
-import models.CharacterFormModel;
+import interfaces.ICharacterDao;
+import interfaces.ISessionsDao;
+import interfaces.IUsersDao;
+import models.bl.CharacterFormModelBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static resources.Cons.NO_ID;
+import static resources.ConsTables.NO_ID;
 
 @Controller
 public class CharacterCreate {
 
     @Autowired
-    SessionsDao sessionsDao;
+    ISessionsDao sessionsDao;
 
     @Autowired
-    UsersDao usersDao;
+    IUsersDao usersDao;
 
     @Autowired
-    CharacterDao characterDao;
-
-    @Autowired
-    ItemDao itemDao;
+    ICharacterDao characterDao;
 
     @GetMapping("/create")
     public String getCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session) {
@@ -41,12 +37,15 @@ public class CharacterCreate {
 
     @PostMapping("/create")
     public String postCreate(Map<String, Object> model, @CookieValue(value = "sessionID", defaultValue = "0") String session,
-                             @ModelAttribute CharacterFormModel cfm){
-        int userId = sessionsDao.getUserIdFromSession(session);
-        characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
-        int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
-        usersDao.updateUserWithCharacterId(userId, characterId);
-        itemDao.insertUserAndCharToInventory(userId, characterId);
-        return "redirect:/AlitaBattle";
+                             @ModelAttribute CharacterFormModelBL cfm){
+        if(!characterDao.isUsernameAlreadyTaken(cfm.name)){
+            int userId = sessionsDao.getUserIdFromSession(session);
+            characterDao.save(cfm.race, cfm.role, cfm.gender, cfm.name);
+            int characterId = characterDao.selectCharacterIdByCharacterName(cfm.name);
+            usersDao.updateUserWithCharacterId(userId, characterId);
+            return "redirect:/AlitaBattle";
+        }
+        model.put("error", "Username already taken");
+        return "characterCreation";
     }
 }

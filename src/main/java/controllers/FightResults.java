@@ -1,22 +1,24 @@
 package controllers;
 
-import interfaces.IChallegesDao;
+import interfaces.IArenaDao;
 import interfaces.ICharacterDao;
 import interfaces.ISessionsDao;
 import interfaces.IUsersDao;
-import models.bl.CustomCharacterBL;
+import models.bl.AttackDefendBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 import static resources.ConsTables.NO_ID;
 
-@RequestMapping("/initiateChallenge")
+@RequestMapping("/fightResult")
 @Controller
-public class InitiateChallenge {
+public class FightResults {
 
     @Autowired
-    ICharacterDao characterDao;
+    IArenaDao arenaDao;
 
     @Autowired
     ISessionsDao sessionsDao;
@@ -25,24 +27,20 @@ public class InitiateChallenge {
     IUsersDao usersDao;
 
     @Autowired
-    IChallegesDao challengesDao;
-
-    @GetMapping
-    public String getChallenge() {
-        return "redirect:/";
-    }
+    ICharacterDao characterDao;
 
     @PostMapping
-    public String postChallenge(@ModelAttribute CustomCharacterBL customCharacter, @CookieValue (value="sessionID", defaultValue = "0") String session){
+    public String fightOpponent (@ModelAttribute AttackDefendBL attackDefendBL, Map<String, Object > model, @CookieValue (value = "sessionID", defaultValue = "0") String session){
+
         int userId = sessionsDao.getUserIdFromSession(session);
         if (userId != NO_ID) {
             if (usersDao.getCharacterIdFromUserId(userId) == 0) {
                 return "redirect:/create";
             }
             int characterId = usersDao.getCharacterIdFromUserId(userId);
-            int challengedCharacterId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
-            challengesDao.insertChallenge(characterId, challengedCharacterId);
+            int enemyId = characterDao.getCharacterIdFromCharacterName(attackDefendBL.enemyName);
+            arenaDao.insertMatchResults(characterId, enemyId, attackDefendBL.attack, attackDefendBL.defence);
         }
-        return "redirect:/fighterselection";
+        return "redirect:/";
     }
 }

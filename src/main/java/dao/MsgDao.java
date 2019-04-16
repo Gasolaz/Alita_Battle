@@ -1,9 +1,9 @@
 package dao;
 
-import models.Message;
+import interfaces.IMsgDao;
+import models.dal.MessageDAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import sun.util.calendar.LocalGregorianCalendar;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static resources.Cons.*;
+import static resources.ConsItems.*;
+import static resources.ConsTables.*;
 
-public class MsgDao {
+public class MsgDao implements IMsgDao {
 
     @Autowired
     DataSource dataSource;
@@ -42,15 +43,15 @@ public class MsgDao {
         }
     }
 
-    public List<Message> getMessages() {
-        List<Message> messagesList = new ArrayList<>();
+    public List<MessageDAL> getMessages() {
+        List<MessageDAL> messagesList = new ArrayList<>();
 
         try (Connection conn = dataSource.getConnection()){
             PreparedStatement ps = conn.prepareStatement(SELECT_MESSAGES);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 String charName = characterDao.getCharacterNameById(rs.getInt("char_id"));
-                Message message = new Message(charName, rs.getLong(MESSAGES_CHARACTER_ID), rs.getTimestamp(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
+                MessageDAL message = new MessageDAL(charName, rs.getLong(MESSAGES_CHARACTER_ID), rs.getTimestamp(MESSAGES_TIME), rs.getString(MESSAGES_TEXT));
                 messagesList.add(message);
             }
         } catch (SQLException e) {

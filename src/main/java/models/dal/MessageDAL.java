@@ -1,10 +1,10 @@
-package models;
+package models.dal;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Message {
+public class MessageDAL {
 
     private long id;
     private long char_id;
@@ -12,16 +12,16 @@ public class Message {
     private String msg_text;
     private String char_name;
 
-    public Message() {}
+    public MessageDAL() {}
 
-    public Message(long id, long char_id, Date msg_time, String msg_text) {
+    public MessageDAL(long id, long char_id, Date msg_time, String msg_text) {
         this.id = id;
         this.char_id = char_id;
         this.msg_time = msg_time;
         this.msg_text = msg_text;
     }
 
-    public Message(String char_name, long char_id, Date msg_time, String msg_text) {
+    public MessageDAL(String char_name, long char_id, Date msg_time, String msg_text) {
         this.char_name = char_name;
         this.char_id = char_id;
         this.msg_time = msg_time;
