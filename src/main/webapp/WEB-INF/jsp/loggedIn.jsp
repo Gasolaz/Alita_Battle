@@ -160,12 +160,12 @@
                     </c:forEach>
                 </table>
             </div>
-        <form method="post" action="messages">
-            <input type="text" name="msg_text">
-            <input type="submit" value="Post">
-        </form>
-            <hr>
-
+        <div class="form_chat">
+            <form method="post" action="messages">
+                <input class="msg_input" type="text" name="msg_text">
+                <input class="btn btn-success btn-lg btn3d" type="submit" value="Post">
+            </form>
+        </div>
     </div>
     </div>
 </div>

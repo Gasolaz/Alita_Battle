@@ -59,10 +59,10 @@
     </nav>
 </header>
 <div id="button_weapon">
-    <button class="btn btn-success" onclick="showItemsLH()">Weapons for Left Hand</button>
-    <button class="btn btn-success" onclick="showItemsRH()">Weapons for Right Hand</button>
-    <button class="btn btn-success" onclick="showItemsTorso()">Weapons for Torso</button>
-    <button class="btn btn-success" onclick="showItemsLegs()">Weapons for Legs</button>
+    <button class="btn3d btn btn-default btn-lg" onclick="showItemsLH()">Weapons for Left Hand</button>
+    <button class="btn3d btn btn-default btn-lg" onclick="showItemsRH()">Weapons for Right Hand</button>
+    <button class="btn3d btn btn-default btn-lg" onclick="showItemsTorso()">Weapons for Torso</button>
+    <button class="btn3d btn btn-default btn-lg" onclick="showItemsLegs()">Weapons for Legs</button>
 </div>
 <div id="lefthand_id">
     <h3>Weapons for Left Hand</h3>
@@ -81,14 +81,14 @@
                     <input type="hidden" value="right_hand_items" name="tablename">
                     <input type="hidden" value="${item.id}" name="id">
                     <tr>
-                        <td> <input class="name_col type="text" name="name" value="${item.name}" readonly> </td>
+                        <td> <input class="name_col" type="text" name="name" value="${item.name}" readonly> </td>
                         <td> <input type="text" name="price" value="${item.price}" readonly> </td>
                         <td> <input type="text" name="strength" value="${item.str}"readonly> </td>
                         <td> <input type="text" name="agility" value="${item.agi}"readonly> </td>
                         <td> <input type="text" name="intelligence" value="${item.intel}"readonly> </td>
                         <td> <input type="text" name="Defense" value="${item.def}"readonly> </td>
                         <td> <input type="text" name="Hp" value="${item.hp}"readonly> </td>
-                        <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                        <td> <button class="btn btn-primary btn-sm btn3d" type="submit">Buy</button> </td>
                     </tr>
                         <%--                <br>--%>
                 </form>
@@ -112,14 +112,14 @@
                 <input type="hidden" value="right_hand_items" name="tablename">
                 <input type="hidden" value="${item.id}" name="id">
                 <tr>
-                    <td> <input class="name_col type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input class="name_col" type="text" name="name" value="${item.name}" readonly> </td>
                     <td> <input type="text" name="price" value="${item.price}" readonly> </td>
                     <td> <input type="text" name="strength" value="${item.str}"readonly> </td>
                     <td> <input type="text" name="agility" value="${item.agi}"readonly> </td>
                     <td> <input type="text" name="intelligence" value="${item.intel}"readonly> </td>
                     <td> <input type="text" name="Defense" value="${item.def}"readonly> </td>
                     <td> <input type="text" name="Hp" value="${item.hp}"readonly> </td>
-                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                    <td> <button class="btn btn-primary btn-sm btn3d" type="submit">Buy</button> </td>
                 </tr>
 <%--                <br>--%>
             </form>
@@ -143,14 +143,14 @@
                 <input type="hidden" value="torso_items" name="tablename">
                 <input type="hidden" value="${item.id}" name="id">
                 <tr>
-                    <td> <input class="name_col type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input class="name_col" type="text" name="name" value="${item.name}" readonly> </td>
                     <td> <input type="text" name="price" value="${item.price}" readonly> </td>
                     <td> <input type="text" name="strength" value="${item.str}"readonly> </td>
                     <td> <input type="text" name="agility" value="${item.agi}"readonly> </td>
                     <td> <input type="text" name="intelligence" value="${item.intel}"readonly> </td>
                     <td> <input type="text" name="Defense" value="${item.def}"readonly> </td>
                     <td> <input type="text" name="Hp" value="${item.hp}"readonly> </td>
-                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                    <td> <button class="btn btn-primary btn-sm btn3d" type="submit">Buy</button> </td>
                 </tr>
 <%--                <br>--%>
             </form>
@@ -174,14 +174,14 @@
                 <input type="hidden" value="leg_items" name="tablename">
                 <input type="hidden" value="${item.id}" name="id">
                 <tr>
-                    <td> <input class="name_col type="text" name="name" value="${item.name}" readonly> </td>
+                    <td> <input class="name_col" type="text" name="name" value="${item.name}" readonly> </td>
                     <td> <input type="text" name="price" value="${item.price}" readonly> </td>
                     <td> <input type="text" name="strength" value="${item.str}"readonly> </td>
                     <td> <input type="text" name="agility" value="${item.agi}"readonly> </td>
                     <td> <input type="text" name="intelligence" value="${item.intel}"readonly> </td>
                     <td> <input type="text" name="Defense" value="${item.def}"readonly> </td>
                     <td> <input type="text" name="Hp" value="${item.hp}"readonly> </td>
-                    <td> <button class="btn btn-success" type="submit">Buy</button> </td>
+                    <td> <button class="btn btn-primary btn-sm btn3d" type="submit">Buy</button> </td>
                 </tr>
 <%--                <br>--%>
             </form>
