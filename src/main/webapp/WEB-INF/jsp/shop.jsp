@@ -72,7 +72,7 @@
         </tr>
          <c:forEach var="item" items="${left_hand_items}">
                 <form action="shop" method="post">
-                    <input type="hidden" value="right_hand_items" name="tablename">
+                    <input type="hidden" value="left_hand_items" name="tablename">
                     <input type="hidden" value="${item.id}" name="id">
                     <tr>
                         <td> <input type="text" name="name" value="${item.name}" readonly> </td>

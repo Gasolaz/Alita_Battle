@@ -55,6 +55,7 @@ public class Login {
             String characterName = characterDao.getCharacterNameById(usersDao.getCharacterIdFromUserId(userId));
             //my try to Mi
             BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
+            System.out.println(yourModel.strength);
             model.put("yourModel", yourModel);
             // try
             model.put("gold", characterDao.getGold(characterId));

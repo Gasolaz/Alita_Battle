@@ -29,6 +29,30 @@ public class BattlegroundCharacterModelDAL {
         return tempHp;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
     public void setTempHp(int tempHp) {
         this.tempHp = tempHp;
     }
@@ -65,48 +89,24 @@ public class BattlegroundCharacterModelDAL {
         this.role = role;
     }
 
-    public int getHp() {
-        return 20 + level * 20;
-    }
-
     public void setHp(int level) {
         this.hp = 100 + level * 20;
-    }
-
-    public int getMana() {
-        return 50 + level * 15;
     }
 
     public void setMana(int level) {
         this.mana = 50 + level * 15;
     }
 
-    public int getStrength() {
-        return 5 + level * 2;
-    }
-
     public void setStrength(int level) {
         this.strength = 5 + level * 2;
-    }
-
-    public int getAgility() {
-        return 5 + level * 2;
     }
 
     public void setAgility(int level) {
         this.agility = 5 + level * 2;
     }
 
-    public int getIntelligence() {
-        return 5 + level * 2;
-    }
-
     public void setIntelligence(int level) {
         this.intelligence = 5 + level * 2;
-    }
-
-    public int getArmor() {
-        return 0;
     }
 
     public void setArmor(int armor) {
