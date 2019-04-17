@@ -246,6 +246,7 @@ input.name_col {
 
 #lefthand_id, #righthand_id, #torso_id, #legs_id h3{
     text-align: center;
+    margin-top: 25px;
 }
 
 table.table_lefthand, table.table_righthand,
