@@ -211,13 +211,19 @@ form #characterReg {
     width: 20rem !important;
 }
 
-th {
-    text-align: center;
+#lefthand_id {
+    display: none;
 }
 
-td {
-    width: 50px !important;
+#righthand_id {
+    display: none;
 }
 
+#torso_id {
+    display: none;
+}
 
+#legs_id {
+    display: none;
+}
 

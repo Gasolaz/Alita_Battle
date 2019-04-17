@@ -17,6 +17,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                 crossorigin="anonymous"></script>
+        <script src="/Alita_Battle_war_exploded/resources/js/script.js"></script>
     </head>
 </head>
 
@@ -58,8 +59,13 @@
     </nav>
 </header>
 
+<button onclick="showItemsLH()">Weapons for Left Hand</button>
+<button onclick="showItemsRH()">Weapons for Right Hand</button>
+<button onclick="showItemsTorso()">Weapons for Torso</button>
+<button onclick="showItemsLegs()">Weapons for Legs</button>
 
-    <h3>Weapons left hand</h3>
+<div id="lefthand_id">
+    <h3>Weapons for Left Hand</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
@@ -88,7 +94,9 @@
                 </form>
          </c:forEach>
     </table>
-    <h3>Weapons right hand</h3>
+</div>
+<div id="righthand_id">
+    <h3>Weapons for Right Hand</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
@@ -117,7 +125,9 @@
             </form>
         </c:forEach>
     </table>
-    <h3>Torso</h3>
+</div>
+<div id="torso_id">
+    <h3>Weapons for Torso</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
@@ -129,7 +139,7 @@
             <th>Hp</th>
         </tr>
         <c:forEach var="item" items="${torso_items}">
-            <form action="shop" method="post">
+            <form type="hidden" action="shop" method="post">
                 <input type="hidden" value="torso_items" name="tablename">
                 <input type="hidden" value="${item.id}" name="id">
                 <tr>
@@ -146,7 +156,9 @@
             </form>
         </c:forEach>
     </table>
-    <h3>Legs</h3>
+</div>
+<div id="legs_id">
+    <h3>Weapons for Legs</h3>
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Name</th>
@@ -175,5 +187,6 @@
             </form>
         </c:forEach>
     </table>
+</div>
 </body>
 </html>
