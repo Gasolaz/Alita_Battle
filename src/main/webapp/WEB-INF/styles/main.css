@@ -212,18 +212,50 @@ form #characterReg {
 }
 
 #lefthand_id {
+    display: block;
+
+}
+
+#righthand_id, #torso_id, #legs_id {
     display: none;
 }
 
-#righthand_id {
-    display: none;
+#button_weapon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#torso_id {
-    display: none;
+#button_weapon button{
+    margin: 40px 10px 20px 10px;
 }
 
-#legs_id {
-    display: none;
+.table_lefthand {
+    font-size: 15px;
 }
 
+input {
+    width: 140px;
+    text-align: center;
+}
+
+input.name_col {
+    width: 200px;
+    text-align: right;
+}
+
+#lefthand_id, #righthand_id, #torso_id, #legs_id h3{
+    text-align: center;
+}
+
+table.table_lefthand, table.table_righthand,
+table.table_torso, table.table_legs {
+    margin-top: 30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+th {
+    font-size: 20px;
+    text-align: center;
+}
