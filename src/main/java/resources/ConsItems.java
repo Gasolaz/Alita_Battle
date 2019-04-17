@@ -99,15 +99,15 @@ public class ConsItems {
             PRICE + ", " + ATTRIBUTE_ID + ") VALUES" +
             // (item anme, price, attr_id)
             "('peasant shirt', 0, 1)," +
-            "('lab coat', 10, 30)," +
-            "('spiked shirt', 5, 31)," +
+            "('lab coat', 10, 21)," +
+            "('spiked shirt', 5, 20)," +
             "('medium plate', 20, 22)," +
-            "('heavy plate', 40, 33)," +
-            "('dragonhide armor', 60, 34)," +
-            "('slough of anaconda', 35, 35)," +
-            "('wizzard top robes', 25, 36)," +
-            "('future item', 0, 28)," +
-            "('future item', 0, 29)";
+            "('heavy plate', 40, 19)," +
+            "('dragonhide armor', 60, 18)," +
+            "('slough of anaconda', 35, 17)," +
+            "('wizzard top robes', 25, 12)," +
+            "('future item', 0, 12)," +
+            "('future item', 0, 2)";
 
     // Attributes
     public static final String INSERT_ATTRIBUTES = "INSERT IGNORE INTO " + TABLE_ATTRIBUTES + "(" + ID + ", " + STRENGTH +

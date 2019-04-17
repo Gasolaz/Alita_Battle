@@ -23,7 +23,7 @@ public final class ConsTables {
     // Table Characters -> Columns
     public static final String CHARACTERS_RACE_ID = "race_id";
     public static final String CHARACTERS_SEX = "sex";
-    public static final String CHARACTERS_LEVEL = "level";
+    public static final String CHARACTERS_EXP = "exp";
     public static final String CHARACTERS_WINS= "wins";
     public static final String CHARACTERS_LOSES = "loses";
     public static final String CHARACTERS_GOLD = "gold";
@@ -123,7 +123,7 @@ public final class ConsTables {
             " TEXT NOT NULL, " + USERS_CHARACTER_ID + " INTEGER, " + USERS_IS_ADMIN + " BOOLEAN NOT NULL, PRIMARY KEY (" + ID + "))";
     public static final String CREATE_TABLE_CHARACTERS = "CREATE TABLE IF NOT EXISTS " + TABLE_CHARACTERS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, "
             + CHARACTERS_NAME + " VARCHAR(255) NOT NULL UNIQUE, " + CHARACTERS_RACE_ID + " INTEGER NOT NULL, " + CHARACTERS_ROLE_ID + " INTEGER NOT NULL, " +
-            CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_LEVEL + " INTEGER NOT NULL, " + CHARACTERS_WINS + " INTEGER NOT NULL, " + CHARACTERS_LOSES +
+            CHARACTERS_SEX + " TEXT NOT NULL, " + CHARACTERS_EXP + " INTEGER NOT NULL, " + CHARACTERS_WINS + " INTEGER NOT NULL, " + CHARACTERS_LOSES +
             " INTEGER NOT NULL, " + CHARACTERS_GOLD + " INTEGER NOT NULL, " + RIGHT_HAND_ID + " INTEGER NOT NULL, " + LEFT_HAND_ID + " INTEGER NOT NULL, " +
             TORSO_ID + " INTEGER NOT NULL, " + LEGS_ID + " INTEGER NOT NULL, image_link TEXT NOT NULL, PRIMARY KEY(" + ID + "))";
     public static final String CREATE_TABLE_SESSIONS = "CREATE TABLE IF NOT EXISTS " + TABLE_SESSIONS + " ( " + ID + " INTEGER NOT NULL AUTO_INCREMENT, " +

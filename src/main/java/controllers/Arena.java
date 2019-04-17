@@ -5,6 +5,7 @@ import models.dal.BattlegroundCharacterModelDAL;
 import models.bl.CustomCharacterBL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,8 +63,7 @@ public class Arena {
             int enemyId = characterDao.getCharacterIdFromCharacterName(customCharacter.name);
             BattlegroundCharacterModelDAL yourModel = characterDao.formBattlegroundCharacterModelFromCharacterId(characterId);
             BattlegroundCharacterModelDAL enemyModel = characterDao.formBattlegroundCharacterModelFromCharacterId(enemyId);
-            model.put("yourModel", yourModel);
-            model.put("enemyModel", enemyModel);
+
             model.put("yourImage", characterDao.getImageLink(characterId));
             model.put("enemyImage", characterDao.getImageLink(enemyId));
             String result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
@@ -73,12 +73,20 @@ public class Arena {
             }
 
             if (!arenaDao.checkIfYouMadeADecision(characterId, enemyId)) {
+                yourModel.setTempHp(characterDao.getTempHpForBattlegroundCharacterModel(characterId, enemyId));
+                enemyModel.setTempHp(characterDao.getTempHpForBattlegroundCharacterModel(enemyId, characterId));
+                model.put("yourModel", yourModel);
+                model.put("enemyModel", enemyModel);
                 return "fightingPage";
             }
             if (arenaDao.checkIfBothCharactersMadeADecision(characterId, enemyId)) {
                 arenaDao.resolveFight(characterId, enemyId);
                 result = arenaDao.checkIfResultIsEmpty(characterId, enemyId);
 //                System.out.println("result = " + result);
+                yourModel.setTempHp(characterDao.getTempHpForBattlegroundCharacterModel(characterId, enemyId));
+                enemyModel.setTempHp(characterDao.getTempHpForBattlegroundCharacterModel(enemyId, characterId));
+                model.put("yourModel", yourModel);
+                model.put("enemyModel", enemyModel);
                 if (result != null) {
                     return returnFightResultPage(result, characterId, enemyId, model, yourModel, enemyModel);
                 }
@@ -119,7 +127,7 @@ public class Arena {
                 model.put("matchResult", yourModel.name + " have won vs. " + enemyModel.name);
                 break;
             case "draw":
-                model.put("matchResult", yourModel.name + " draw vs. " + enemyModel.name);
+                model.put("matchResult", yourModel.name + " have drawn vs. " + enemyModel.name);
                 break;
             case "lose":
                 model.put("matchResult", yourModel.name + " have lost vs " + enemyModel.name);
