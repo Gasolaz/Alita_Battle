@@ -33,9 +33,6 @@ public class Login {
     ISessionsDao sessionsDao;
 
     @Autowired
-    IArenaDao arenaDao;
-
-    @Autowired
     IUsersDao usersDao;
 
     @Autowired

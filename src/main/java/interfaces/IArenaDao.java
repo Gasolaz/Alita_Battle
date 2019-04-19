@@ -16,5 +16,4 @@ public interface IArenaDao {
     void insertMatchResults(int character_id, int enemy_id, String attack, String defend);
     void insertPlayerToArena(int characterId, int enemyId);
     List<CustomCharacterBL> selectFightsByCharacterId(int characterId);
-//    public int[] countLevelByExp (int characterId);
 }

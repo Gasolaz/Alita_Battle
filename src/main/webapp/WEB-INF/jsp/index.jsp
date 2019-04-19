@@ -20,7 +20,7 @@
 </head>
 
 <style>
-    <%@include file="../styles/main.css" %>
+    <%@include file="../styles/index.css" %>
 </style>
 
 <body>
@@ -40,8 +40,8 @@
     </div>
     <p style="color: red">${AccessDenied}</p>
     <div class="buttons mt-5" style="text-align:center">
-        <a href="" class="btn btn-primary mr-2" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
-        <a href="register" class="btn btn-secondary ml-2" data-target="#modalRegForm"><span>Sign Up</span></a>
+        <a href="" class="btn btn-primary mr-2" id="signIn" data-toggle="modal" data-target="#modalLoginForm"><span>Sign In</span></a>
+        <a href="register" class="btn btn-secondary ml-2" id="signUp" data-target="#modalRegForm"><span>Sign Up</span></a>
     </div>
 
 
@@ -61,8 +61,7 @@
 
                     <div class="form-container off-canvas">
 
-                        <form role="form" action="AlitaBattle" method="post" class="form-signin">
-                            <h2>Please sign in...</h2>
+                        <form role="form" action="AlitaBattle" method="post" class="form-signin text-left">
 
                             <div class="form-group">
                                 <label for="EmailAddress"><span>*</span> Username or Email Address</label>
@@ -82,7 +81,9 @@
                                 </label>
                             </div>
 
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                            <div class="d-flex justify-content-start">
+                            <button class="btn btn-lg btn-primary" id="popUpBtn" type="submit"><span>Sign in</span></button>
+                            </div>
 
                         </form>
                     </div> <!-- /container -->

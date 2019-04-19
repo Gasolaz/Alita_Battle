@@ -26,5 +26,6 @@
 <body>
     <h2>Match Results!!!</h2>
     <p>${matchResult}</p>
+    <a href="/Alita_Battle_war_exploded">Back</a>
 </body>
 </html>

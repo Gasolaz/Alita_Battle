@@ -48,3 +48,28 @@ function my() {
         src4.appendChild(img4);
     }
 }
+
+function showItemsLH() {
+    document.getElementById("lefthand_id").style.display = "block";
+    document.getElementById("righthand_id").style.display = "none";
+    document.getElementById("torso_id").style.display = "none";
+    document.getElementById("legs_id").style.display = "none";
+}
+function showItemsRH() {
+    document.getElementById("lefthand_id").style.display = "none";
+    document.getElementById("righthand_id").style.display = "block";
+    document.getElementById("torso_id").style.display = "none";
+    document.getElementById("legs_id").style.display = "none";
+}
+function showItemsTorso() {
+    document.getElementById("lefthand_id").style.display = "none";
+    document.getElementById("righthand_id").style.display = "none";
+    document.getElementById("torso_id").style.display = "block";
+    document.getElementById("legs_id").style.display = "none";
+}
+function showItemsLegs() {
+    document.getElementById("lefthand_id").style.display = "none";
+    document.getElementById("righthand_id").style.display = "none";
+    document.getElementById("torso_id").style.display = "none";
+    document.getElementById("legs_id").style.display = "block";
+}

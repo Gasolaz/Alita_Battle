@@ -6,7 +6,6 @@
             <i class="fab fa-accusoft"></i>
         </a>
 
-
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <a class="nav-link" href="">
@@ -24,18 +23,6 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="nav justify-content-end">
-<%--            <li class="nav-item">--%>
-<%--                <a class="nav-link" href="arena">Arena</a>--%>
-<%--            </li>--%>
-<%--            <li class="nav-item">--%>
-<%--                <a class="nav-link" href="challenge">Challenges</a>--%>
-<%--            </li>--%>
-<%--            <li class="nav-item">--%>
-<%--                <a class="nav-link" href="fighterselection">Fight</a>--%>
-<%--            </li>--%>
-<%--            <li class="nav-item">--%>
-<%--                <a class="nav-link" href="shop">Shop</a>--%>
-<%--            </li>--%>
             <li class="nav-item">
                 <a class="nav-link active" href="/Alita_Battle_war_exploded">Alita Battle</a>
             </li>
