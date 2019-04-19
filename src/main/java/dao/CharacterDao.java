@@ -258,18 +258,6 @@ public class CharacterDao implements ICharacterDao {
             for (int i = 1; i <= attributearray.length; i++) {
                 attributearray[i - 1] = rs1.getInt(i) + rs2.getInt(i) + rs3.getInt(i) + rs4.getInt(i);
             }
-
-            System.out.println("Left hand attributes: " + rs1.getInt(1) + " " + rs1.getInt(2) + " " +
-                    rs1.getInt(3) + " " + rs1.getInt(4) + " " + rs1.getInt(5));
-            System.out.println("Right hand attributes: " + rs2.getInt(1) + " " + rs2.getInt(2) + " " +
-                    rs2.getInt(3) + " " + rs2.getInt(4) + " " + rs2.getInt(5));
-            System.out.println("Torso attributes: " + rs3.getInt(1) + " " + rs3.getInt(2) + " " +
-                    rs3.getInt(3) + " " + rs3.getInt(4) + " " + rs3.getInt(5));
-            System.out.println("Legs attributes: " + rs4.getInt(1) + " " + rs4.getInt(2) + " " +
-                    rs4.getInt(3) + " " + rs4.getInt(4) + " " + rs4.getInt(5));
-
-            System.out.println("Sum of attributes: " + attributearray[0] + " " + attributearray[1] + " " + attributearray[2] + " " + attributearray[3] + " " + attributearray[4]);
-
         }
         return attributearray;
     }

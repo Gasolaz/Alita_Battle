@@ -26,7 +26,7 @@
         <!--Here "Alita_battle" is database (schema in mysql workbench) name, change as appropriate-->
         <property name="url" value="jdbc:mysql://localhost:3306/Alita_battle?useSSL=false"></property>
         <property name="username" value="root"></property>
-        <property name="password" value="newlife26style"></property>
+        <property name="password" value=""></property>
     </bean>
 
 

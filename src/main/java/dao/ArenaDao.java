@@ -17,6 +17,9 @@ import java.util.List;
 public class ArenaDao implements IArenaDao {
 
     @Autowired
+    CharacterDao characterDao;
+
+    @Autowired
     DataSource dataSource;
 
     JdbcTemplate areneTemplate;
@@ -165,13 +168,13 @@ public class ArenaDao implements IArenaDao {
             int characterHp = 0;
             int enemyHp = 0;
             if (rs.next()) {
-                battlegroundCharacterModelDAL.setLevel(rs.getInt("level"));
+                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
 //                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
                 characterHp = battlegroundCharacterModelDAL.getHp();
             }
             rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + enemyId);
             if (rs.next()) {
-                battlegroundCharacterModelDAL.setLevel(rs.getInt("level"));
+                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
 //                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
                 enemyHp = battlegroundCharacterModelDAL.getHp();
             }
