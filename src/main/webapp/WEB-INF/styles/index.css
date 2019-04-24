@@ -1,0 +1,136 @@
+body {
+    background: url("https://twistedsifter.files.wordpress.com/2013/05/animated-gifs-of-fighting-game-backgrounds-10.gif?w=800&h=367");
+    height: 100%;
+    background-position: center;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: blanchedalmond;
+}
+
+.nav-item a{
+    font-size: 22px;
+    color: white !important;
+}
+
+footer .img-fluid {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 13rem;
+}
+
+nav {
+    text-transform: uppercase;
+}
+
+#img img {
+    height: 20rem;
+    width: 18rem;
+}
+
+/*.name {*/
+/*    text-align: center;*/
+/*}*/
+
+#popUpBtn{
+    background:#212F3D !important;
+}
+
+#popUpBtn span{
+    color: white;
+}
+
+.dropdown {
+    display: inline-flex;
+}
+
+.create-btn {
+    float: right;
+}
+
+.navbar {
+    border-radius: 0px !important;
+}
+
+p{
+    color: #229954;
+    font-weight: 500;
+    font-size: x-large;
+}
+
+h2{
+    /*text-align: center;*/
+    color: #229954;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+#signIn span{
+    color: white;
+}
+
+#signUp span{
+    color: white;
+}
+
+
+.buttons .btn-primary:after{
+
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+
+}
+
+.buttons .btn-primary:hover:after{
+
+    height: 260%;
+    opacity: 1;
+
+}
+
+.buttons .btn-primary:after{
+
+    width: 78%;
+    top: 52%;
+    left: 50%;
+    background: #28B463;
+    opacity: 0;
+    -webkit-transform: translateX(-67%) translateY(-57%) rotate(90deg);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+}
+
+.buttons .btn-primary, .btn-secondary {
+
+    /*background: #36c1ac !important;*/
+    background: #1B2631 !important;
+    /*border-color: #36c1ac !important;*/
+    border-color: #1B2631 !important;
+    border-style: solid !important;
+    border-width: 8px 27px !important;
+    color: #130d44 !important;
+    line-height: 1.7 !important;
+    text-decoration: none !important;
+    transform: skew(-45deg) !important;
+    transition: background .5s, color .5s !important;
+    -webkit-transform: skew(-45deg) !important;
+
+}
+
+.buttons .btn-primary span, .btn-secondary span {
+    -webkit-transform: skew(45deg);
+    display: block;
+    font-weight: 500;
+    text-transform: uppercase;
+    transform: skew(45deg);
+}

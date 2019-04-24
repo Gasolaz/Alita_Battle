@@ -234,21 +234,21 @@ form #characterReg {
     font-size: 15px;
 }
 
-input {
-    width: 140px;
-    text-align: center;
-}
+/*input {*/
+/*    width: 140px;*/
+/*    text-align: center;*/
+/*}*/
 
-input.name_col {
-    width: 200px;
-    text-align: right;
-    font-size: 18px;
-}
+/*input .name_col {*/
+/*    width: 200px;*/
+/*    text-align: right;*/
+/*    font-size: 18px;*/
+/*}*/
 
-input.msg_input {
-    width: 300px;
-    text-align: left;
-}
+/*input .msg_input {*/
+/*    width: 300px;*/
+/*    text-align: left;*/
+/*}*/
 
 #lefthand_id, #righthand_id, #torso_id, #legs_id h3 {
     text-align: center;
@@ -299,21 +299,24 @@ th {
 .btn3d:active {
     top:9px;
 }
-.btn-default {
+
+#button_weapon .btn-default {
     color: white;
     box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #adadad, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
     background-color: #169d38;
 }
-.btn-primary {
+
+#shopbutton {
     box-shadow: 0 0 0 1px #20ca1a inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 6px 0 0 #1bbd40, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
     background-color: #169d38;
 }
-.btn-success {
-    box-shadow: 0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
-    background-color: #5cb85c;
-}
 
-.btn-primary:hover {
+/*.btn-success {*/
+/*    box-shadow: 0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);*/
+/*    background-color: #5cb85c;*/
+/*}*/
+
+#shopbutton:hover {
     color: #fff;
     background-color: #19d931;
     border-color: #1bcc3b;

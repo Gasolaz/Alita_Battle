@@ -168,14 +168,14 @@ public class ArenaDao implements IArenaDao {
             int characterHp = 0;
             int enemyHp = 0;
             if (rs.next()) {
-                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
-//                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
+//                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
+                battlegroundCharacterModelDAL.setHp(characterDao.countLevelByExp(characterId)[0]);
                 characterHp = battlegroundCharacterModelDAL.getHp();
             }
             rs = st.executeQuery("SELECT * FROM Characters WHERE _id=" + enemyId);
             if (rs.next()) {
-                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
-//                battlegroundCharacterModelDAL.setHp(rs.getInt("level"));
+//                battlegroundCharacterModelDAL.setLevel(characterDao.countLevelByExp(characterId)[0]);
+                battlegroundCharacterModelDAL.setHp(characterDao.countLevelByExp(characterId)[0]);
                 enemyHp = battlegroundCharacterModelDAL.getHp();
             }
             st.executeUpdate("INSERT INTO Arena (character_id, enemy_id, hp) VALUES (" + characterId + ", " + enemyId + ", " + characterHp + ")");

@@ -88,7 +88,7 @@
                         <td> <input type="text" name="intelligence" value="${item.intel}"readonly> </td>
                         <td> <input type="text" name="Defense" value="${item.def}"readonly> </td>
                         <td> <input type="text" name="Hp" value="${item.hp}"readonly> </td>
-                        <td> <button class="btn btn-primary btn-sm btn3d" type="submit">Buy</button> </td>
+                        <td> <button class="btn btn-primary btn-sm btn3d" id="shopbutton" type="submit">Buy</button> </td>
                     </tr>
                         <%--                <br>--%>
                 </form>
